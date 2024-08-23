@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="register.component.css">
+</head>
+<body>
+    <div class="signup-container">
+        <div class="logo-text">HIRE ME📢</div>
+        <div class="quote">"THE KEY TO HAPPINESS"</div>
+        <h2>Create an Account</h2>
+        <form class="signup-form" (ngSubmit)="onRegister(signupForm)" #signupForm="ngForm">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" [(ngModel)]="username" #usernameField="ngModel" required>
+                <div *ngIf="usernameField.invalid && usernameField.touched" class="error-message">
+                    Username is required.
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" [(ngModel)]="email" #emailField="ngModel" required>
+                <div *ngIf="emailField.invalid && emailField.touched" class="error-message">
+                    Email is required and must be valid.
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" [(ngModel)]="password" #passwordField="ngModel" required>
+                <div *ngIf="passwordField.invalid && passwordField.touched" class="error-message">
+                    Password is required.
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="confirm-password">Confirm Password</label>
+                <input type="password" id="confirm-password" name="confirmPassword" [(ngModel)]="confirmPassword" #confirmPasswordField="ngModel" required>
+                <div *ngIf="confirmPasswordField.invalid && confirmPasswordField.touched" class="error-message">
+                    Confirm Password is required.
+                </div>
+                <div *ngIf="password !== confirmPassword && confirmPasswordField.touched" class="error-message">
+                    Passwords must match.
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="mobile">Mobile Number</label>
+                <input type="text" id="mobile" name="mobile" [(ngModel)]="phoneNumber" #mobileField="ngModel" required>
+                <div *ngIf="mobileField.invalid && mobileField.touched" class="error-message">
+                    Mobile number is required.
+                </div>
+            </div>
+             
+            <button type="submit" [disabled]="signupForm.invalid">Sign Up</button>
+        </form>
+        <div class="login-link">
+            <p>Already have an account? <a href="login">Log in</a></p>
+        </div>
+    </div>
+</body>
+</html>
