@@ -1,0 +1,14 @@
+.dashboard-container {
+    padding: 20px;
+  }
+  
+  .job-list-section {
+    margin-top: 20px;
+  }
+  
+  .job-list-section h2 {
+    margin-bottom: 10px;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  

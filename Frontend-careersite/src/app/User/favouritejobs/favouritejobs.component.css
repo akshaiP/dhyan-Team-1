@@ -1,0 +1,187 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #1737edda;
+    color: #fafafd;
+    padding: 15px 20px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar .brand-logo {
+    font-size: 30px;
+    font-weight: 700; /* Bold weight */
+    color: #fbfcfdfa;
+    font-style: italic;
+    font-family: 'Futura', sans-serif; /* Geometric sans-serif font */
+}
+
+.navbar .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.navbar .nav-links li {
+    display: inline-block;
+}
+
+.navbar .nav-links a {
+    text-decoration: none;
+    color: #ffff;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+/* Active Link Style */
+.navbar .nav-links a.active {
+    color: #f4067dfe; /* Active color */
+    border-bottom: 2px solid #ffff; /* Optional underline */
+}
+
+.navbar .nav-links a:hover {
+    color: #ffa500;
+}
+
+.navbar .user-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.navbar .user-icon {
+    font-size: 18px;
+    color: #ffa500;
+}
+
+.logout-button {
+    background-color: #f4067dfe;
+    color: #fff;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+    background-color: #cc8400;
+}
+
+/* Main Content */
+.main-content {
+    padding: 80px 20px 20px; /* Padding to avoid overlap with the fixed navbar */
+}
+
+.job-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    box-sizing: border-box;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px; /* Space between job cards */
+}
+
+/* Flex container for job details */
+.job-details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Space between details */
+}
+
+/* Flex container for job detail rows */
+.job-detail-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Style for job details */
+.job-detail-item {
+    flex: 1;
+    padding: 0 10px;
+}
+
+.job-detail-item p {
+    margin: 0;
+}
+
+/* Button Styles */
+.btn-primary {
+    background-color: #0a8604;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #002244;
+}
+
+.btn-secondary {
+    background-color: #f80707d5;
+    color: #333;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background-color: #bbb;
+}
+
+/* Container to Align Buttons Right */
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* Style for view-details link */
+.view-details {
+    color: #0578eb;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.view-details:hover {
+    text-decoration: underline;
+}
+
+.company-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.company-logo {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+.company-details h4 {
+    margin: 0;
+    font-size: 18px;
+}

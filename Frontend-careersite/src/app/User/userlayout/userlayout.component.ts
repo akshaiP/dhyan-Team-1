@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { UserdashboardComponent } from '../userdashboard/userdashboard.component';
 
 @Component({
   selector: 'app-userlayout',
   standalone: true,
-  imports: [RouterOutlet, UserdashboardComponent],
+  imports: [RouterOutlet, UserdashboardComponent,RouterModule],
   templateUrl: './userlayout.component.html',
   styleUrl: './userlayout.component.css'
 })

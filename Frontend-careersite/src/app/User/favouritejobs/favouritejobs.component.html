@@ -1,1 +1,36 @@
-<p>favouritejobs works!</p>
+<!-- Main Content Section -->
+<section class="main-content">
+    <div *ngFor="let job of favoriteJobs" class="job-card">
+        <div class="company-info">
+            <img [src]="job.companyLogo" alt="{{ job.companyName }} Logo" class="company-logo">
+            <div class="company-details">
+                <h4>{{ job.companyName }}</h4>
+                <p>{{ job.jobTitle }}</p>
+            </div>
+        </div>
+        <div class="job-details">
+            <div class="job-detail-row">
+                <div class="job-detail-item">
+                    <p><strong>Location:</strong> {{ job.location }}</p>
+                </div>
+                <div class="job-detail-item">
+                    <p><strong>Experience Level:</strong> {{ job.experienceLevel }}</p>
+                </div>
+            </div>
+            <div class="job-detail-row">
+                <div class="job-detail-item">
+                    <p><strong>Job Type:</strong> {{ job.jobType }}</p>
+                </div>
+                <div class="job-detail-item">
+                    <p><strong>Salary:</strong> ₹{{ job.salary }}</p>
+                </div>
+            </div>
+        </div>
+        <p><strong>Description:</strong> {{ truncateText(job.description, 100) }}</p>
+        <p><strong>Requirements:</strong> {{ truncateText(job.requirements, 150) }} <a href="#" class="view-details">View Details</a></p>
+        <div class="button-container">
+            <button class="btn-secondary" (click)="removeFromFavorites(job.jobId)">⭐ Remove from Favorites</button>
+            <button class="btn-primary" [ngClass]="{'applied': job.isApplied}" (click)="applyForJob(job.jobId)" [disabled]="job.isApplied">{{ job.isApplied ? 'Applied' : 'Apply' }}</button>
+        </div>
+    </div>
+</section>

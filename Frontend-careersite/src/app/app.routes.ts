@@ -8,7 +8,7 @@ import { JobPostingComponent } from './Admin/job-posting/job-posting.component';
 import { UserlayoutComponent } from './User/userlayout/userlayout.component';
 import { UserdashboardComponent } from './User/userdashboard/userdashboard.component';
 import { ApplicationstatusComponent } from './User/applicationstatus/applicationstatus.component';
-import { FavouritejobsComponent } from './User/favouritejobs/favouritejobs.component';
+import { FavoriteJobsComponent } from './User/favouritejobs/favouritejobs.component';
 import { JoblistComponent } from './User/joblist/joblist.component';
 import { canActivateGuard } from './guard/canactivate.guard';
 import { JobDetailComponent } from './User/job-detail/job-detail.component';
@@ -62,7 +62,7 @@ export const routes: Routes = [
       },
       {
         path: 'favorite-jobs',
-        component: FavouritejobsComponent
+        component: FavoriteJobsComponent
       },
       {
         path: 'job-list',

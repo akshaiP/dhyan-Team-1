@@ -25,6 +25,11 @@ export class JobService {
     return this.http.post<any>(`${this.apiEndpoint}ApplyForJob`, { jobId: jobId });
   }
 
+   // Get all favorite jobs
+   GetFavoriteJobs(): Observable<any> {
+    return this.http.get<any>(this.apiEndpoint + 'GetFavoriteJobs');
+  }
+
   // Mark a job as favorite
   MarkAsFavorite(jobId: number): Observable<any> {
     return this.http.post<any>(`${this.apiEndpoint}MarkAsFavorite`, { jobId: jobId });
