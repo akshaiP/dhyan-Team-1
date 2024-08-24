@@ -39,4 +39,8 @@ export class JobService {
   RemoveFromFavorites(jobId: number): Observable<any> {
     return this.http.delete<any>(`${this.apiEndpoint}RemoveFromFavorites/${jobId}`);
   }
+  logout(): Observable<void> {
+    return this.http.post<void>(`${this.apiEndpoint}/logout`, {}); // Adjust the endpoint if needed
+  }
 }
+
