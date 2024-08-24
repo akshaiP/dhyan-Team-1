@@ -1,41 +1,42 @@
 <div class="main-content">
-    <div class="row">
-      <!-- Filter Sidebar -->
-      <aside class="filter-sidebar">
-        <h3>Filter Jobs</h3>
-        <!-- Filter options here (as in the static example) -->
-      </aside>
-  
-      <!-- Job Listings -->
-      <section class="job-listings">
-        <h2>Available Jobs</h2>
-        <div class="job-grid">
-          <!-- Loop through jobList to dynamically create job cards -->
-          <div *ngFor="let job of jobList" class="job-card">
-            <div class="company-info">
-              <img [src]="job.companyLogoUrl" alt="{{ job.companyName }} Logo" class="company-logo">
-              <div class="company-details">
-                <h4>{{ job.companyName }}</h4>
-                <p>{{ job.jobTitle }}</p>
-              </div>
+  <div class="row">
+    <!-- Filter Sidebar -->
+    <aside class="filter-sidebar">
+      <h3>Filter Jobs</h3>
+    </aside>
+
+    <!-- Job Listings -->
+    <section class="job-listings">
+      <h2>Available Jobs</h2>
+      <div class="job-grid">
+        <div *ngFor="let job of jobList" class="job-card">
+          <div class="company-info">
+            <img [src]="job.companyLogoUrl" [alt]="job.companyName + ' Logo'" class="company-logo">
+            <div class="company-details">
+              <h4>{{ job.companyName }}</h4>
+              <p>{{ job.jobTitle }}</p>
             </div>
-            <p><strong>Location:</strong> {{ job.location }}</p>
-            <p><strong>Experience Level:</strong> {{ job.experienceLevel }}</p>
-            <p><strong>Job Type:</strong> {{ job.jobType }}</p>
-            <p><strong>Salary:</strong> {{ job.salary }}</p>
-            <p><strong>Description:</strong> {{ job.description }}</p>
-            <p><strong>Requirements:</strong> {{ job.requirements }}</p>
-            
-            <div class="job-card-actions">
-              <a href="#" class="view-details">View Details</a>
-              <div class="button-container">
-                <button class="btn-primary">Apply</button>
-                <button class="btn-secondary">⭐ Mark as Favorite</button>
-              </div>
+          </div>
+          <p><strong>Location:</strong> {{ job.location }}</p>
+          <p><strong>Experience Level:</strong> {{ job.experienceLevel }}</p>
+          <p><strong>Job Type:</strong> {{ job.jobType }}</p>
+          <p><strong>Salary:</strong> {{ job.salary }}</p>
+          <p><strong>Description:</strong> {{ job.description | slice: 0 : 50 }}...</p>
+          <p><strong>Requirements:</strong> {{ job.requirements | slice: 0 : 50 }}...</p>
+
+          <div class="job-card-actions">
+            <a href="#" class="view-details" (click)="openJob(job.jobId)">View Details</a>
+            <div class="button-container">
+              <button class="btn-primary" [disabled]="job.isApplied" (click)="applyForJob(job.jobId)">
+                {{ job.isApplied ? 'Applied' : 'Apply' }}
+              </button>
+              <button class="btn-secondary" (click)="job.isFavorite ? removeFromFavorites(job.jobId) : markAsFavorite(job.jobId)">
+                {{ job.isFavorite ? 'Remove from Favorites' : '⭐ Mark as Favorite' }}
+              </button>
             </div>
           </div>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
   </div>
-  
+</div>
