@@ -1,0 +1,20 @@
+<div class="job-detail-modal">
+    <h2>{{ jobObj.jobTitle }}</h2>
+    <p><strong>Company:</strong> {{ jobObj.companyName }}</p>
+    <p><strong>Location:</strong> {{ jobObj.location }}</p>
+    <p><strong>Experience Level:</strong> {{ jobObj.experienceLevel }}</p>
+    <p><strong>Job Type:</strong> {{ jobObj.jobType }}</p>
+    <p><strong>Salary:</strong> {{ jobObj.salary }}</p>
+    <p><strong>Description:</strong> {{ jobObj.description }}</p>
+    <p><strong>Requirements:</strong> {{ jobObj.requirements }}</p>
+  
+    <div class="job-detail-actions">
+      <button class="btn-primary" [disabled]="isApplied" (click)="applyForJob()">
+        {{ isApplied ? 'Applied' : 'Apply' }}
+      </button>
+      <button class="btn-secondary" (click)="toggleFavorite()">
+        {{ isFavorite ? 'Remove from Favorite' : '⭐ Mark as Favorite' }}
+      </button>
+    </div>
+  </div>
+  
