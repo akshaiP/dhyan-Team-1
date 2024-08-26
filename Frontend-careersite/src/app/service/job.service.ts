@@ -25,8 +25,8 @@ export class JobService {
     return this.http.post<any>(`${this.apiEndpoint}ApplyForJob`, { jobId: jobId });
   }
 
-   // Get all favorite jobs
-   GetFavoriteJobs(): Observable<any> {
+  // Get all favorite jobs
+  GetFavoriteJobs(): Observable<any> {
     return this.http.get<any>(this.apiEndpoint + 'GetFavoriteJobs');
   }
 
@@ -39,8 +39,14 @@ export class JobService {
   RemoveFromFavorites(jobId: number): Observable<any> {
     return this.http.delete<any>(`${this.apiEndpoint}RemoveFromFavorites/${jobId}`);
   }
+
+  // Get application status
+  GetApplicationStatus(): Observable<any> {
+    return this.http.get<any>(`${this.apiEndpoint}GetApplicationStatus`);
+  }
+
+  // Logout
   logout(): Observable<void> {
-    return this.http.post<void>(`${this.apiEndpoint}/logout`, {}); // Adjust the endpoint if needed
+    return this.http.post<void>(`${this.apiEndpoint}logout`, {}); 
   }
 }
-
