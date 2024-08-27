@@ -11,7 +11,6 @@ import { ApplicationstatusComponent } from './User/applicationstatus/application
 import { FavoriteJobsComponent } from './User/favouritejobs/favouritejobs.component';
 import { JoblistComponent } from './User/joblist/joblist.component';
 import { canActivateGuard } from './guard/canactivate.guard';
-import { JobDetailComponent } from './User/job-detail/job-detail.component';
 
 
 export const routes: Routes = [
@@ -67,10 +66,6 @@ export const routes: Routes = [
       {
         path: 'job-list',
         component: JoblistComponent
-      },
-      {
-        path:'job-detail/:jobid',
-        component:JobDetailComponent
       }
     ]
   }

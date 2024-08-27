@@ -18,19 +18,18 @@
             </div>
           </div>
           <p><strong>Location:</strong> {{ job.location }}</p>
-          <p><strong>Experience Level:</strong> {{ job.experienceLevel }}</p>
-          <p><strong>Job Type:</strong> {{ job.jobType }}</p>
-          <p><strong>Salary:</strong> {{ job.salary }}</p>
-          <p><strong>Description:</strong> {{ job.description | slice: 0 : 50 }}...</p>
+          <p><strong>Job Title:</strong> {{ job.jobTitle }}</p>
+          <p><strong>Description:</strong> {{ job.jobDescription | slice: 0 : 50 }}...</p>
           <p><strong>Requirements:</strong> {{ job.requirements | slice: 0 : 50 }}...</p>
+          <p><strong>Last Date to Apply:</strong> {{ job.lastDateToApply }}</p>
 
           <div class="job-card-actions">
             <a href="#" class="view-details" (click)="openJob(job.jobId)">View Details</a>
             <div class="button-container">
-              <button class="btn-primary" [disabled]="job.isApplied" (click)="applyForJob(job.jobId)">
+              <button class="btn-primary" [disabled]="job.isApplied" (click)="applyForJob(job.id)">
                 {{ job.isApplied ? 'Applied' : 'Apply' }}
               </button>
-              <button class="btn-secondary" (click)="job.isFavorite ? removeFromFavorites(job.jobId) : markAsFavorite(job.jobId)">
+              <button class="btn-secondary" (click)="toggleFavorite(job.id)">
                 {{ job.isFavorite ? 'Remove from Favorites' : '⭐ Mark as Favorite' }}
               </button>
             </div>

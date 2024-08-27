@@ -27,6 +27,7 @@ export class LoginComponent {
         if (res.token) {
           alert(res.message);
           localStorage.setItem('angular18Token', res.token);
+          localStorage.setItem('userId', res.userId.toString());
           this.router.navigateByUrl(res.redirect === 'Admin Dashboard' ? 'admin-dashboard' : 'user-dashboard');
         } else {
           alert(res.error || "Login failed");

@@ -22,37 +22,15 @@ export class FavoriteJobsComponent implements OnInit {
 
   loadFavoriteJobs(): void {
     this.jobService.GetFavoriteJobs().subscribe((res: any) => {
-      this.favoriteJobs = res.data; // Assuming the API returns { data: [...] }
-    });
-  }
-
-  applyForJob(jobId: number): void {
-    this.jobService.ApplyForJob(jobId).subscribe((response: any) => {
-      if (response.success) {
-        alert('Successfully applied for the job!');
-        this.updateJobList(jobId, 'applied');
-      }
+      this.favoriteJobs = res.map((item: any) => item.jobPosting); 
     });
   }
 
   removeFromFavorites(jobId: number): void {
-    this.jobService.RemoveFromFavorites(jobId).subscribe((response: any) => {
-      if (response.success) {
-        alert('Job removed from favorites!');
-        this.updateJobList(jobId, 'removeFavorite');
-      }
+    this.jobService.RemoveFromFavorites(jobId).subscribe(() => {
+      alert('Job removed from favorites!');
+      this.loadFavoriteJobs(); // Refresh the list
     });
-  }
-
-  updateJobList(jobId: number, action: string): void {
-    const job = this.favoriteJobs.find(j => j.jobId === jobId);
-    if (job) {
-      if (action === 'applied') {
-        job.isApplied = true;
-      } else if (action === 'removeFavorite') {
-        this.favoriteJobs = this.favoriteJobs.filter(j => j.jobId !== jobId);
-      }
-    }
   }
 
   truncateText(text: string, limit: number): string {
