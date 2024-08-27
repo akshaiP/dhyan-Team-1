@@ -34,6 +34,11 @@ public class JobApplicationsService {
 
     // Apply for a job
     public JobApplications applyForJob(ApplicationRequest request) {
+        // Check if an application already exists
+        if (applicationRepository.existsByUserIdAndJobPosting_Id(request.getUserId(), request.getJobId())) {
+            throw new IllegalStateException("Application already exists for this job");
+        }
+
         JobPosting job = jobPostingRepository.findById(request.getJobId())
                 .orElseThrow(() -> new RuntimeException("Job not found"));
 

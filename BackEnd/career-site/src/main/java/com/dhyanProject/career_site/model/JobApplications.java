@@ -9,7 +9,8 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @NoArgsConstructor
-@Table(name = "jobApplications")
+@Table(name = "job_applications",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "job_id"}))
 public class JobApplications {
 
     @Id

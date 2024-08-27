@@ -7,6 +7,7 @@ import com.dhyanProject.career_site.model.JobPosting;
 import com.dhyanProject.career_site.service.FavoriteJobService;
 import com.dhyanProject.career_site.service.JobApplicationsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,8 +30,13 @@ public class UserController {
     }
 
     @PostMapping("/apply")
-    public ResponseEntity<JobApplications> applyForJob(@RequestBody ApplicationRequest request) {
-        return ResponseEntity.ok(applicationService.applyForJob(request));
+    public ResponseEntity<?> applyForJob(@RequestBody ApplicationRequest request) {
+        try {
+            JobApplications application = applicationService.applyForJob(request);
+            return ResponseEntity.ok(application);
+        } catch (IllegalStateException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 
     @GetMapping("/applications")

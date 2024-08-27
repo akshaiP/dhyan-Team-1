@@ -31,11 +31,13 @@ public class UsersController {
             if (foundUser.isPresent()) {
                 String role = foundUser.get().getRole().name();
                 String redirectUrl = role.equals("ADMIN") ? "Admin Dashboard" : "User Dashboard";
+                Long userId = foundUser.get().getId();
 
                 return ResponseEntity.ok().body(Map.of(
                         "message", "Login successful",
                         "token", token,
                         "role", role,
+                        "userId", userId,
                         "redirect", redirectUrl
                 ));
             } else {
@@ -62,9 +64,4 @@ public class UsersController {
         return ResponseEntity.ok("User registered successfully");
     }
 
-    @GetMapping("/users")
-    public ResponseEntity<List<Users>> getAllUsers() {
-        List<Users> usersList = userService.getAllUsers();
-        return ResponseEntity.ok(usersList);
-    }
 }
