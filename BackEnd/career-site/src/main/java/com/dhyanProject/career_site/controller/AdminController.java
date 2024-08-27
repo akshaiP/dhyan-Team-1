@@ -1,6 +1,9 @@
 package com.dhyanProject.career_site.controller;
 
+import com.dhyanProject.career_site.model.JobApplications;
 import com.dhyanProject.career_site.model.JobPosting;
+import com.dhyanProject.career_site.model.Stage;
+import com.dhyanProject.career_site.service.JobApplicationsService;
 import com.dhyanProject.career_site.service.JobPostingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +18,8 @@ public class AdminController {
 
     @Autowired
     private JobPostingService jobPostingService;
+    @Autowired
+    private JobApplicationsService jobApplicationsService;
 
     @PostMapping("/job-posting")
     public ResponseEntity<JobPosting> createJobPosting(@RequestBody JobPosting jobPosting) {
@@ -32,4 +37,38 @@ public class AdminController {
         jobPosting.setId(id);
         return ResponseEntity.ok(jobPostingService.updateJobPosting(jobPosting));
     }
+
+    @DeleteMapping("/job-posting/{id}")
+    public ResponseEntity<Void> deleteJobPosting(@PathVariable Long id) {
+        jobPostingService.deleteJobPosting(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/applications")
+    public ResponseEntity<List<JobApplications>> getAllApplications() {
+        return ResponseEntity.ok(jobApplicationsService.getAllApplications());
+    }
+
+    // View a specific application by ID
+    @GetMapping("/applications/{id}")
+    public ResponseEntity<JobApplications> getApplicationById(@PathVariable Long id) {
+        JobApplications application = jobApplicationsService.getApplicationById(id);
+        return ResponseEntity.ok(application);
+    }
+
+    // Update the status of an application
+    @PutMapping("/applications/{id}/status")
+    public ResponseEntity<JobApplications> updateApplicationStatus(@PathVariable Long id,
+                                                                   @RequestParam JobApplications.ApplicationStatus status) {
+        return ResponseEntity.ok(jobApplicationsService.updateApplicationStatus(id, status));
+    }
+
+    // Update the stage and status of an accepted application
+    @PutMapping("/applications/{id}/stage")
+    public ResponseEntity<JobApplications> updateApplicationStage(@PathVariable Long id,
+                                                                  @RequestParam JobApplications.CurrentStage newStage,
+                                                                  @RequestParam Stage.StageStatus stageStatus) {
+        return ResponseEntity.ok(jobApplicationsService.updateApplicationStage(id, newStage, stageStatus));
+    }
+
 }
