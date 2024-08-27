@@ -32,13 +32,4 @@ public class JobPosting {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate lastDateToApply;
-
-    @Enumerated(EnumType.STRING)
-    private JobStatus status;
-
-    public enum JobStatus {
-        ACTIVE,
-        CLOSED,
-        DRAFT
-    }
 }

@@ -1,1 +1,31 @@
-<p>applicationstatus works!</p>
+<div class="main-content">
+    <div class="application-status" *ngFor="let application of applications">
+      <div class="company-info">
+        <img [src]="application.companyLogoUrl" [alt]="application.companyName + ' Logo'" class="company-logo">
+        <div class="company-details">
+          <div class="status-header">
+            <span>Current Status: </span>
+            <span class="current-status" [ngClass]="{'pending': application.currentStatus === 'Pending', 'rejected': application.currentStatus === 'Rejected'}">
+              {{ application.currentStatus }}
+            </span>
+          </div>
+          <h4>{{ application.companyName }}</h4>
+          <p>{{ application.jobTitle }}</p>
+          <div class="progress-container">
+            <div class="progress-bar" [style.width.%]="application.progress"></div>
+            <div class="progress-stages">
+              <div *ngFor="let stage of application.stages" class="stage" [ngClass]="{
+                'completed': stage.status === 'Completed',
+                'pending': stage.status === 'Pending',
+                'rejected': stage.status === 'Rejected'
+              }">
+                <div class="stage-label">{{ stage.label }}</div>
+                <div class="stage-timestamp">{{ stage.timestamp || 'Pending' }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

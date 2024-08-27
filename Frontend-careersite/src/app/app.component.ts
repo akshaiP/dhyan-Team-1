@@ -4,6 +4,7 @@ import { LoginComponent } from "./auth/login/login.component";
 import { DashboardComponent } from "./Admin/AdminDashboard/dashboard.component";
 import { LayoutComponent } from "./Admin/AdminLayout/layout.component";
 
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -12,5 +13,5 @@ import { LayoutComponent } from "./Admin/AdminLayout/layout.component";
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'careersite';
+  title = 'Hire Me!';
 }
