@@ -29,11 +29,4 @@ public class JobPostingService {
         }
     }
 
-    public void deleteJobPosting(Long id) {
-        if (jobPostingRepository.existsById(id)) {
-            jobPostingRepository.deleteById(id);
-        } else {
-            throw new RuntimeException("Job posting not found");
-        }
-    }
 }

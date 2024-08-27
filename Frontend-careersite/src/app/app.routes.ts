@@ -7,7 +7,7 @@ import { ApplicationsComponent } from './Admin/applications/applications.compone
 import { JobPostingComponent } from './Admin/job-posting/job-posting.component';
 import { UserlayoutComponent } from './User/userlayout/userlayout.component';
 import { UserdashboardComponent } from './User/userdashboard/userdashboard.component';
-import { ApplicationstatusComponent } from './User/applicationstatus/applicationstatus.component';
+import { ApplicationStatusComponent } from './User/applicationstatus/applicationstatus.component';
 import { FavoriteJobsComponent } from './User/favouritejobs/favouritejobs.component';
 import { JoblistComponent } from './User/joblist/joblist.component';
 import { canActivateGuard } from './guard/canactivate.guard';
@@ -57,7 +57,7 @@ export const routes: Routes = [
       },
       {
         path: 'application-status',
-        component: ApplicationstatusComponent
+        component: ApplicationStatusComponent
       },
       {
         path: 'favorite-jobs',
