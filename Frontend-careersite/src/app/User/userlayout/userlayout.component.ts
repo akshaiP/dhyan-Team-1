@@ -18,11 +18,10 @@ export class UserlayoutComponent {
   constructor(private jobser: JobService, private router: Router) {}
 
   logout(): void {
-    // Call the logout method from the AuthService
-    this.jobser.logout().subscribe(() => {
-      // Redirect to the login page after successful logout
-      this.router.navigate(['/login']);
-    });
+    localStorage.clear();
+
+    // Redirect to the login page
+    this.router.navigate(['/login']);
   }
 }
 

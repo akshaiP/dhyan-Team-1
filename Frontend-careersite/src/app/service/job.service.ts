@@ -1,4 +1,3 @@
-import { jwtDecode } from 'jwt-decode';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -19,6 +18,12 @@ export class JobService {
     });
   }
 
+  GetUserApplicationStatus(userId: string): Observable<any> {
+    return this.http.get<any>(`${this.apiEndpoint}application-status?userId=${userId}`, {
+      headers: this.getAuthHeaders()
+    });
+  }
+
   // Get the list of active jobs
   GetActiveJobs(): Observable<any> {
     return this.http.get<any>(`${this.apiEndpoint}jobs`, {
@@ -26,11 +31,6 @@ export class JobService {
     });
   }
   
-  // Get job details by job ID
-  GetJobListingById(jobId: number): Observable<any> {
-    return this.http.get<any>(`${this.apiEndpoint}GetJobListingById?Id=${jobId}`);
-  }
-
   GetUserApplications(userId: string): Observable<any> {
     return this.http.get<any>(`${this.apiEndpoint}applications?userId=${userId}`, {
       headers: this.getAuthHeaders()
@@ -65,9 +65,6 @@ export class JobService {
     return this.http.delete<any>(`${this.apiEndpoint}favorite?userId=${userId}&jobId=${jobId}`, {
       headers: this.getAuthHeaders()
     });
-  }
-  logout(): Observable<void> {
-    return this.http.post<void>(`${this.apiEndpoint}/logout`, {}); // Adjust the endpoint if needed
   }
 }
 

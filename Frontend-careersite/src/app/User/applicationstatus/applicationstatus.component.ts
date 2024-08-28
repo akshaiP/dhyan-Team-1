@@ -18,8 +18,9 @@ export class ApplicationStatusComponent implements OnInit {
     this.fetchApplicationStatus();
   }
 
+  // Method to fetch application status from backend
   fetchApplicationStatus(): void {
-    this.jobService.GetApplicationStatus().subscribe(
+    this.jobService.GetUserApplicationStatus(localStorage.getItem('userId')!).subscribe(
       (data) => {
         this.applications = data;
       },
@@ -27,5 +28,12 @@ export class ApplicationStatusComponent implements OnInit {
         console.error('Error fetching application status', error);
       }
     );
+  }
+
+  // Method to calculate progress based on the number of completed stages
+  getProgress(application: any): number {
+    const completedStages = application.stages.filter((stage: { stageStatus: string; }) => stage.stageStatus === 'COMPLETED').length;
+    const totalStages = application.stages.length;
+    return totalStages > 0 ? (completedStages / totalStages) * 100 : 0;
   }
 }
