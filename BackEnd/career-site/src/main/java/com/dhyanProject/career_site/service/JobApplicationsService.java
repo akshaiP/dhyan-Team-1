@@ -1,6 +1,7 @@
 package com.dhyanProject.career_site.service;
 
 import com.dhyanProject.career_site.dto.ApplicationRequest;
+import com.dhyanProject.career_site.dto.JobApplicationStatusResponse;
 import com.dhyanProject.career_site.model.JobApplications;
 import com.dhyanProject.career_site.model.JobPosting;
 import com.dhyanProject.career_site.model.Stage;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -140,4 +142,35 @@ public class JobApplicationsService {
         return applicationRepository.save(application);
     }
 
+    public List<JobApplicationStatusResponse> getUserApplicationsWithStages(Long userId) {
+        List<JobApplications> applications = applicationRepository.findByUserId(userId);
+        List<JobApplicationStatusResponse> applicationStatusResponses = new ArrayList<>();
+
+        for (JobApplications application : applications) {
+            JobApplicationStatusResponse response = new JobApplicationStatusResponse();
+            response.setApplicationId(application.getId());
+            response.setJobTitle(application.getJobPosting().getJobTitle());
+            response.setCompanyName(application.getJobPosting().getCompanyName());
+            response.setSubmittedAt(application.getSubmittedAt());
+            response.setApplicationStatus(application.getStatus());
+            response.setCurrentStage(application.getCurrentStage());
+
+            // Fetch stages for each application
+            List<Stage> stages = stageRepository.findByApplication(application);
+            List<JobApplicationStatusResponse.StageResponse> stageResponses = new ArrayList<>();
+
+            for (Stage stage : stages) {
+                JobApplicationStatusResponse.StageResponse stageResponse = new JobApplicationStatusResponse.StageResponse();
+                stageResponse.setStageName(stage.getStageName());
+                stageResponse.setStageStatus(stage.getStageStatus());
+                stageResponse.setCompletedAt(stage.getCompletedAt());
+                stageResponses.add(stageResponse);
+            }
+
+            response.setStages(stageResponses);
+            applicationStatusResponses.add(response);
+        }
+
+        return applicationStatusResponses;
+    }
 }

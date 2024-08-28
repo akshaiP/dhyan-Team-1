@@ -1,6 +1,7 @@
 package com.dhyanProject.career_site.controller;
 
 import com.dhyanProject.career_site.dto.ApplicationRequest;
+import com.dhyanProject.career_site.dto.JobApplicationStatusResponse;
 import com.dhyanProject.career_site.model.FavoriteJob;
 import com.dhyanProject.career_site.model.JobApplications;
 import com.dhyanProject.career_site.model.JobPosting;
@@ -58,5 +59,11 @@ public class UserController {
     @GetMapping("/favorite")
     public ResponseEntity<List<FavoriteJob>> getFavoriteJobs(@RequestParam Long userId) {
         return ResponseEntity.ok(favoriteJobService.getFavoriteJobs(userId));
+    }
+
+    @GetMapping("/application-status")
+    public ResponseEntity<List<JobApplicationStatusResponse>> getApplicationStatus(@RequestParam Long userId) {
+        List<JobApplicationStatusResponse> applicationStatuses = applicationService.getUserApplicationsWithStages(userId);
+        return ResponseEntity.ok(applicationStatuses);
     }
 }
