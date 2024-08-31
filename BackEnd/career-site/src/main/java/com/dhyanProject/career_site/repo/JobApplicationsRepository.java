@@ -10,4 +10,5 @@ import java.util.List;
 public interface JobApplicationsRepository extends JpaRepository<JobApplications,Long> {
     List<JobApplications> findByUserId(Long userId);
     boolean existsByUserIdAndJobPosting_Id(Long userId, Long jobId);
+    List<JobApplications> findByJobPostingId(Long jobId);
 }

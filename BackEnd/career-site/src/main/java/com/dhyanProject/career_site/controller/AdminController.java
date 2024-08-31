@@ -3,8 +3,10 @@ package com.dhyanProject.career_site.controller;
 import com.dhyanProject.career_site.model.JobApplications;
 import com.dhyanProject.career_site.model.JobPosting;
 import com.dhyanProject.career_site.model.Stage;
+import com.dhyanProject.career_site.model.UserProfile;
 import com.dhyanProject.career_site.service.JobApplicationsService;
 import com.dhyanProject.career_site.service.JobPostingService;
+import com.dhyanProject.career_site.service.UserProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +22,8 @@ public class AdminController {
     private JobPostingService jobPostingService;
     @Autowired
     private JobApplicationsService jobApplicationsService;
+    @Autowired
+    private UserProfileService userProfileService;
 
     @PostMapping("/job-posting")
     public ResponseEntity<JobPosting> createJobPosting(@RequestBody JobPosting jobPosting) {
@@ -69,6 +73,19 @@ public class AdminController {
                                                                   @RequestParam JobApplications.CurrentStage newStage,
                                                                   @RequestParam Stage.StageStatus stageStatus) {
         return ResponseEntity.ok(jobApplicationsService.updateApplicationStage(id, newStage, stageStatus));
+    }
+
+    // View applications by job ID
+    @GetMapping("/applications/job/{jobId}")
+    public ResponseEntity<List<JobApplications>> getApplicationsByJobId(@PathVariable Long jobId) {
+        List<JobApplications> applications = jobApplicationsService.getApplicationsByJobId(jobId);
+        return ResponseEntity.ok(applications);
+    }
+
+    @GetMapping("/user-profile/{id}")
+    public ResponseEntity<UserProfile> getUserProfile(@PathVariable Long id) {
+        UserProfile userProfile = userProfileService.getUserProfileById(id);
+        return ResponseEntity.ok(userProfile);
     }
 
 }

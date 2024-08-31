@@ -2,14 +2,8 @@ package com.dhyanProject.career_site.service;
 
 import com.dhyanProject.career_site.dto.ApplicationRequest;
 import com.dhyanProject.career_site.dto.JobApplicationStatusResponse;
-import com.dhyanProject.career_site.model.JobApplications;
-import com.dhyanProject.career_site.model.JobPosting;
-import com.dhyanProject.career_site.model.Stage;
-import com.dhyanProject.career_site.model.Users;
-import com.dhyanProject.career_site.repo.JobApplicationsRepository;
-import com.dhyanProject.career_site.repo.JobPostingRepository;
-import com.dhyanProject.career_site.repo.StageRepository;
-import com.dhyanProject.career_site.repo.UsersRepository;
+import com.dhyanProject.career_site.model.*;
+import com.dhyanProject.career_site.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +22,8 @@ public class JobApplicationsService {
     private UsersRepository userRepository;
     @Autowired
     private StageRepository stageRepository;
+    @Autowired
+    private UserProfileRepository userProfileRepository;
 
     // Fetch all active job postings
     public List<JobPosting> getAllActiveJobs() {
@@ -47,10 +43,13 @@ public class JobApplicationsService {
         Users user = userRepository.findById(request.getUserId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
+        UserProfile userProfile = userProfileRepository.findByUserId(request.getUserId())
+                .orElseThrow(() -> new RuntimeException("User profile not found"));
+
         JobApplications application = new JobApplications();
         application.setJobPosting(job);
         application.setUser(user);
-        application.setResume(request.getResume());
+        application.setUserProfile(userProfile);
         application.setStatus(JobApplications.ApplicationStatus.PENDING);
         application.setCurrentStage(JobApplications.CurrentStage.APPLIED);
         application.setSubmittedAt(LocalDateTime.now());
@@ -172,5 +171,9 @@ public class JobApplicationsService {
         }
 
         return applicationStatusResponses;
+    }
+
+    public List<JobApplications> getApplicationsByJobId(Long jobId) {
+        return applicationRepository.findByJobPostingId(jobId);
     }
 }

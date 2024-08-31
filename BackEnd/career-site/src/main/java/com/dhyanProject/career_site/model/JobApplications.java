@@ -25,7 +25,9 @@ public class JobApplications {
     @JoinColumn(name = "user_id")
     private Users user;
 
-    private String resume;
+    @ManyToOne
+    @JoinColumn(name = "user_profile_id", nullable = false)
+    private UserProfile userProfile;
 
     @Enumerated(EnumType.STRING)
     private ApplicationStatus status;

@@ -10,5 +10,4 @@ import lombok.NoArgsConstructor;
 public class ApplicationRequest {
     private Long jobId;
     private Long userId;
-    private String resume;
 }
