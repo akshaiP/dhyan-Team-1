@@ -1,0 +1,70 @@
+<div class="profile-container">
+  <!-- Profile Header Section -->
+  <div *ngIf="!userProfile" class="no-profile">
+    <button class="btn-primary" (click)="toggleModal()">Start Creating Your Profile</button>
+  </div>
+
+  <div *ngIf="userProfile" class="profile-details">
+    <h2>{{ userProfile.firstName }} {{ userProfile.lastName }}</h2>
+    <img *ngIf="userProfile.profilePicture" [src]="userProfile.profilePicture" alt="Profile Picture" class="profile-picture"/>
+    <p><strong>Email:</strong> {{ userProfile.email }}</p>
+    <p><strong>Phone:</strong> {{ userProfile.phoneNumber }}</p>
+    <p><strong>Location:</strong> {{ userProfile.location }}</p>
+    <p><strong>LinkedIn Profile:</strong> <a [href]="userProfile.linkedinProfile" target="_blank">{{ userProfile.linkedinProfile }}</a></p>
+
+    <!-- Education Details -->
+    <h3>Education Details</h3>
+    <p><strong>Highest Qualification:</strong> {{ userProfile.highestQualification }}</p>
+    <p><strong>Field of Study:</strong> {{ userProfile.fieldOfStudy }}</p>
+    <p><strong>College:</strong> {{ userProfile.college }}</p>
+    <p><strong>Graduation Year:</strong> {{ userProfile.graduationYear }}</p>
+    <p><strong>Grades:</strong> {{ userProfile.grades }}</p>
+
+    <!-- Work Experience -->
+    <h3>Work Experience</h3>
+    <p><strong>Total Experience:</strong> {{ userProfile.totalExperience }}</p>
+    <p><strong>Current Employer:</strong> {{ userProfile.currentEmployer }}</p>
+    <p><strong>Current Position:</strong> {{ userProfile.currentPosition }}</p>
+    <p><strong>Employment History:</strong> {{ userProfile.employmentHistory }}</p>
+
+    <!-- Resume and Documents -->
+    <h3>Resume and Documents</h3>
+    <p><strong>Resume:</strong> <a [href]="userProfile.resume" target="_blank">{{ userProfile.resume }}</a></p>
+    <p><strong>Portfolio:</strong> <a [href]="userProfile.portfolio" target="_blank">{{ userProfile.portfolio }}</a></p>
+
+    <!-- Update Profile Button -->
+    <button class="btn-secondary" (click)="toggleModal()">Update Profile</button>
+  </div>
+
+  <!-- Modal for Creating or Updating Profile -->
+  <div class="modal" [ngClass]="{ 'show-modal': isModalOpen }">
+    <div class="modal-content">
+      <span class="close" (click)="toggleModal()">&times;</span>
+      <h3>{{ userProfile ? 'Update Profile' : 'Create Your Profile' }}</h3>
+
+      <!-- Profile Form -->
+      <form [formGroup]="profileForm" (ngSubmit)="saveProfile()">
+        <input type="text" placeholder="First Name" formControlName="firstName" />
+        <input type="text" placeholder="Last Name" formControlName="lastName" />
+        <input type="email" placeholder="Email" formControlName="email" />
+        <input type="text" placeholder="Phone Number" formControlName="phoneNumber" />
+        <input type="text" placeholder="Profile Picture URL" formControlName="profilePicture" />
+        <input type="text" placeholder="Highest Qualification" formControlName="highestQualification" />
+        <input type="text" placeholder="Field of Study" formControlName="fieldOfStudy" />
+        <input type="text" placeholder="College" formControlName="college" />
+        <input type="number" placeholder="Graduation Year" formControlName="graduationYear" />
+        <input type="text" placeholder="Grades" formControlName="grades" />
+        <input type="text" placeholder="Total Experience" formControlName="totalExperience" />
+        <input type="text" placeholder="Current Employer" formControlName="currentEmployer" />
+        <input type="text" placeholder="Current Position" formControlName="currentPosition" />
+        <textarea placeholder="Employment History" formControlName="employmentHistory"></textarea>
+        <input type="text" placeholder="Resume URL" formControlName="resume" />
+        <input type="text" placeholder="Portfolio URL" formControlName="portfolio" />
+        <input type="text" placeholder="Location" formControlName="location" />
+        <input type="text" placeholder="LinkedIn Profile URL" formControlName="linkedinProfile" />
+
+        <button type="submit" class="btn-primary">{{ userProfile ? 'Update Profile' : 'Create Profile' }}</button>
+      </form>
+    </div>
+  </div>
+</div>

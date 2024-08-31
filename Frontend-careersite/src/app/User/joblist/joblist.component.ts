@@ -46,13 +46,10 @@ applyForJob(jobId: number): void {
     alert('User not logged in!');
     return;
   }
-  
   const request = {
     jobId: jobId,
-    userId: +userId,  // Ensure userId is a number
-    resume: 'sample resume'  // Placeholder resume
+    userId: +userId,  
   };
-
   this.jobSer.ApplyForJob(request).subscribe((response: any) => {
     if (response) {
       alert('Successfully applied for the job!');
