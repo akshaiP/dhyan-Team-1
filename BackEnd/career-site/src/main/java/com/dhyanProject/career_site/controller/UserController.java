@@ -5,14 +5,17 @@ import com.dhyanProject.career_site.dto.JobApplicationStatusResponse;
 import com.dhyanProject.career_site.model.FavoriteJob;
 import com.dhyanProject.career_site.model.JobApplications;
 import com.dhyanProject.career_site.model.JobPosting;
+import com.dhyanProject.career_site.model.UserProfile;
 import com.dhyanProject.career_site.service.FavoriteJobService;
 import com.dhyanProject.career_site.service.JobApplicationsService;
+import com.dhyanProject.career_site.service.UserProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -24,6 +27,9 @@ public class UserController {
 
     @Autowired
     private FavoriteJobService favoriteJobService;
+
+    @Autowired
+    private UserProfileService userProfileService;
 
     @GetMapping("/jobs")
     public ResponseEntity<List<JobPosting>> getAllActiveJobs() {
@@ -65,5 +71,18 @@ public class UserController {
     public ResponseEntity<List<JobApplicationStatusResponse>> getApplicationStatus(@RequestParam Long userId) {
         List<JobApplicationStatusResponse> applicationStatuses = applicationService.getUserApplicationsWithStages(userId);
         return ResponseEntity.ok(applicationStatuses);
+    }
+
+    @PostMapping("/profile")
+    public ResponseEntity<UserProfile> createOrUpdateProfile(@RequestBody UserProfile userProfile) {
+        UserProfile updatedProfile = userProfileService.createOrUpdateProfile(userProfile);
+        return ResponseEntity.ok(updatedProfile);
+    }
+
+    @GetMapping("/profile")
+    public ResponseEntity<UserProfile> getUserProfile(@RequestParam Long userId) {
+        Optional<UserProfile> userProfile = userProfileService.getUserProfile(userId);
+        return userProfile.map(ResponseEntity::ok)
+                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 }
