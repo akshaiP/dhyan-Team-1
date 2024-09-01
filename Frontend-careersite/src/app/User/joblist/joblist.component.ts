@@ -1,19 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,NgModule } from '@angular/core';
+import { FormsModule} from '@angular/forms';
 import { Router } from '@angular/router';
 import { JobService } from '../../service/job.service';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { SearchPipe } from '../../pipe/search.pipe';
 
 @Component({
   selector: 'app-joblist',
   standalone: true,
-  imports: [CommonModule, HttpClientModule],
+  imports: [CommonModule,FormsModule, HttpClientModule,SearchPipe],
   templateUrl: './joblist.component.html',
   styleUrls: ['./joblist.component.css'],
   providers: [JobService]
 })
 export class JoblistComponent implements OnInit {
   jobList: any[] = [];
+  searchText: string = ''; // Add searchText property
 
   constructor(private jobSer: JobService, private router: Router) {}
 
@@ -39,26 +42,25 @@ export class JoblistComponent implements OnInit {
     this.router.navigate(['/job-detail', id]);
   }
 
-  // Apply for a job
-applyForJob(jobId: number): void {
-  const userId = localStorage.getItem('userId');
-  if (!userId) {
-    alert('User not logged in!');
-    return;
-  }
-  const request = {
-    jobId: jobId,
-    userId: +userId,  
-  };
-  this.jobSer.ApplyForJob(request).subscribe((response: any) => {
-    if (response) {
-      alert('Successfully applied for the job!');
-      this.updateJobList(jobId, 'applied');
-    } else {
-      console.error('Error applying for the job:', response);
+  applyForJob(jobId: number): void {
+    const userId = localStorage.getItem('userId');
+    if (!userId) {
+      alert('User not logged in!');
+      return;
     }
-  });
-}
+    const request = {
+      jobId: jobId,
+      userId: +userId,  
+    };
+    this.jobSer.ApplyForJob(request).subscribe((response: any) => {
+      if (response) {
+        alert('Successfully applied for the job!');
+        this.updateJobList(jobId, 'applied');
+      } else {
+        console.error('Error applying for the job:', response);
+      }
+    });
+  }
 
   toggleFavorite(jobId: number): void {
     console.log('Toggling favorite for jobId:', jobId); 
