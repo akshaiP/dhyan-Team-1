@@ -5,11 +5,12 @@ import { JobService } from '../../service/job.service';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { SearchPipe } from '../../pipe/search.pipe';
+import { FilterPipe } from '../../pipe/filter.pipe';
 
 @Component({
   selector: 'app-joblist',
   standalone: true,
-  imports: [CommonModule, FormsModule, HttpClientModule, SearchPipe],
+  imports: [CommonModule, FormsModule, HttpClientModule, SearchPipe,FilterPipe],
   templateUrl: './joblist.component.html',
   styleUrls: ['./joblist.component.css'],
   providers: [JobService]
@@ -19,6 +20,11 @@ export class JoblistComponent implements OnInit {
   searchText: string = '';
   showJobDetailsModal: boolean = false;
   selectedJob: any = null;
+
+  selectedLocation: string = 'all'; // empty or any default value 
+  selectedExperience: string = 'all';
+  selectedJobType: string = 'all';
+  selectedSalaryRange: string = 'all';
 
   constructor(private jobSer: JobService, private router: Router) {}
 

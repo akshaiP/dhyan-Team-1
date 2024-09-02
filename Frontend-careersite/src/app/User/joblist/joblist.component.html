@@ -7,16 +7,58 @@
 
 <div class="main-content">
   <div class="row">
-    <!-- Filter Sidebar -->
-    <aside class="filter-sidebar">
-      <h3>Filter Jobs</h3>
-    </aside>
+   <!-- Filter Sidebar -->
+  <aside class="filter-sidebar">
+    <h3>Filter Jobs</h3>
+    <div class="filter-group">
+      <label for="location">Location</label>
+      <select id="location" [(ngModel)]="selectedLocation">
+        <option value="all">All Locations</option>
+        <option value="Bangalore">Bangalore</option>
+        <option value="Chennai">Chennai</option>
+        <option value="Coimbatore">Coimbatore</option>
+        <option value="Hyderabad">Hyderabad</option>
+        <option value="Pune">Pune</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label for="experience">Experience Level</label>
+      <select id="experience" [(ngModel)]="selectedExperience">
+        <option value="all">All Levels</option>
+        <option value="entry">Entry Level</option>
+        <option value="mid">Mid Level</option>
+        <option value="senior">Senior Level</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label for="job-type">Job Type</label>
+      <select id="job-type" [(ngModel)]="selectedJobType">
+        <option value="all">All Types</option>
+        <option value="full-time">Full-Time</option>
+        <option value="part-time">Part-Time</option>
+        <option value="contract">Contract</option>
+        <option value="internship">Internship</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label for="salary-range">Salary Range</label>
+      <select id="salary-range" [(ngModel)]="selectedSalaryRange">
+        <option value="all">All Ranges</option>
+        <option value="1-3LPA">1-3LPA</option>
+        <option value="3-5LPA">3-5LPA</option>
+        <option value="5-7LPA">5-7LPA</option>
+        <option value="7LPA+">7LPA+</option>
+      </select>
+    </div>
+  </aside>
 
     <!-- Job Listings -->
     <section class="job-listings">
       <h2>Available Jobs</h2>
       <div class="job-grid">
-        <div *ngFor="let job of jobList  | search:searchText" class="job-card">
+        <div *ngFor="let job of jobList | filter: selectedLocation : selectedExperience : selectedJobType : selectedSalaryRange | search:searchText" class="job-card">
+  
+
           <div class="company-info">
             <img [src]="job.companyLogoUrl" [alt]="job.companyName + ' Logo'" class="company-logo">
             <div class="company-details">
@@ -26,8 +68,11 @@
           </div>
           <p><strong>Location:</strong> {{ job.location }}</p>
           <p><strong>Employment Type:</strong> {{ job.employmentType }}</p>
-          <p><strong>Description:</strong> {{ job.jobDescription | slice: 0 : 50 }}...</p>
+          <p><strong>Salary Range:</strong> {{ job.salaryRange }} {{ job.currency }}</p>
+          <p><strong>Experience Level:</strong> {{ job.experienceLevel }}</p>
           <p><strong>Last Date to Apply:</strong> {{ job.lastDateToApply }}</p>
+          <p><strong>Description:</strong> {{ job.jobDescription | slice: 0 : 50 }}...</p>
+
 
           <div class="job-card-actions">
             <a href="#" class="view-details" (click)="openJobDetailsModal(job, $event)">View Details</a>
