@@ -1,35 +1,62 @@
 <section class="main-content">
-    <div *ngFor="let job of favoriteJobs" class="job-card">
-      <div class="company-info">
-        <img [src]="job.companyLogoUrl" alt="{{ job.companyName }} Logo" class="company-logo">
-        <div class="company-details">
-          <h4>{{ job.companyName }}</h4>
-          <p>{{ job.jobTitle }}</p>
-        </div>
-      </div>
-      <div class="job-details">
-        <div class="job-detail-row">
-          <div class="job-detail-item">
-            <p><strong>Location:</strong> {{ job.location }}</p>
-          </div>
-          <div class="job-detail-item">
-            <p><strong>Experience Level:</strong> {{ job.experienceLevel }}</p>
-          </div>
-        </div>
-        <div class="job-detail-row">
-          <div class="job-detail-item">
-            <p><strong>Job Type:</strong> {{ job.jobType }}</p>
-          </div>
-          <div class="job-detail-item">
-            <p><strong>Salary:</strong> ₹{{ job.salary }}</p>
-          </div>
-        </div>
-      </div>
-      <p><strong>Description:</strong> {{ truncateText(job.jobDescription, 100) }}</p>
-      <p><strong>Requirements:</strong> {{ truncateText(job.requirements, 150) }} <a href="#" class="view-details">View Details</a></p>
-      <div class="button-container">
-        <button class="btn-secondary" (click)="removeFromFavorites(job.id)">⭐ Remove from Favorites</button>
+  <div *ngFor="let job of favoriteJobs" class="job-card">
+    <div class="company-info">
+      <img [src]="job.companyLogoUrl" alt="{{ job.companyName }} Logo" class="company-logo">
+      <div class="company-details">
+        <h4>{{ job.companyName }}</h4>
+        <p>{{ job.jobTitle }}</p>
       </div>
     </div>
-  </section>
-  
+    <div class="job-details">
+      <div class="job-detail-row">
+        <div class="job-detail-item">
+          <p><strong>Location:</strong> {{ job.location }}</p>
+        </div>
+        <div class="job-detail-item">
+          <p><strong>Experience Level:</strong> {{ job.experienceLevel }}</p>
+        </div>
+      </div>
+      <div class="job-detail-row">
+        <div class="job-detail-item">
+          <p><strong>Employment Type:</strong> {{ job.employmentType }}</p>
+        </div>
+        <div class="job-detail-item">
+          <p><strong>Salary:</strong> {{ job.salaryRange }}</p>
+        </div>
+      </div>
+      <div class="job-detail-row">
+        <div class="job-detail-item">
+          <p><strong>Job Location Type:</strong> {{ job.jobLocationType }}</p>
+        </div>
+        <div class="job-detail-item">
+          <p><strong>Last Date to Apply:</strong> {{ job.lastDateToApply | date: 'longDate' }}</p>
+        </div>
+      </div>
+    </div>
+    <p><strong>Description:</strong> {{ truncateText(job.jobDescription, 100) }}</p>
+    <div class="button-container">
+      <button class="btn-secondary" (click)="removeFromFavorites(job.id)">⭐ Remove from Favorites</button>
+      <button class="btn-primary" (click)="viewDetails(job)">View Details</button>
+    </div>
+  </div>
+
+  <!-- Job Details Modal -->
+  <div *ngIf="selectedJob" class="modal">
+    <div class="modal-content">
+      <span class="close" (click)="closeModal()">&times;</span>
+      <h2>{{ selectedJob.companyName }} - {{ selectedJob.jobTitle }}</h2>
+      <p><strong>Location:</strong> {{ selectedJob.location }}</p>
+      <p><strong>Experience Level:</strong> {{ selectedJob.experienceLevel }}</p>
+      <p><strong>Employment Type:</strong> {{ selectedJob.employmentType }}</p>
+      <p><strong>Salary:</strong> {{ selectedJob.salaryRange }}</p>
+      <p><strong>Job Location Type:</strong> {{ selectedJob.jobLocationType }}</p>
+      <p><strong>Description:</strong> {{ selectedJob.jobDescription }}</p>
+      <p><strong>Requirements:</strong> {{ selectedJob.requirements }}</p>
+      <p><strong>Skills:</strong> {{ selectedJob.skills }}</p>
+      <p><strong>Benefits:</strong> {{ selectedJob.benefits }}</p>
+      <p><strong>Contact Email:</strong> {{ selectedJob.contactEmail }}</p>
+      <p *ngIf="selectedJob.contactPhone"><strong>Contact Phone:</strong> {{ selectedJob.contactPhone }}</p>
+      <p><strong>Application Process:</strong> {{ selectedJob.applicationProcess }}</p>
+    </div>
+  </div>
+</section>

@@ -1,37 +1,52 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AdminJobService } from '../../service/admin-job.service';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // Import the necessary modules
+import { JobPosting } from '../../models/job-posting.model';
 
 @Component({
   selector: 'app-job-postings',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, CommonModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule], // Include necessary modules
   templateUrl: './job-posting.component.html',
   styleUrls: ['./job-posting.component.css']
 })
 export class JobPostingComponent implements OnInit {
   jobForm!: FormGroup; 
-  jobPostings: any[] = [];
+  jobPostings: JobPosting[] = []; // Use the JobPosting interface
   showModal: boolean = false;
 
   constructor(private fb: FormBuilder, private jobService: AdminJobService) { }
 
   ngOnInit(): void {
     this.initializeForm(); // Initialize the form on component initialization
-    this.loadJobPostings();
+    this.loadJobPostings(); // Load job postings
   }
 
   initializeForm() {
     this.jobForm = this.fb.group({
       id: [null],
       companyName: ['', Validators.required],
-      companyLogoUrl: ['', Validators.required],
+      companyLogoUrl: [''],
       location: ['', Validators.required],
       jobTitle: ['', Validators.required],
-      jobDescription: ['', Validators.required],
-      requirements: ['', Validators.required],
+      jobDescription: [''],
+      requirements: [''],
+      employmentType: [''],
+      jobCategory: [''],
+      experienceLevel: [''],
+      educationRequirement: [''],
+      skills: [''],
       lastDateToApply: ['', Validators.required],
+      salaryRange: [''],
+      currency: [''],
+      contactEmail: [''],
+      contactPhone: [''],
+      benefits: [''],
+      applicationProcess: [''],
+      companyWebsite: [''],
+      jobLocationType: [''],
       status: ['ACTIVE'] // Default status to ACTIVE on creation
     });
   }
@@ -46,7 +61,7 @@ export class JobPostingComponent implements OnInit {
 
   createJobPosting() {
     if (this.jobForm.valid) {
-      const jobData = this.jobForm.value;
+      const jobData: JobPosting = this.jobForm.value;
       this.jobService.createJob(jobData).subscribe({
         next: () => {
           this.loadJobPostings(); // Reload job postings after creation
@@ -61,7 +76,7 @@ export class JobPostingComponent implements OnInit {
 
   loadJobPostings() {
     this.jobService.getJobs().subscribe({
-      next: (response) => {
+      next: (response: JobPosting[]) => {
         this.jobPostings = response;
       },
       error: (error) => {
@@ -70,14 +85,14 @@ export class JobPostingComponent implements OnInit {
     });
   }
 
-  editJob(job: any) {
+  editJob(job: JobPosting) {
     this.jobForm.patchValue(job); // Populate the form with job details
     this.toggleModal(); // Open modal for editing
   }
 
   saveJobPosting() {
     if (this.jobForm.valid) {
-      const jobData = this.jobForm.value;
+      const jobData: JobPosting = this.jobForm.value;
       if (jobData.id) { // If 'id' is present, update the existing job
         this.jobService.updateJob(jobData.id, jobData).subscribe({
           next: () => {

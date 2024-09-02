@@ -13,6 +13,7 @@ import { CommonModule} from '@angular/common';
 })
 export class FavoriteJobsComponent implements OnInit {
   favoriteJobs: any[] = [];
+  selectedJob: any = null;
 
   constructor(private jobService: JobService) {}
 
@@ -35,5 +36,13 @@ export class FavoriteJobsComponent implements OnInit {
 
   truncateText(text: string, limit: number): string {
     return text.length > limit ? text.slice(0, limit) + '...' : text;
+  }
+
+  viewDetails(job: any): void {
+    this.selectedJob = job;
+  }
+
+  closeModal(): void {
+    this.selectedJob = null;
   }
 }

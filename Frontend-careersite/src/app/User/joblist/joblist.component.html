@@ -3,7 +3,6 @@
   <h1 style="font-family: 'Cursive', sans-serif; font-size: 27px; font-weight: bold; color: #0c0000; font-style: italic;">
     Your Dream Job Awaits - Apply Now!</h1>
   <input type="text" class="search-bar" [(ngModel)]="searchText" placeholder="🔍 Search for jobs...">
-  
 </section>
 
 <div class="main-content">
@@ -13,12 +12,11 @@
       <h3>Filter Jobs</h3>
     </aside>
 
-
     <!-- Job Listings -->
     <section class="job-listings">
       <h2>Available Jobs</h2>
       <div class="job-grid">
-        <div *ngFor="let job of jobList" class="job-card">
+        <div *ngFor="let job of jobList  | search:searchText" class="job-card">
           <div class="company-info">
             <img [src]="job.companyLogoUrl" [alt]="job.companyName + ' Logo'" class="company-logo">
             <div class="company-details">
@@ -27,13 +25,12 @@
             </div>
           </div>
           <p><strong>Location:</strong> {{ job.location }}</p>
-          <p><strong>Job Title:</strong> {{ job.jobTitle }}</p>
+          <p><strong>Employment Type:</strong> {{ job.employmentType }}</p>
           <p><strong>Description:</strong> {{ job.jobDescription | slice: 0 : 50 }}...</p>
-          <p><strong>Requirements:</strong> {{ job.requirements | slice: 0 : 50 }}...</p>
           <p><strong>Last Date to Apply:</strong> {{ job.lastDateToApply }}</p>
 
           <div class="job-card-actions">
-            <a href="#" class="view-details" (click)="openJob(job.jobId)">View Details</a>
+            <a href="#" class="view-details" (click)="openJobDetailsModal(job, $event)">View Details</a>
             <div class="button-container">
               <button class="btn-primary" [disabled]="job.isApplied" (click)="applyForJob(job.id)">
                 {{ job.isApplied ? 'Applied' : 'Apply' }}
@@ -46,5 +43,30 @@
         </div>
       </div>
     </section>
+  </div>
+</div>
+
+<!-- Job Details Modal -->
+<div *ngIf="showJobDetailsModal" class="modal">
+  <div class="modal-content">
+    <span class="close-button" (click)="closeJobDetailsModal()">&times;</span>
+    <h2>{{ selectedJob?.jobTitle }}</h2>
+    <p><strong>Company Name:</strong> {{ selectedJob?.companyName }}</p>
+    <p><strong>Location:</strong> {{ selectedJob?.location }}</p>
+    <p><strong>Employment Type:</strong> {{ selectedJob?.employmentType }}</p>
+    <p><strong>Description:</strong> {{ selectedJob?.jobDescription }}</p>
+    <p><strong>Requirements:</strong> {{ selectedJob?.requirements }}</p>
+    <p><strong>Category:</strong> {{ selectedJob?.jobCategory }}</p>
+    <p><strong>Experience Level:</strong> {{ selectedJob?.experienceLevel }}</p>
+    <p><strong>Education Requirement:</strong> {{ selectedJob?.educationRequirement }}</p>
+    <p><strong>Skills:</strong> {{ selectedJob?.skills }}</p>
+    <p><strong>Last Date to Apply:</strong> {{ selectedJob?.lastDateToApply }}</p>
+    <p><strong>Salary Range:</strong> {{ selectedJob?.salaryRange }} {{ selectedJob?.currency }}</p>
+    <p><strong>Contact Email:</strong> {{ selectedJob?.contactEmail }}</p>
+    <p *ngIf="selectedJob?.contactPhone"><strong>Contact Phone:</strong> {{ selectedJob?.contactPhone }}</p>
+    <p><strong>Benefits:</strong> {{ selectedJob?.benefits }}</p>
+    <p><strong>Application Process:</strong> {{ selectedJob?.applicationProcess }}</p>
+    <p><strong>Company Website:</strong> <a [href]="selectedJob?.companyWebsite" target="_blank">{{ selectedJob?.companyWebsite }}</a></p>
+    <p><strong>Job Location Type:</strong> {{ selectedJob?.jobLocationType }}</p>
   </div>
 </div>

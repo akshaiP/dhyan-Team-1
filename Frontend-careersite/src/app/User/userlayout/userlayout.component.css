@@ -1,4 +1,3 @@
-/* userlayout.component.css */
 /* General Styles */
 body {
     font-family: Arial, sans-serif;
@@ -16,12 +15,18 @@ body {
     width: 100%;
     top: 0;
     z-index: 1000;
+    box-sizing: border-box; /* Ensures padding is included in width calculation */
 }
 
 .navbar .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    max-width: 1200px; /* Adds max width for better control */
+    margin: 0 auto; /* Centers the navbar content */
+    padding: 0 20px; /* Adds padding to keep items from touching the edge */
+    width: 100%; /* Ensures full-width container */
+    box-sizing: border-box; /* Ensures padding does not affect width */
 }
 
 .navbar .brand-logo {
@@ -36,6 +41,8 @@ body {
     list-style: none;
     display: flex;
     gap: 20px;
+    margin: 0; /* Removes default margin */
+    padding: 0; /* Removes default padding */
 }
 
 .navbar .nav-links li {

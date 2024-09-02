@@ -1,5 +1,5 @@
-import { Component, OnInit,NgModule } from '@angular/core';
-import { FormsModule} from '@angular/forms';
+import { Component, OnInit, NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { JobService } from '../../service/job.service';
 import { CommonModule } from '@angular/common';
@@ -9,14 +9,16 @@ import { SearchPipe } from '../../pipe/search.pipe';
 @Component({
   selector: 'app-joblist',
   standalone: true,
-  imports: [CommonModule,FormsModule, HttpClientModule,SearchPipe],
+  imports: [CommonModule, FormsModule, HttpClientModule, SearchPipe],
   templateUrl: './joblist.component.html',
   styleUrls: ['./joblist.component.css'],
   providers: [JobService]
 })
 export class JoblistComponent implements OnInit {
   jobList: any[] = [];
-  searchText: string = ''; // Add searchText property
+  searchText: string = '';
+  showJobDetailsModal: boolean = false;
+  selectedJob: any = null;
 
   constructor(private jobSer: JobService, private router: Router) {}
 
@@ -29,8 +31,8 @@ export class JoblistComponent implements OnInit {
       (res: any) => {
         console.log('Job List Response:', res);
         this.jobList = res;
-        this.checkApplications(); // Check application status on load
-        this.checkFavorites(); // Check favorite status on load
+        this.checkApplications();
+        this.checkFavorites();
       },
       (error: any) => {
         console.error('Error loading jobs:', error);
@@ -38,8 +40,15 @@ export class JoblistComponent implements OnInit {
     );
   }
 
-  openJob(id: number): void {
-    this.router.navigate(['/job-detail', id]);
+  openJobDetailsModal(job: any, event: Event): void {
+    event.preventDefault(); // Prevent the default behavior of the anchor tag
+    this.selectedJob = job;
+    this.showJobDetailsModal = true;
+  }
+
+  closeJobDetailsModal(): void {
+    this.showJobDetailsModal = false;
+    this.selectedJob = null;
   }
 
   applyForJob(jobId: number): void {
@@ -48,10 +57,7 @@ export class JoblistComponent implements OnInit {
       alert('User not logged in!');
       return;
     }
-    const request = {
-      jobId: jobId,
-      userId: +userId,  
-    };
+    const request = { jobId: jobId, userId: +userId };
     this.jobSer.ApplyForJob(request).subscribe((response: any) => {
       if (response) {
         alert('Successfully applied for the job!');
@@ -63,7 +69,6 @@ export class JoblistComponent implements OnInit {
   }
 
   toggleFavorite(jobId: number): void {
-    console.log('Toggling favorite for jobId:', jobId); 
     const job = this.jobList.find(j => j.id === jobId);
     if (job) {
       if (job.isFavorite) {

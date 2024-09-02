@@ -1,52 +1,104 @@
 <section class="main-content">
   <button class="create-job-button" (click)="toggleModal()">Create New Job Posting</button>
 
-<!-- Modal for Job Form -->
-<div class="modal" [ngClass]="{'show': showModal}">
-  <div class="modal-content">
-    <span class="close-button" (click)="toggleModal()">&times;</span>
-    <form [formGroup]="jobForm" (ngSubmit)="saveJobPosting()">
-      <!-- Form Fields -->
-      <div class="input-group">
-        <label for="companyName">Company Name</label>
-        <input type="text" id="companyName" formControlName="companyName" required>
-      </div>
-      <div class="input-group">
-        <label for="companyLogoUrl">Company Logo URL</label>
-        <input type="text" id="companyLogoUrl" formControlName="companyLogoUrl">
-      </div>
-      <div class="input-group">
-        <label for="location">Location</label>
-        <input type="text" id="location" formControlName="location" required>
-      </div>
-      <div class="input-group">
-        <label for="jobTitle">Job Title</label>
-        <input type="text" id="jobTitle" formControlName="jobTitle" required>
-      </div>
-      <div class="input-group">
-        <label for="jobDescription">Job Description</label>
-        <textarea id="jobDescription" formControlName="jobDescription" required></textarea>
-      </div>
-      <div class="input-group">
-        <label for="requirements">Requirements</label>
-        <textarea id="requirements" formControlName="requirements" required></textarea>
-      </div>
-      <div class="input-group">
-        <label for="lastDateToApply">Last Date to Apply</label>
-        <input type="date" id="lastDateToApply" formControlName="lastDateToApply" required>
-      </div>
-      <div class="input-group">
-        <label for="status">Status</label>
-        <select id="status" formControlName="status" required>
-          <option value="ACTIVE">Active</option>
-          <option value="CLOSED">Closed</option>
-          <option value="DRAFT">Draft</option>
-        </select>
-      </div>
-      <button type="submit" class="submit-button">{{ jobForm.get('id')?.value ? 'Save Changes' : 'Submit Posting' }}</button>
-    </form>
+  <!-- Modal for Job Form -->
+  <div class="modal" [ngClass]="{'show': showModal}">
+    <div class="modal-content">
+      <span class="close-button" (click)="toggleModal()">&times;</span>
+      <form [formGroup]="jobForm" (ngSubmit)="saveJobPosting()">
+        <!-- Form Fields -->
+        <div class="input-group">
+          <label for="companyName">Company Name</label>
+          <input type="text" id="companyName" formControlName="companyName" required>
+        </div>
+        <div class="input-group">
+          <label for="companyLogoUrl">Company Logo URL</label>
+          <input type="text" id="companyLogoUrl" formControlName="companyLogoUrl">
+        </div>
+        <div class="input-group">
+          <label for="location">Location</label>
+          <input type="text" id="location" formControlName="location" required>
+        </div>
+        <div class="input-group">
+          <label for="jobTitle">Job Title</label>
+          <input type="text" id="jobTitle" formControlName="jobTitle" required>
+        </div>
+        <div class="input-group">
+          <label for="jobDescription">Job Description</label>
+          <textarea id="jobDescription" formControlName="jobDescription"></textarea>
+        </div>
+        <div class="input-group">
+          <label for="requirements">Requirements</label>
+          <textarea id="requirements" formControlName="requirements"></textarea>
+        </div>
+        <div class="input-group">
+          <label for="employmentType">Employment Type</label>
+          <input type="text" id="employmentType" formControlName="employmentType">
+        </div>
+        <div class="input-group">
+          <label for="jobCategory">Job Category</label>
+          <input type="text" id="jobCategory" formControlName="jobCategory">
+        </div>
+        <div class="input-group">
+          <label for="experienceLevel">Experience Level</label>
+          <input type="text" id="experienceLevel" formControlName="experienceLevel">
+        </div>
+        <div class="input-group">
+          <label for="educationRequirement">Education Requirement</label>
+          <input type="text" id="educationRequirement" formControlName="educationRequirement">
+        </div>
+        <div class="input-group">
+          <label for="skills">Skills</label>
+          <input type="text" id="skills" formControlName="skills">
+        </div>
+        <div class="input-group">
+          <label for="lastDateToApply">Last Date to Apply</label>
+          <input type="date" id="lastDateToApply" formControlName="lastDateToApply" required>
+        </div>
+        <div class="input-group">
+          <label for="salaryRange">Salary Range</label>
+          <input type="text" id="salaryRange" formControlName="salaryRange">
+        </div>
+        <div class="input-group">
+          <label for="currency">Currency</label>
+          <input type="text" id="currency" formControlName="currency">
+        </div>
+        <div class="input-group">
+          <label for="contactEmail">Contact Email</label>
+          <input type="email" id="contactEmail" formControlName="contactEmail">
+        </div>
+        <div class="input-group">
+          <label for="contactPhone">Contact Phone</label>
+          <input type="tel" id="contactPhone" formControlName="contactPhone">
+        </div>
+        <div class="input-group">
+          <label for="benefits">Benefits</label>
+          <input type="text" id="benefits" formControlName="benefits">
+        </div>
+        <div class="input-group">
+          <label for="applicationProcess">Application Process</label>
+          <input type="text" id="applicationProcess" formControlName="applicationProcess">
+        </div>
+        <div class="input-group">
+          <label for="companyWebsite">Company Website</label>
+          <input type="url" id="companyWebsite" formControlName="companyWebsite">
+        </div>
+        <div class="input-group">
+          <label for="jobLocationType">Job Location Type</label>
+          <input type="text" id="jobLocationType" formControlName="jobLocationType">
+        </div>
+        <div class="input-group">
+          <label for="status">Status</label>
+          <select id="status" formControlName="status" required>
+            <option value="ACTIVE">Active</option>
+            <option value="CLOSED">Closed</option>
+            <option value="DRAFT">Draft</option>
+          </select>
+        </div>
+        <button type="submit" class="submit-button">{{ jobForm.get('id')?.value ? 'Save Changes' : 'Submit Posting' }}</button>
+      </form>
+    </div>
   </div>
-</div>
 
   <!-- Job Listings -->
   <div class="job-card" *ngFor="let job of jobPostings">
@@ -59,8 +111,6 @@
     </div>
     <div class="job-details">
       <p><strong>Location:</strong> {{ job.location }}</p>
-      <p><strong>Job Description:</strong> {{ job.jobDescription }}</p>
-      <p><strong>Requirements:</strong> {{ job.requirements }}</p>
       <p><strong>Last Date to Apply:</strong> {{ job.lastDateToApply | date }}</p>
       <p><strong>Status:</strong> {{ job.status }}</p>
     </div>
