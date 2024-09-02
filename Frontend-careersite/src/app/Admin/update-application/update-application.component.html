@@ -1,94 +1,101 @@
-<section class="main-content">
-    <button class="back-button" (click)="goBack()">Back</button>
+<!-- Search Section -->
 
+  
+  <section class="main-content">
+    <button class="back-button" (click)="goBack()">Back</button>
+    <section class="search-section">
+      <input type="text" class="search-bar" [(ngModel)]="searchText" placeholder="👤 Search for Applicant...">
+    </section>
+  
     <!-- Header with Company Name and Job Role -->
     <div class="header-section">
-        <div class="company-info">
-            <img [src]="companyLogo" alt="{{ jobTitle }} Logo" class="company-logo">
-            <div class="company-details">
-                <h4>{{ jobTitle }}</h4>
-                <h5>{{ companyName }}</h5>
-            </div>
+      <div class="company-info">
+        <img [src]="companyLogo" alt="{{ jobTitle }} Logo" class="company-logo">
+        <div class="company-details">
+          <h4>{{ jobTitle }}</h4>
+          <h5>{{ companyName }}</h5>
         </div>
+      </div>
     </div>
-
-<!-- Applications Table -->
-<table class="applications-table">
-    <thead>
+  
+    <!-- Applications Table -->
+    <table class="applications-table">
+      <thead>
         <tr>
-            <th>Applicant Name</th>
-            <th>Date Applied</th>
-            <th>Current Status</th>
-            <th>Current Stage</th>
-            <th>Actions</th>
-            <th>User Profile</th>
+          <th>Applicant Name</th>
+          <th>Date Applied</th>
+          <th>Current Status</th>
+          <th>Current Stage</th>
+          <th>Actions</th>
+          <th>User Profile</th>
         </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let application of applications">
-            <td>{{ application.user.username }}</td>
-            <td>{{ application.submittedAt | date }}</td>
-            <td>
-                <select [(ngModel)]="application.status" (change)="updateStatus(application)">
-                    <option *ngFor="let status of statusOptions" [value]="status">{{ status }}</option>
-                </select>
-            </td>
-            <td>{{ application.currentStage }}</td>
-            <td>
-                <button (click)="openStageModal(application)" [disabled]="application.status !== 'ACCEPTED'">Update Stage</button>
-            </td>
-            <td>
-                <button (click)="openProfileModal(application.userProfile.id)">View Profile</button>
-            </td>
+      </thead>
+      <tbody>
+        <tr *ngFor="let application of applications | search:searchText:['user.username','currentStage']">
+          <td>{{ application.user.username }}</td>
+          <td>{{ application.submittedAt | date }}</td>
+          <td>
+            <select [(ngModel)]="application.status" (change)="updateStatus(application)">
+              <option *ngFor="let status of statusOptions" [value]="status">{{ status }}</option>
+            </select>
+          </td>
+          <td>{{ application.currentStage }}</td>
+          <td>
+            <button (click)="openStageModal(application)" [disabled]="application.status !== 'ACCEPTED'">Update Stage</button>
+          </td>
+          <td>
+            <button (click)="openProfileModal(application.userProfile.id)">View Profile</button>
+          </td>
         </tr>
-    </tbody>
-</table>
-
+      </tbody>
+    </table>
+  
     <!-- Stage Update Modal -->
     <div *ngIf="showStageModal" class="modal-overlay">
-        <div class="modal-content">
-            <button class="close-button" (click)="closeStageModal()">Close</button>
-            <h3>Update Stage for Application ID: {{ selectedApplication?.id }}</h3>
-            <label for="stage">Select Stage:</label>
-            <select id="stage" [(ngModel)]="selectedStage">
-                <option *ngFor="let stage of stageOptions" [value]="stage">{{ stage }}</option>
-            </select>
-            <label for="stageStatus">Select Stage Status:</label>
-            <select id="stageStatus" [(ngModel)]="selectedStageStatus">
-                <option *ngFor="let status of stageStatusOptions" [value]="status">{{ status }}</option>
-            </select>
-            <button (click)="updateStage()">Update</button>
-        </div>
+      <div class="modal-content">
+        <button class="close-button" (click)="closeStageModal()">Close</button>
+        <h3>Update Stage for Application ID: {{ selectedApplication?.id }}</h3>
+        <label for="stage">Select Stage:</label>
+        <select id="stage" [(ngModel)]="selectedStage">
+          <option *ngFor="let stage of stageOptions" [value]="stage">{{ stage }}</option>
+        </select>
+        <label for="stageStatus">Select Stage Status:</label>
+        <select id="stageStatus" [(ngModel)]="selectedStageStatus">
+          <option *ngFor="let status of stageStatusOptions" [value]="status">{{ status }}</option>
+        </select>
+        <button (click)="updateStage()">Update</button>
+      </div>
     </div>
-
+  
     <!-- User Profile Modal -->
     <div *ngIf="showProfileModal" class="modal-overlay">
-        <div class="modal-content">
-            <button class="close-button" (click)="closeProfileModal()">Close</button>
-            <div *ngIf="userProfile" class="profile-container">
-                <div class="profile-header">
-                    <img [src]="userProfile.profilePicture" alt="Profile Picture" class="profile-picture">
-                    <div class="profile-details">
-                        <h3>{{ userProfile.firstName }} {{ userProfile.lastName }}</h3>
-                        <p>Email: {{ userProfile.email }}</p>
-                        <p>Phone: {{ userProfile.phoneNumber }}</p>
-                    </div>
-                </div>
-                <div class="additional-details">
-                    <p>Qualification: {{ userProfile.highestQualification }}</p>
-                    <p>Field of Study: {{ userProfile.fieldOfStudy }}</p>
-                    <p>College: {{ userProfile.college }}</p>
-                    <p>Graduation Year: {{ userProfile.graduationYear }}</p>
-                    <p>Grades: {{ userProfile.grades }}</p>
-                    <p>Experience: {{ userProfile.totalExperience }}</p>
-                    <p>Current Employer: {{ userProfile.currentEmployer }}</p>
-                    <p>Current Position: {{ userProfile.currentPosition }}</p>
-                    <p>Employment History: {{ userProfile.employmentHistory }}</p>
-                    <p *ngIf="userProfile.resume">Resume: <a [href]="userProfile.resume" target="_blank">View Resume</a></p>
-                    <p *ngIf="userProfile.portfolio">Portfolio: <a [href]="userProfile.portfolio" target="_blank">View Portfolio</a></p>
-                    <p *ngIf="userProfile.linkedinProfile">LinkedIn: <a [href]="userProfile.linkedinProfile" target="_blank">View LinkedIn Profile</a></p>
-                </div>
+      <div class="modal-content">
+        <button class="close-button" (click)="closeProfileModal()">Close</button>
+        <div *ngIf="userProfile" class="profile-container">
+          <div class="profile-header">
+            <img [src]="userProfile.profilePicture" alt="Profile Picture" class="profile-picture">
+            <div class="profile-details">
+              <h3>{{ userProfile.firstName }} {{ userProfile.lastName }}</h3>
+              <p>Email: {{ userProfile.email }}</p>
+              <p>Phone: {{ userProfile.phoneNumber }}</p>
             </div>
+          </div>
+          <div class="additional-details">
+            <p>Qualification: {{ userProfile.highestQualification }}</p>
+            <p>Field of Study: {{ userProfile.fieldOfStudy }}</p>
+            <p>College: {{ userProfile.college }}</p>
+            <p>Graduation Year: {{ userProfile.graduationYear }}</p>
+            <p>Grades: {{ userProfile.grades }}</p>
+            <p>Experience: {{ userProfile.totalExperience }}</p>
+            <p>Current Employer: {{ userProfile.currentEmployer }}</p>
+            <p>Current Position: {{ userProfile.currentPosition }}</p>
+            <p>Employment History: {{ userProfile.employmentHistory }}</p>
+            <p *ngIf="userProfile.resume">Resume: <a [href]="userProfile.resume" target="_blank">View Resume</a></p>
+            <p *ngIf="userProfile.portfolio">Portfolio: <a [href]="userProfile.portfolio" target="_blank">View Portfolio</a></p>
+            <p *ngIf="userProfile.linkedinProfile">LinkedIn: <a [href]="userProfile.linkedinProfile" target="_blank">View LinkedIn Profile</a></p>
+          </div>
         </div>
+      </div>
     </div>
-</section>
+  </section>
+  

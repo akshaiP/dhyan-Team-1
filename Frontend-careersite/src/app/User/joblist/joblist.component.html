@@ -56,7 +56,7 @@
     <section class="job-listings">
       <h2>Available Jobs</h2>
       <div class="job-grid">
-        <div *ngFor="let job of jobList | filter: selectedLocation : selectedExperience : selectedJobType : selectedSalaryRange | search:searchText" class="job-card">
+        <div *ngFor="let job of jobList | filter: selectedLocation : selectedExperience : selectedJobType : selectedSalaryRange | search:searchText:['jobTitle', 'companyName']" class="job-card">
   
 
           <div class="company-info">

@@ -3,15 +3,19 @@ import { AdminJobService } from '../../service/admin-job.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { SearchPipe } from '../../pipe/search.pipe';
 
 @Component({
   selector: 'app-updateapplications',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,SearchPipe],
   templateUrl: './update-application.component.html',
   styleUrls: ['./update-application.component.css']
 })
 export class UpdateApplicationComponent implements OnInit {
+
+  searchText: string = '';
+  
   jobTitle!: string;
   companyName!: string;
   companyLogo!: string;
