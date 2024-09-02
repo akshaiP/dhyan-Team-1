@@ -11,8 +11,6 @@ import { ApplicationStatusComponent } from './User/applicationstatus/application
 import { FavoriteJobsComponent } from './User/favouritejobs/favouritejobs.component';
 import { JoblistComponent } from './User/joblist/joblist.component';
 import { canActivateGuard } from './guard/canactivate.guard';
-import { UpdateApplicationComponent } from './Admin/update-application/update-application.component';
-import { UserProfileComponent } from './User/user-profile/user-profile.component';
 
 
 export const routes: Routes = [
@@ -45,12 +43,7 @@ export const routes: Routes = [
       {
         path: 'job-posting',
         component: JobPostingComponent
-      },
-      { 
-        path: 'updateapplication/:id', 
-        component: UpdateApplicationComponent 
       }
-
     ]
   },
   {
@@ -73,10 +66,6 @@ export const routes: Routes = [
       {
         path: 'job-list',
         component: JoblistComponent
-      },
-      {
-        path: 'user-profile',  // Add this route for the user profile page
-        component: UserProfileComponent
       }
     ]
   }

@@ -6,13 +6,13 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class JobService {
-  private apiEndpoint: string = 'http://localhost:8080/api/user/';  
+  private apiEndpoint: string = 'http://localhost:8080/api/user/';  // Replace with your backend API URL
 
   constructor(private http: HttpClient) {}
 
   // Helper method to get headers with the JWT token
   private getAuthHeaders(): HttpHeaders {
-    const token = localStorage.getItem('angular18Token'); 
+    const token = localStorage.getItem('angular18Token'); // Adjust key name 
     return new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
@@ -37,7 +37,7 @@ export class JobService {
     });
   }
   // Apply for a job
-  ApplyForJob(request: { jobId: number; userId: number}): Observable<any> {
+  ApplyForJob(request: { jobId: number; userId: number; resume: string }): Observable<any> {
     return this.http.post<any>(`${this.apiEndpoint}apply`, request, {
       headers: this.getAuthHeaders()
     });
@@ -66,16 +66,5 @@ export class JobService {
       headers: this.getAuthHeaders()
     });
   }
-
-  getUserProfile(userId: number): Observable<any> {
-    return this.http.get<any>(`${this.apiEndpoint}profile?userId=${userId}` , {
-      headers: this.getAuthHeaders()
-    });
-  }
-
-  createOrUpdateProfile(profile: any): Observable<any> {
-    return this.http.post<any>(`${this.apiEndpoint}profile`, profile, {
-      headers: this.getAuthHeaders()
-    });
-  }
 }
+

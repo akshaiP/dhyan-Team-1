@@ -1,56 +1,6 @@
-<!-- Dashboard Section -->
-<div class="dashboard">
-    <div class="stats-container">
-        <div class="stat-card">
-            <h3>{{ companiesCount }}</h3>
-            <p>Companies</p>
-        </div>
-        <div class="stat-card">
-            <h3>{{ applicationsCount }}</h3>
-            <p>Applications</p>
-        </div>
-        <div class="stat-card">
-            <h3>{{ usersCount }}</h3>
-            <p>Users</p>
-        </div>
-        <div class="stat-card">
-            <h3>{{ jobPostingsCount }}</h3>
-            <p>Job Postings</p>
-        </div>
-    </div>
-  
-    <!-- Companies List -->
-    <div class="companies-list">
-        <h2>Companies List</h2>
-        <div class="company-grid">
-            <div class="company-card" *ngFor="let company of companies">
-                <img src="assets/{{ company.logo }}" alt="Company Logo">
-                <p>{{ company.name }}</p>
-            </div>
-        </div>
-    </div>
-  
-    <!-- Quick Stats -->
-    <div class="quick-stats">
-        <h2>Quick Stats</h2>
-        <div class="stats-container">
-            <div class="stat-card">
-                <h3>{{ newApplicationsToday }}</h3>
-                <p>New Applications Today</p>
-            </div>
-            <div class="stat-card">
-                <h3>{{ newCompaniesRegistered }}</h3>
-                <p>New Companies Registered</p>
-            </div>
-            <div class="stat-card">
-                <h3>{{ jobsPostedToday }}</h3>
-                <p>Jobs Posted Today</p>
-            </div>
-            <div class="stat-card">
-                <h3>{{ usersSuspended }}</h3>
-                <p>Users Suspended</p>
-            </div>
-        </div>
-    </div>
-  </div>
-  
+<br>
+<br>
+<br>
+<br>
+<p>Admin dashboard works!</p>
+<p>{{userList|json}}</p>

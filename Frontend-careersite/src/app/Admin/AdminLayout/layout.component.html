@@ -1,19 +1,17 @@
 <!-- Navbar -->
 <nav class="navbar">
-  <div class="container">
-    <div class="brand-logo">HIRE ME📢</div>
-    <ul class="nav-links">
-      <!-- Use routerLink instead of href -->
-      <li><a [routerLink]="'/admin-dashboard'" routerLinkActive="active">Dashboard</a></li>
-      <li><a [routerLink]="'/applications'" routerLinkActive="active">Applications</a></li>
-      <li><a [routerLink]="'/job-posting'" routerLinkActive="active">Job Postings</a></li>
-    </ul>
-    <div class="user-actions">
-      <span class="user-icon">Admin👤</span>
-      <button (click)="logout()" class="logout-button">Logout</button>
+    <div class="container">
+      <div class="brand-logo">HIRE ME📢</div>
+      <ul class="nav-links">
+        <li><a href="#dashboard" class="active">Dashboard</a></li>
+        <li><a href="#application-status">Applications</a></li>
+        <li><a href="#favorite-jobs">Job Postings</a></li>
+      </ul>
+      <div class="user-actions">
+        <span class="user-icon"></span>
+        <button class="logout-button">Admin👤</button>
+      </div>
     </div>
-  </div>
-</nav>
-
-<!-- Router Outlet -->
-<router-outlet></router-outlet>
+  </nav>
+  <router-outlet></router-outlet>
+  

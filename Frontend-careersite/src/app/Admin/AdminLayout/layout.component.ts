@@ -1,19 +1,15 @@
 import { Component } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
+import { DashboardComponent } from "../AdminDashboard/dashboard.component";
+
 
 @Component({
   selector: 'app-layout',
-  standalone:true,
-  imports:[RouterModule],
+  standalone: true,
+  imports: [RouterOutlet, DashboardComponent],
   templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.css']
+  styleUrl: './layout.component.css'
 })
 export class LayoutComponent {
 
-  constructor(private router: Router) {}
-
-  logout(): void {
-    localStorage.clear(); 
-    this.router.navigate(['/login']); // Redirect to login page
-  }
 }

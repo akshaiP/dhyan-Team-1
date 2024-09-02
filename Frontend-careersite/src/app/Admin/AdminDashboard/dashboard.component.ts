@@ -1,59 +1,24 @@
-import { Component, NgModule, OnInit } from '@angular/core';
-import { AdminJobService } from '../../service/admin-job.service';
-import { CommonModule } from '@angular/common';
+import { JsonPipe } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { Component ,inject,OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-dashboard',
-  standalone:true,
-  imports:[CommonModule],
+  standalone: true,
+  imports: [JsonPipe],
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent implements OnInit {
-  
-  companiesCount: number = 0;
-  applicationsCount: number = 0;
-  usersCount: number = 0;
-  jobPostingsCount: number = 0;
-  companies: any[] = [];
-  newApplicationsToday: number = 0;
-  newCompaniesRegistered: number = 0;
-  jobsPostedToday: number = 0;
-  usersSuspended: number = 0;
-
-  constructor(private adminJobService: AdminJobService) {}
-
+  http=inject(HttpClient);
+  userList:any[]=[];
   ngOnInit(): void {
-    this.getDashboardStats();
-    this.getCompanies();
+    this.getAllUser();
   }
-
-  getDashboardStats(): void {
-    this.adminJobService.getDashboardStats().subscribe(
-      data => {
-        this.companiesCount = data.companiesCount;
-        this.applicationsCount = data.applicationsCount;
-        this.usersCount = data.usersCount;
-        this.jobPostingsCount = data.jobPostingsCount;
-        this.newApplicationsToday = data.newApplicationsToday;
-        this.newCompaniesRegistered = data.newCompaniesRegistered;
-        this.jobsPostedToday = data.jobsPostedToday;
-        this.usersSuspended = data.usersSuspended;
-      },
-      error => {
-        console.error('Error fetching dashboard stats:', error);
-      }
-    );
-  }
-
-  getCompanies(): void {
-    this.adminJobService.getCompanies().subscribe(
-      data => {
-        this.companies = data;
-      },
-      error => {
-        console.error('Error fetching companies:', error);
-      }
-    );
+  getAllUser()
+  {
+    this.http.get("http://localhost:8080/api/admin/job-posting").subscribe((Res:any)=>{
+      this.userList=Res;
+    })
   }
 }
