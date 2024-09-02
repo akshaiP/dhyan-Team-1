@@ -1,12 +1,67 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AdminJobService } from '../../service/admin-job.service';
+import { Router } from '@angular/router'; 
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-applications',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, FormsModule],
   templateUrl: './applications.component.html',
-  styleUrl: './applications.component.css'
+  styleUrls: ['./applications.component.css']
 })
-export class ApplicationsComponent {
+export class ApplicationsComponent implements OnInit {
+  companyApplications: any[] = [];
+  loading: boolean = false;
+  error: string | null = null;
 
+  constructor(
+    private jobService: AdminJobService,
+    private router: Router
+  ) {}
+
+  ngOnInit() {
+    this.loadJobApplications();
+  }
+
+  loadJobApplications() {
+    this.loading = true;
+    this.jobService.getAllApplications().subscribe(
+      (applications: any[]) => {
+        // Aggregate applications by job ID
+        const jobMap = new Map<string, { jobId: string, companyName: string, applicationsCount: number, companyLogoUrl: string }>();
+
+        applications.forEach(app => {
+          const jobId = app.jobPosting.id; // Get job ID
+          const companyName = app.jobPosting.companyName;
+          const companyLogoUrl = app.jobPosting.companyLogoUrl;
+
+          if (!jobMap.has(jobId)) {
+            jobMap.set(jobId, { 
+              jobId: jobId,
+              companyName: companyName, 
+              applicationsCount: 1,
+              companyLogoUrl: companyLogoUrl 
+            });
+          } else {
+            jobMap.get(jobId)!.applicationsCount++;
+          }
+        });
+
+        this.companyApplications = Array.from(jobMap.values());
+        this.loading = false;
+      },
+      (error: any) => {
+        this.error = 'Error fetching job applications. Please try again later.';
+        this.loading = false;
+        console.error('Error fetching job applications:', error);
+      }
+    );
+  }
+
+  onViewApplications(jobId: string): void {
+    console.log(`Viewing applications for job ID: ${jobId}`);
+    this.router.navigate(['/updateapplication', jobId]); 
+  }
 }
