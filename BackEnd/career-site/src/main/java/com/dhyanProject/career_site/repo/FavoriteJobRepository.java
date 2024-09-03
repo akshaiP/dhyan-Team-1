@@ -12,4 +12,5 @@ import java.util.List;
 public interface FavoriteJobRepository extends JpaRepository<FavoriteJob,Long> {
     List<FavoriteJob> findByUserId(Long userId);
     void deleteByUserAndJobPosting(Users user, JobPosting jobPosting);
+    void deleteByJobPosting(JobPosting jobPosting);
 }

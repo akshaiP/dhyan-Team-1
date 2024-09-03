@@ -12,4 +12,5 @@ import java.util.Optional;
 public interface StageRepository extends JpaRepository<Stage,Long> {
     Optional<Stage> findByApplicationAndStageName(JobApplications application, String stageName);
     List<Stage> findByApplication(JobApplications application);
+    void deleteByApplication(JobApplications application);
 }
