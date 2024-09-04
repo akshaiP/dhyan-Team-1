@@ -6,6 +6,7 @@ import com.dhyanProject.career_site.model.*;
 import com.dhyanProject.career_site.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -175,5 +176,21 @@ public class JobApplicationsService {
 
     public List<JobApplications> getApplicationsByJobId(Long jobId) {
         return applicationRepository.findByJobPostingId(jobId);
+    }
+
+    @Transactional
+    public void removeApplication(ApplicationRequest request) {
+        JobApplications application = applicationRepository.findByJobPosting_IdAndUser_Id(request.getJobId(), request.getUserId());
+
+        if (application != null) {
+            // Remove all stages associated with this application
+            List<Stage> stages = stageRepository.findByApplication(application);
+            stageRepository.deleteAll(stages); // Delete stages
+
+            // Now remove the application itself
+            applicationRepository.delete(application);
+        } else {
+            throw new IllegalStateException("Application not found");
+        }
     }
 }

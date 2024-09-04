@@ -74,6 +74,21 @@ export class JoblistComponent implements OnInit {
     });
   }
 
+  unapplyForJob(jobId: number): void {
+    const userId = localStorage.getItem('userId');
+    if (!userId) {
+      alert('User not logged in!');
+      return;
+    }
+    const request = { jobId: jobId, userId: +userId };
+    this.jobSer.UnapplyForJob(request).subscribe(() => {
+      alert('Successfully removed application!');
+      this.updateJobList(jobId, 'unapplied');
+    }, (error: any) => {
+      console.error('Error removing application:', error);
+    });
+  }
+
   toggleFavorite(jobId: number): void {
     const job = this.jobList.find(j => j.id === jobId);
     if (job) {
@@ -113,6 +128,10 @@ export class JoblistComponent implements OnInit {
     if (job) {
       if (action === 'applied') {
         job.isApplied = true;
+        job.applicationStatus = 'PENDING'; // Ensure to set the status accordingly
+      } else if (action === 'unapplied') {
+        job.isApplied = false;
+        job.applicationStatus = 'UNAPPLIED'; // Adjust as needed
       } else if (action === 'favorite') {
         job.isFavorite = true;
       } else if (action === 'removeFavorite') {
@@ -125,9 +144,13 @@ export class JoblistComponent implements OnInit {
     const userId = localStorage.getItem('userId');
     if (userId) {
       this.jobSer.GetUserApplications(userId).subscribe((res: any) => {
-        const appliedJobIds = new Set(res.map((app: any) => app.jobPosting.id));
+        const appliedJobs = res.reduce((acc: any, app: any) => {
+          acc[app.jobPosting.id] = app.status; // Use the status from the response
+          return acc;
+        }, {});
         this.jobList.forEach(job => {
-          job.isApplied = appliedJobIds.has(job.id);
+          job.isApplied = appliedJobs.hasOwnProperty(job.id);
+          job.applicationStatus = appliedJobs[job.id] || 'PENDING'; // Set the status accordingly
         });
       });
     }

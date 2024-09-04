@@ -85,7 +85,7 @@ export class UserProfileComponent implements OnInit {
   saveProfile(): void {
     if (this.profileForm.valid) {
       const userId = localStorage.getItem('userId');
-      const profileData = { ...this.profileForm.value, userId };
+      const profileData = { ...this.profileForm.value, user: { id: userId } };
       this.userProfileService.createOrUpdateProfile(profileData).subscribe(
         response => {
           this.userProfile = response; // Update userProfile with the saved data

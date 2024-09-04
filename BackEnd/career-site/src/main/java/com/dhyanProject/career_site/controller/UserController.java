@@ -46,6 +46,16 @@ public class UserController {
         }
     }
 
+    @DeleteMapping("/apply")
+    public ResponseEntity<?> unApplyForJob(@RequestBody ApplicationRequest request) {
+        try {
+            applicationService.removeApplication(request);
+            return ResponseEntity.noContent().build();
+        } catch (IllegalStateException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
     @GetMapping("/applications")
     public ResponseEntity<List<JobApplications>> getUserApplications(@RequestParam Long userId) {
         return ResponseEntity.ok(applicationService.getUserApplications(userId));

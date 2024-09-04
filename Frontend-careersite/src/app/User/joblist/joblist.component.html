@@ -80,6 +80,9 @@
               <button class="btn-primary" [disabled]="job.isApplied" (click)="applyForJob(job.id)">
                 {{ job.isApplied ? 'Applied' : 'Apply' }}
               </button>
+              <button *ngIf="job.isApplied && job.applicationStatus === 'PENDING'" class="btn-secondary" (click)="unapplyForJob(job.id)">
+                Unapply
+              </button>
               <button class="btn-secondary" (click)="toggleFavorite(job.id)">
                 {{ job.isFavorite ? 'Remove from Favorites' : '⭐ Mark as Favorite' }}
               </button>

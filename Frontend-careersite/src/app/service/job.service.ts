@@ -43,6 +43,13 @@ export class JobService {
     });
   }
 
+  UnapplyForJob(request: { jobId: number; userId: number}): Observable<any> {
+    return this.http.delete<any>(`${this.apiEndpoint}apply`, {
+      headers: this.getAuthHeaders(),
+      body: request
+    });
+  }
+
   GetFavoriteJobs(): Observable<any> {
     const userId = localStorage.getItem('userId');
     return this.http.get<any>(`${this.apiEndpoint}favorite?userId=${userId}`, {
