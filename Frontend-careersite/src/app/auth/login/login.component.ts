@@ -1,23 +1,39 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router'; 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { Router, RouterLink, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule],
+  imports: [
+    CommonModule,
+    RouterLink, RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatCardModule,
+    MatFormFieldModule,MatIconModule,
+    MatInputModule
+  ],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'] 
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
 
   loginObj: any = {
-    "username": "",
-    "password": ""
+    username: '',
+    password: ''
   };
 
-  
+  hidePassword = true;
+
   private http = inject(HttpClient);
   private router = inject(Router);
 
@@ -35,5 +51,14 @@ export class LoginComponent {
       }, error => {
         alert("An error occurred: " + error.message);
       });
+  }
+
+  togglePasswordVisibility(event: MouseEvent) {
+    // Prevent the default action and stop the event from bubbling up
+    event.preventDefault();
+    event.stopPropagation();
+
+    // Toggle the visibility of the password
+    this.hidePassword = !this.hidePassword;
   }
 }

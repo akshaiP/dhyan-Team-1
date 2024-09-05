@@ -1,0 +1,106 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+.main-content {
+  margin-top: 100px;
+  padding: 20px;
+}
+.company-logo {
+  width: 150px; /* Adjust width for medium size */
+  height: 150px; /* Adjust height for medium size */
+  border-radius: 50%; /* Keeps the image circular */
+  object-fit: cover; /* Ensures the image covers the entire area without distortion */
+}
+
+
+.create-job-button {
+  margin-bottom: 20px;
+  padding: 10px 15px;
+  background-color: primary;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.create-job-button:hover {
+  background-color: mat-color(primary, 700);
+}
+
+/* Modal Background */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Overlay effect */
+  justify-content: center;
+  align-items: center;
+}
+
+.modal.show {
+  display: flex; /* Show the modal */
+}
+/* Modal Content */
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh; /* Adjusts the maximum height to 90% of the viewport height */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto; /* Enables scrolling inside the modal content */
+}
+
+/* Close Button */
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #aaa;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 1001; /* Ensures the close button stays on top of the content */
+}
+
+.close-button:hover {
+  color: #000;
+}
+
+/* Styles for job cards */
+.job-card {
+  margin-bottom: 20px;
+}
+
+.company-logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.actions-right {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px; /* Optional: Adds space between the FABs */
+}
+
+.full-width {
+  width: 100%; /* Ensure each form field takes up the full width of the modal */
+  margin-bottom: 20px; /* Add some spacing between form fields */
+}
+
+.submit-button {
+  margin-top: 20px;
+}

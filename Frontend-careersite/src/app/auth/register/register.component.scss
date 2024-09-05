@@ -10,22 +10,21 @@ body {
 }
 
 .signup-container {
-    background-color: #ffffff;
-    padding: 30px;
+    padding: 10px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 700px; /* Increased max-width for a larger container */
+    max-width: 400px;
     width: 100%;
     text-align: center;
-    margin: 20px;
-    overflow: auto; /* Ensure scrolling if content overflows */
+    margin-left: 500px;
+    overflow: auto;
 }
 
 .logo-text {
     font-size: 32px;
     font-weight: bold;
     margin-bottom: 10px;
-    color: #007bff;
+    color: #3f51b5;
 }
 
 .quote {
@@ -41,51 +40,16 @@ body {
     color: #333;
 }
 
-.signup-form {
-    text-align: left;
-}
-
 .form-group {
     margin-bottom: 20px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-    color: #333;
-}
-
-.form-group input, .form-group select {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 16px;
 }
 
 button {
     width: 100%;
     padding: 12px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
     font-weight: bold;
     font-size: 16px;
     margin-top: 10px;
-    transition: background-color 0.3s ease;
-}
-
-button:hover {
-    background-color: #0056b3;
-}
-
-.error-message {
-    color: #d9534f;
-    font-size: 14px;
-    margin-top: 5px;
 }
 
 .login-link {
@@ -102,20 +66,4 @@ button:hover {
     text-decoration: none;
 }
 
-.login-link a:hover {
-    text-decoration: underline;
-}
 
-@media (max-width: 768px) {
-    .signup-container {
-        padding: 15px;
-    }
-
-    .logo-text {
-        font-size: 24px;
-    }
-
-    .quote {
-        font-size: 16px;
-    }
-}

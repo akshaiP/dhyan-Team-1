@@ -10,7 +10,7 @@ import { LayoutComponent } from "./Admin/AdminLayout/layout.component";
   standalone: true,
   imports: [RouterOutlet, LoginComponent, DashboardComponent, LayoutComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.scss'
 })
 export class AppComponent {
   title = 'Hire Me!';

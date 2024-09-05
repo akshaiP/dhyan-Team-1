@@ -66,16 +66,17 @@ export const routes: Routes = [
         path: 'application-status',
         component: ApplicationStatusComponent
       },
-      {
-        path: 'favorite-jobs',
-        component: FavoriteJobsComponent
-      },
+     
       {
         path: 'job-list',
         component: JoblistComponent
       },
       {
-        path: 'user-profile',  // Add this route for the user profile page
+        path: 'favorite-jobs',
+        component: FavoriteJobsComponent
+      },
+      {
+        path: 'user-profile',  
         component: UserProfileComponent
       }
     ]

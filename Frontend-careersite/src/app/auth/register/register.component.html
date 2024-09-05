@@ -1,61 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
-    <link rel="stylesheet" href="register.component.css">
-</head>
-<body>
-    <div class="signup-container">
-        <div class="logo-text">HIRE ME📢</div>
-        <div class="quote">"THE KEY TO HAPPINESS"</div>
-        <h2>Create an Account</h2>
-        <form class="signup-form" (ngSubmit)="onRegister(signupForm)" #signupForm="ngForm">
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" [(ngModel)]="username" #usernameField="ngModel" required>
-                <div *ngIf="usernameField.invalid && usernameField.touched" class="error-message">
-                    Username is required.
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" [(ngModel)]="email" #emailField="ngModel" required>
-                <div *ngIf="emailField.invalid && emailField.touched" class="error-message">
-                    Email is required and must be valid.
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" [(ngModel)]="password" #passwordField="ngModel" required>
-                <div *ngIf="passwordField.invalid && passwordField.touched" class="error-message">
-                    Password is required.
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="confirm-password">Confirm Password</label>
-                <input type="password" id="confirm-password" name="confirmPassword" [(ngModel)]="confirmPassword" #confirmPasswordField="ngModel" required>
-                <div *ngIf="confirmPasswordField.invalid && confirmPasswordField.touched" class="error-message">
-                    Confirm Password is required.
-                </div>
-                <div *ngIf="password !== confirmPassword && confirmPasswordField.touched" class="error-message">
-                    Passwords must match.
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="mobile">Mobile Number</label>
-                <input type="text" id="mobile" name="mobile" [(ngModel)]="phoneNumber" #mobileField="ngModel" required>
-                <div *ngIf="mobileField.invalid && mobileField.touched" class="error-message">
-                    Mobile number is required.
-                </div>
-            </div>
-             
-            <button type="submit" [disabled]="signupForm.invalid">Sign Up</button>
-        </form>
-        <div class="login-link">
-            <p>Already have an account? <a href="login">Log in</a></p>
-        </div>
+<mat-card class="signup-container">
+    <div class="logo-text">HIRE ME📢</div>
+    <div class="quote">"THE KEY TO HAPPINESS"</div>
+    <h2>Create an Account</h2>
+    <form class="signup-form" (ngSubmit)="onRegister(signupForm)" #signupForm="ngForm">
+      
+      <mat-form-field class="form-group" appearance="fill">
+        <mat-label>Username</mat-label>
+        <input matInput type="text" id="username" name="username" [(ngModel)]="username" #usernameField="ngModel" required>
+        <mat-error *ngIf="usernameField.invalid && usernameField.touched">
+          Username is required.
+        </mat-error>
+      </mat-form-field>
+  
+      <mat-form-field class="form-group" appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput placeholder="Hireme@example.com" [formControl]="email" (blur)="updateErrorMessage()" required />
+        @if (email.invalid) {
+        <mat-error>{{errorMessage()}}</mat-error>
+        }
+      </mat-form-field>
+  
+      <mat-form-field class="form-group" appearance="fill">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" id="password" name="password" [(ngModel)]="password" #passwordField="ngModel" required>
+        <mat-error *ngIf="passwordField.invalid && passwordField.touched">
+          Password is required.
+        </mat-error>
+      </mat-form-field>
+  
+      <mat-form-field class="form-group" appearance="fill">
+        <mat-label>Confirm Password</mat-label>
+        <input matInput type="password" id="confirm-password" name="confirmPassword" [(ngModel)]="confirmPassword" #confirmPasswordField="ngModel" required>
+        <mat-error *ngIf="confirmPasswordField.invalid && confirmPasswordField.touched">
+          Confirm Password is required.
+        </mat-error>
+        <mat-error *ngIf="password !== confirmPassword && confirmPasswordField.touched">
+          Passwords must match.
+        </mat-error>
+      </mat-form-field>
+  
+      
+      <mat-form-field class="form-group" appearance="fill">
+          <mat-label>Telephone</mat-label>
+          <span matTextPrefix>+91 &nbsp;</span>
+          <input type="tel" matInput placeholder="123-456-7890">
+         
+        </mat-form-field>
+      
+  
+      <button mat-raised-button color="primary" type="submit" [disabled]="signupForm.invalid">Sign Up</button>
+    </form>
+    <div class="login-link">
+      <p>Already have an account? <a mat-button color="accent" routerLink="/login">Log in</a></p>
     </div>
-</body>
-</html>
+  </mat-card>
+  
