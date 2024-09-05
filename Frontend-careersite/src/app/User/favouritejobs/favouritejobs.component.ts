@@ -9,14 +9,14 @@ import { JobService } from '../../service/job.service';
 
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-
+import { ToastrService } from 'ngx-toastr'; 
 
 @Component({
   selector: 'app-favoritejobs',
-  schemas:[CUSTOM_ELEMENTS_SCHEMA],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   standalone: true,
   imports: [
-   CommonModule,
+    CommonModule,
     MatButtonModule,
     MatIconModule,
     MatCardModule,
@@ -26,16 +26,14 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
   ],
   templateUrl: './favouritejobs.component.html',
   styleUrls: ['./favouritejobs.component.scss'],
-  providers:[JobService]
+  providers: [JobService]
 })
-
 export class FavoriteJobsComponent implements OnInit {
   favoriteJobs: any[] = [];
   showJobDetailsModal: boolean = false;
   selectedJob: any = null;
 
-
-  constructor(private jobService: JobService) {}
+  constructor(private jobService: JobService, private toastr: ToastrService) {} 
 
   ngOnInit(): void {
     this.loadFavoriteJobs();
@@ -43,16 +41,16 @@ export class FavoriteJobsComponent implements OnInit {
 
   loadFavoriteJobs(): void {
     this.jobService.GetFavoriteJobs().subscribe((res: any) => {
-      this.favoriteJobs = res.map((item: any) => item.jobPosting); 
+      this.favoriteJobs = res.map((item: any) => item.jobPosting);
     });
   }
 
-
-
   removeFromFavorites(jobId: number): void {
     this.jobService.RemoveFromFavorites(jobId).subscribe(() => {
-      alert('Job removed from favorites!');
-      this.loadFavoriteJobs(); // Refresh the list
+      this.toastr.success('Job removed from favorites!', 'Success'); 
+      this.loadFavoriteJobs(); 
+    }, error => {
+      this.toastr.error('Failed to remove job from favorites.', 'Error'); 
     });
   }
 
@@ -69,7 +67,4 @@ export class FavoriteJobsComponent implements OnInit {
     this.showJobDetailsModal = false;
     this.selectedJob = null;
   }
-
-
-
 }

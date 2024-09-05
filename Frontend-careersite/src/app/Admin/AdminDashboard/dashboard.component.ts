@@ -3,19 +3,21 @@ import { AdminJobService } from '../../service/admin-job.service';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { ToastrService } from 'ngx-toastr'; 
 
 @Component({
   selector: 'app-dashboard',
-  standalone:true,
-  imports:[CommonModule,
+  standalone: true,
+  imports: [
+    CommonModule,
     MatCardModule,
     MatIconModule
-],
+  ],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  
+
   companiesCount: number = 0;
   applicationsCount: number = 0;
   usersCount: number = 0;
@@ -26,7 +28,10 @@ export class DashboardComponent implements OnInit {
   jobsPostedToday: number = 0;
   usersSuspended: number = 0;
 
-  constructor(private adminJobService: AdminJobService) {}
+  constructor(
+    private adminJobService: AdminJobService,
+    private toastr: ToastrService 
+  ) {}
 
   ngOnInit(): void {
     this.getDashboardStats();
@@ -44,9 +49,11 @@ export class DashboardComponent implements OnInit {
         this.newCompaniesRegistered = data.newCompaniesRegistered;
         this.jobsPostedToday = data.jobsPostedToday;
         this.usersSuspended = data.usersSuspended;
+       
       },
       error => {
         console.error('Error fetching dashboard stats:', error);
+        this.toastr.error('Error fetching dashboard statistics. Please try again later.', 'Error'); 
       }
     );
   }
@@ -55,9 +62,11 @@ export class DashboardComponent implements OnInit {
     this.adminJobService.getCompanies().subscribe(
       data => {
         this.companies = data;
+       
       },
       error => {
         console.error('Error fetching companies:', error);
+      
       }
     );
   }

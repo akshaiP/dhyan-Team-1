@@ -8,6 +8,8 @@ import { MatInputModule } from '@angular/material/input';
 import { Router, RouterLink, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-login',
@@ -19,7 +21,7 @@ import { MatIconModule } from '@angular/material/icon';
     ReactiveFormsModule,
     MatButtonModule,
     MatCardModule,
-    MatFormFieldModule,MatIconModule,
+    MatFormFieldModule, MatIconModule,
     MatInputModule
   ],
   templateUrl: './login.component.html',
@@ -36,29 +38,30 @@ export class LoginComponent {
 
   private http = inject(HttpClient);
   private router = inject(Router);
-
+  private toastr = inject(ToastrService); 
   onLogin() {
     this.http.post("http://localhost:8080/api/login", this.loginObj)
       .subscribe((res: any) => {
         if (res.token) {
-          alert(res.message);
+          
+          this.toastr.success(res.message, 'Login Success');
           localStorage.setItem('angular18Token', res.token);
           localStorage.setItem('userId', res.userId.toString());
+          
           this.router.navigateByUrl(res.redirect === 'Admin Dashboard' ? 'admin-dashboard' : 'user-dashboard');
         } else {
-          alert(res.error || "Login failed");
+          
+          this.toastr.error(res.error || "Login failed", 'Login Error');
         }
       }, error => {
-        alert("An error occurred: " + error.message);
+        
+        this.toastr.error("An error occurred: " + error.message, 'Error');
       });
   }
 
   togglePasswordVisibility(event: MouseEvent) {
-    // Prevent the default action and stop the event from bubbling up
     event.preventDefault();
     event.stopPropagation();
-
-    // Toggle the visibility of the password
     this.hidePassword = !this.hidePassword;
   }
 }

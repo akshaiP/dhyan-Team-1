@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { ToastrService } from 'ngx-toastr'; 
 
 @Component({
   selector: 'app-register',
@@ -32,7 +33,7 @@ export class RegisterComponent {
   password: string = '';
   confirmPassword: string = '';
   phoneNumber: string = '';
-  
+
   @ViewChild('usernameField') usernameField!: NgModel;
   @ViewChild('emailField') emailField!: NgModel;
   @ViewChild('passwordField') passwordField!: NgModel;
@@ -41,6 +42,7 @@ export class RegisterComponent {
 
   private http = inject(HttpClient);
   private router = inject(Router);
+  private toastr = inject(ToastrService); 
 
   readonly email = new FormControl('', [Validators.required, Validators.email]);
 
@@ -66,7 +68,7 @@ export class RegisterComponent {
     if (signupForm.valid) {
       const userData = {
         username: this.username,
-        email: this.email.value, // Adjusted to use value
+        email: this.email.value, 
         password: this.password,
         phoneNumber: this.phoneNumber
       };
@@ -75,19 +77,19 @@ export class RegisterComponent {
         .subscribe({
           next: (res: string) => {
             if (res === "User registered successfully") {
-              alert('Registration Successful');
+              this.toastr.success('Registration Successful', 'Success'); 
               this.router.navigateByUrl('login').then(navigated => {
                 console.log('Navigation successful:', navigated);
               }).catch(err => {
                 console.error('Navigation error:', err);
               });
             } else {
-              alert(res);
+              this.toastr.error(res, 'Error'); 
             }
           },
           error: (err: any) => {
             console.error('Error during registration:', err);
-            alert('An error occurred. Please try again.');
+            this.toastr.error('An error occurred. Please try again.', 'Error'); 
           }
         });
     }

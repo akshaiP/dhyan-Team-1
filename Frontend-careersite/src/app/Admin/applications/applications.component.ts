@@ -3,18 +3,21 @@ import { AdminJobService } from '../../service/admin-job.service';
 import { Router } from '@angular/router'; 
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ToastrService } from 'ngx-toastr'; 
 
 @Component({
   selector: 'app-applications',
   standalone: true,
-  imports: [CommonModule, FormsModule,
+  imports: [
+    CommonModule,
+    FormsModule,
     MatCardModule,
     MatButtonModule,
-    MatProgressSpinnerModule,],
+    MatProgressSpinnerModule,
+  ],
   templateUrl: './applications.component.html',
   styleUrls: ['./applications.component.scss']
 })
@@ -25,7 +28,8 @@ export class ApplicationsComponent implements OnInit {
 
   constructor(
     private jobService: AdminJobService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService 
   ) {}
 
   ngOnInit() {
@@ -36,11 +40,11 @@ export class ApplicationsComponent implements OnInit {
     this.loading = true;
     this.jobService.getAllApplications().subscribe(
       (applications: any[]) => {
-        // Aggregate applications by job ID
+        
         const jobMap = new Map<string, { jobId: string, companyName: string, applicationsCount: number, companyLogoUrl: string }>();
 
         applications.forEach(app => {
-          const jobId = app.jobPosting.id; // Get job ID
+          const jobId = app.jobPosting.id; 
           const companyName = app.jobPosting.companyName;
           const companyLogoUrl = app.jobPosting.companyLogoUrl;
 
@@ -58,11 +62,13 @@ export class ApplicationsComponent implements OnInit {
 
         this.companyApplications = Array.from(jobMap.values());
         this.loading = false;
+        
       },
       (error: any) => {
         this.error = 'Error fetching job applications. Please try again later.';
         this.loading = false;
         console.error('Error fetching job applications:', error);
+        this.toastr.error('Error fetching job applications. Please try again later.', 'Error'); 
       }
     );
   }

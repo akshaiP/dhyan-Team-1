@@ -10,8 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { JobPosting } from '../../models/job-posting.model';
-
-
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-job-postings',
@@ -25,14 +24,18 @@ import { JobPosting } from '../../models/job-posting.model';
 })
 export class JobPostingComponent implements OnInit {
   jobForm!: FormGroup; 
-  jobPostings: JobPosting[] = []; // Use the JobPosting interface
+  jobPostings: JobPosting[] = []; 
   showModal: boolean = false;
 
-  constructor(private fb: FormBuilder, private jobService: AdminJobService) { }
+  constructor(
+    private fb: FormBuilder,
+    private jobService: AdminJobService,
+    private toastr: ToastrService 
+  ) { }
 
   ngOnInit(): void {
-    this.initializeForm(); // Initialize the form on component initialization
-    this.loadJobPostings(); // Load job postings
+    this.initializeForm(); 
+    this.loadJobPostings(); 
   }
 
   initializeForm() {
@@ -58,15 +61,15 @@ export class JobPostingComponent implements OnInit {
       applicationProcess: [''],
       companyWebsite: [''],
       jobLocationType: [''],
-      status: ['ACTIVE'] // Default status to ACTIVE on creation
+      status: ['ACTIVE'] 
     });
   }
 
   toggleModal() {
     this.showModal = !this.showModal;
     if (!this.showModal) {
-      this.jobForm.reset(); // Clear form when modal is closed
-      this.jobForm.patchValue({ status: 'ACTIVE' }); // Reset to default status
+      this.jobForm.reset(); 
+      this.jobForm.patchValue({ status: 'ACTIVE' }); 
     }
   }
 
@@ -75,11 +78,13 @@ export class JobPostingComponent implements OnInit {
       const jobData: JobPosting = this.jobForm.value;
       this.jobService.createJob(jobData).subscribe({
         next: () => {
-          this.loadJobPostings(); // Reload job postings after creation
-          this.toggleModal(); // Close modal after creating
+          this.loadJobPostings(); 
+          this.toggleModal(); 
+          this.toastr.success('Job posting created successfully!', 'Success'); 
         },
         error: (error) => {
           console.error('Error creating job posting:', error);
+          this.toastr.error('Error creating job posting. Please try again later.', 'Error'); 
         }
       });
     }
@@ -92,31 +97,34 @@ export class JobPostingComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error loading job postings:', error);
+       
       }
     });
   }
 
   editJob(job: JobPosting) {
-    this.jobForm.patchValue(job); // Populate the form with job details
-    this.toggleModal(); // Open modal for editing
+    this.jobForm.patchValue(job); 
+    this.toggleModal(); 
   }
 
   saveJobPosting() {
     if (this.jobForm.valid) {
       const jobData: JobPosting = this.jobForm.value;
-      if (jobData.id) { // If 'id' is present, update the existing job
+      if (jobData.id) { 
         this.jobService.updateJob(jobData.id, jobData).subscribe({
           next: () => {
-            this.loadJobPostings(); // Reload job postings after update
-            this.toggleModal(); // Close modal after saving
+            this.loadJobPostings(); 
+            this.toggleModal(); 
+            this.toastr.success('Job posting updated successfully!', 'Success'); 
           },
           error: (error) => {
             console.error('Error updating job posting:', error);
+            this.toastr.error('Error updating job posting. Please try again later.', 'Error'); 
           }
         });
       } else { 
-        // If 'id' is not present, create a new job
-        this.createJobPosting(); // Call createJobPosting method
+       
+        this.createJobPosting(); 
       }
     }
   }
@@ -124,10 +132,12 @@ export class JobPostingComponent implements OnInit {
   removeJob(jobId: number) {
     this.jobService.deleteJob(jobId).subscribe({
       next: () => {
-        this.loadJobPostings(); // Refresh the job postings list
+        this.loadJobPostings(); 
+        this.toastr.success('Job posting removed successfully!', 'Success'); 
       },
       error: (error) => {
         console.error('Error removing job posting:', error);
+        this.toastr.error('Error removing job posting. Please try again later.', 'Error'); 
       }
     });
   }

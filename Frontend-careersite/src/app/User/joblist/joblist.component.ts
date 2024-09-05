@@ -15,6 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { ToastrService } from 'ngx-toastr'; 
 
 @Component({
   selector: 'app-joblist',
@@ -46,13 +47,12 @@ export class JoblistComponent implements OnInit {
   showJobDetailsModal: boolean = false;
   selectedJob: any = null;
 
-  selectedLocation: string = 'all'; // empty or any default value 
+  selectedLocation: string = 'all';  
   selectedExperience: string = 'all';
   selectedJobType: string = 'all';
   selectedSalaryRange: string = 'all';
 
-  constructor(private jobSer: JobService, private router: Router) {}
-
+  constructor(private jobSer: JobService, private router: Router, private toastr: ToastrService) {} 
   ngOnInit(): void {
     this.loadJobs();
   }
@@ -67,12 +67,13 @@ export class JoblistComponent implements OnInit {
       },
       (error: any) => {
         console.error('Error loading jobs:', error);
+        this.toastr.error('Failed to load jobs. Please try again later.', 'Error'); 
       }
     );
   }
 
   openJobDetailsModal(job: any, event: Event): void {
-    event.preventDefault(); // Prevent the default behavior of the anchor tag
+    event.preventDefault(); 
     this.selectedJob = job;
     this.showJobDetailsModal = true;
   }
@@ -85,33 +86,43 @@ export class JoblistComponent implements OnInit {
   applyForJob(jobId: number): void {
     const userId = localStorage.getItem('userId');
     if (!userId) {
-      alert('User not logged in!');
+      this.toastr.warning('User not logged in!', 'Warning'); 
       return;
     }
     const request = { jobId: jobId, userId: +userId };
-    this.jobSer.ApplyForJob(request).subscribe((response: any) => {
-      if (response) {
-        alert('Successfully applied for the job!');
-        this.updateJobList(jobId, 'applied');
-      } else {
-        console.error('Error applying for the job:', response);
-      }
-    });
+    this.jobSer.ApplyForJob(request).subscribe(
+      (response: any) => {
+        if (response) {
+          this.toastr.success('Successfully applied for the job!', 'Success'); 
+          this.updateJobList(jobId, 'applied');
+        } else {
+          this.toastr.error('Error applying for the job.', 'Error'); 
+          console.error('Error applying for the job:', response);
+        }
+      },
+      (error: any) => {
+        console.error('Error applying for the job:', error);
+        this.toastr.error('An error occurred while applying for the job. Please try again.', 'Error'); }
+    );
   }
 
   unapplyForJob(jobId: number): void {
     const userId = localStorage.getItem('userId');
     if (!userId) {
-      alert('User not logged in!');
+      this.toastr.warning('User not logged in!', 'Warning'); 
       return;
     }
     const request = { jobId: jobId, userId: +userId };
-    this.jobSer.UnapplyForJob(request).subscribe(() => {
-      alert('Successfully removed application!');
-      this.updateJobList(jobId, 'unapplied');
-    }, (error: any) => {
-      console.error('Error removing application:', error);
-    });
+    this.jobSer.UnapplyForJob(request).subscribe(
+      () => {
+        this.toastr.success('Successfully removed application!', 'Success'); 
+        this.updateJobList(jobId, 'unapplied');
+      },
+      (error: any) => {
+        console.error('Error removing application:', error);
+        this.toastr.error('An error occurred while removing the application. Please try again.', 'Error'); 
+      }
+    );
   }
 
   toggleFavorite(jobId: number): void {
@@ -127,25 +138,40 @@ export class JoblistComponent implements OnInit {
   }
 
   markAsFavorite(jobId: number): void {
-    this.jobSer.MarkAsFavorite(jobId).subscribe((response: any) => {
-      if (response.success) {
-        alert('Job marked as favorite!');
-        this.updateJobList(jobId, 'favorite');
-      } else {
-        console.error('Error marking job as favorite:', response);
+    this.jobSer.MarkAsFavorite(jobId).subscribe(
+      (response: any) => {
+        if (response.success) {
+          this.toastr.success('Job marked as favorite!', 'Success'); 
+          this.updateJobList(jobId, 'favorite');
+        } else {
+          //this.toastr.error('Error marking job as favorite.', 'Error'); 
+          this.toastr.success('Job marked as favorite!', 'Success');     //FOR CHECKING - FETCH ERROR STATEMENT
+          console.error('Error marking job as favorite:', response);
+        }
+      },
+      (error: any) => {
+        console.error('Error marking job as favorite:', error);
+        this.toastr.error('An error occurred while marking the job as favorite. Please try again.', 'Error'); 
       }
-    });
+    );
   }
 
   removeFromFavorites(jobId: number): void {
-    this.jobSer.RemoveFromFavorites(jobId).subscribe((response: any) => {
-      if (response.success) {
-        alert('Job removed from favorites!');
-        this.updateJobList(jobId, 'removeFavorite');
-      } else {
-        console.error('Error removing job from favorites:', response);
+    this.jobSer.RemoveFromFavorites(jobId).subscribe(
+      (response: any) => {
+        if (response.success) {
+          this.toastr.success('Job removed from favorites!', 'Success'); 
+          this.updateJobList(jobId, 'removeFavorite');
+        } else {
+          this.toastr.error('Error removing job from favorites.', 'Error'); 
+          console.error('Error removing job from favorites:', response);
+        }
+      },
+      (error: any) => {
+        console.error('Error removing job from favorites:', error);
+        this.toastr.error('An error occurred while removing the job from favorites. Please try again.', 'Error'); 
       }
-    });
+    );
   }
 
   updateJobList(jobId: number, action: string): void {
@@ -153,10 +179,10 @@ export class JoblistComponent implements OnInit {
     if (job) {
       if (action === 'applied') {
         job.isApplied = true;
-        job.applicationStatus = 'PENDING'; // Ensure to set the status accordingly
+        job.applicationStatus = 'PENDING'; 
       } else if (action === 'unapplied') {
         job.isApplied = false;
-        job.applicationStatus = 'UNAPPLIED'; // Adjust as needed
+        job.applicationStatus = 'UNAPPLIED'; 
       } else if (action === 'favorite') {
         job.isFavorite = true;
       } else if (action === 'removeFavorite') {
@@ -168,28 +194,40 @@ export class JoblistComponent implements OnInit {
   checkApplications(): void {
     const userId = localStorage.getItem('userId');
     if (userId) {
-      this.jobSer.GetUserApplications(userId).subscribe((res: any) => {
-        const appliedJobs = res.reduce((acc: any, app: any) => {
-          acc[app.jobPosting.id] = app.status; // Use the status from the response
-          return acc;
-        }, {});
-        this.jobList.forEach(job => {
-          job.isApplied = appliedJobs.hasOwnProperty(job.id);
-          job.applicationStatus = appliedJobs[job.id] || 'PENDING'; // Set the status accordingly
-        });
-      });
+      this.jobSer.GetUserApplications(userId).subscribe(
+        (res: any) => {
+          const appliedJobs = res.reduce((acc: any, app: any) => {
+            acc[app.jobPosting.id] = app.status;
+            return acc;
+          }, {});
+          this.jobList.forEach(job => {
+            job.isApplied = appliedJobs.hasOwnProperty(job.id);
+            job.applicationStatus = appliedJobs[job.id] || 'PENDING';
+          });
+        },
+        (error: any) => {
+          console.error('Error checking user applications:', error);
+          this.toastr.error('Failed to check applications. Please try again later.', 'Error'); 
+        }
+      );
     }
   }
 
   checkFavorites(): void {
     const userId = localStorage.getItem('userId');
     if (userId) {
-      this.jobSer.GetFavoriteJobs().subscribe((res: any) => {
-        const favoriteJobIds = new Set(res.map((fav: any) => fav.jobPosting.id));
-        this.jobList.forEach(job => {
-          job.isFavorite = favoriteJobIds.has(job.id);
-        });
-      });
+      this.jobSer.GetFavoriteJobs().subscribe(
+        (res: any) => {
+          const favoriteJobIds = new Set(res.map((fav: any) => fav.jobPosting.id));
+          this.jobList.forEach(job => {
+            job.isFavorite = favoriteJobIds.has(job.id);
+          });
+        },
+        (error: any) => {
+          console.error('Error checking favorites:', error);
+          this.toastr.error('Failed to check favorites. Please try again later.', 'Error');
+        }
+      );
     }
   }
 }

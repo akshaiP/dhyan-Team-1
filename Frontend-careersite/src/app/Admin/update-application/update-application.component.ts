@@ -11,6 +11,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { Application } from '../../models/application.model';
+import { ToastrService } from 'ngx-toastr'; // Import ToastrService
 
 @Component({
   selector: 'app-updateapplications',
@@ -24,7 +25,6 @@ import { Application } from '../../models/application.model';
     MatPaginatorModule,
     MatInputModule,
     MatSelectModule,
-    MatCardModule,
     MatIconModule,
     MatTableModule
   ],
@@ -63,7 +63,8 @@ export class UpdateApplicationComponent implements OnInit {
   constructor(
     private adminJobService: AdminJobService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService // Inject ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -75,20 +76,26 @@ export class UpdateApplicationComponent implements OnInit {
 
   loadApplications(jobId: string | null): void {
     if (jobId) {
-      this.adminJobService.getApplicationsByJobId(jobId).subscribe(data => {
-        this.applications = data;
-        this.dataSource.data = this.applications;
+      this.adminJobService.getApplicationsByJobId(jobId).subscribe({
+        next: (data) => {
+          this.applications = data;
+          this.dataSource.data = this.applications;
 
-        // Extract company information from the first application
-        if (this.applications.length > 0) {
-          this.companyName = this.applications[0].jobPosting.companyName;
-          this.jobTitle = this.applications[0].jobPosting.jobTitle;
-          this.companyLogo = this.applications[0].jobPosting.companyLogoUrl;
-        }
+          // Extract company information from the first application
+          if (this.applications.length > 0) {
+            this.companyName = this.applications[0].jobPosting.companyName;
+            this.jobTitle = this.applications[0].jobPosting.jobTitle;
+            this.companyLogo = this.applications[0].jobPosting.companyLogoUrl;
+          }
 
-        // Assign paginator after data is set
-        if (this.paginator) {
-          this.dataSource.paginator = this.paginator;
+          // Assign paginator after data is set
+          if (this.paginator) {
+            this.dataSource.paginator = this.paginator;
+          }
+        },
+        error: (error) => {
+          console.error('Error loading applications:', error);
+          this.toastr.error('Error loading applications. Please try again later.', 'Error'); // Error toastr notification
         }
       });
     } else {
@@ -98,18 +105,30 @@ export class UpdateApplicationComponent implements OnInit {
 
   updateStatus(application: Application): void {
     if (application.status === 'ACCEPTED' || application.status === 'REJECTED') {
-      this.adminJobService.updateApplicationStatus(application.id, application.status).subscribe(() => {
-        console.log('Status updated successfully');
+      this.adminJobService.updateApplicationStatus(application.id, application.status).subscribe({
+        next: () => {
+          this.toastr.success('Status updated successfully!', 'Success'); // Success toastr notification
+        },
+        error: (error) => {
+          console.error('Error updating status:', error);
+          this.toastr.error('Error updating status. Please try again later.', 'Error'); // Error toastr notification
+        }
       });
     } else {
-      alert('Invalid status selected. Please choose either ACCEPTED or REJECTED.');
+      this.toastr.warning('Invalid status selected. Please choose either ACCEPTED or REJECTED.', 'Warning'); // Warning toastr notification
     }
   }
 
   openProfileModal(userProfileId: number): void {
-    this.adminJobService.getUserProfile(userProfileId).subscribe(profile => {
-      this.userProfile = profile;
-      this.showProfileModal = true;
+    this.adminJobService.getUserProfile(userProfileId).subscribe({
+      next: (profile) => {
+        this.userProfile = profile;
+        this.showProfileModal = true;
+      },
+      error: (error) => {
+        console.error('Error fetching user profile:', error);
+        this.toastr.error('Error fetching user profile. Please try again later.', 'Error'); // Error toastr notification
+      }
     });
   }
 
@@ -119,7 +138,7 @@ export class UpdateApplicationComponent implements OnInit {
 
   openStageModal(application: Application): void {
     if (application.status !== 'ACCEPTED') {
-      alert('The application must be in the "Accepted" status to update the stage.');
+      this.toastr.warning('The application must be in the "Accepted" status to update the stage.', 'Warning'); // Warning toastr notification
       return;
     }
     this.selectedApplication = application;
@@ -135,10 +154,16 @@ export class UpdateApplicationComponent implements OnInit {
   updateStage(): void {
     if (this.selectedApplication) {
       const { id } = this.selectedApplication;
-      this.adminJobService.updateApplicationStage(id, this.selectedStage, this.selectedStageStatus).subscribe(() => {
-        console.log('Stage updated successfully');
-        this.closeStageModal();
-        this.loadApplications(this.route.snapshot.paramMap.get('id'));
+      this.adminJobService.updateApplicationStage(id, this.selectedStage, this.selectedStageStatus).subscribe({
+        next: () => {
+          this.toastr.success('Stage updated successfully!', 'Success'); // Success toastr notification
+          this.closeStageModal();
+          this.loadApplications(this.route.snapshot.paramMap.get('id'));
+        },
+        error: (error) => {
+          console.error('Error updating stage:', error);
+          this.toastr.error('Error updating stage. Please try again later.', 'Error'); // Error toastr notification
+        }
       });
     }
   }
