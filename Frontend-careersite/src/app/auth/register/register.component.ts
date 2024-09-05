@@ -1,10 +1,10 @@
-import { Component, inject,ViewChild,ChangeDetectionStrategy,signal } from '@angular/core';
-import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {merge} from 'rxjs';
+import { Component, inject, ViewChild, ChangeDetectionStrategy, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { merge } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Router, RouterLink } from '@angular/router';
-import { FormsModule,FormControl, NgForm,NgModel,Validators, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule ,NgIf} from '@angular/common';
+import { FormsModule, FormControl, NgForm, NgModel, Validators, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule, NgIf } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -15,7 +15,7 @@ import { MatInputModule } from '@angular/material/input';
   standalone: true,
   imports: [
     RouterLink,
-    CommonModule,NgIf,
+    CommonModule, NgIf,
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
@@ -29,17 +29,15 @@ import { MatInputModule } from '@angular/material/input';
 })
 export class RegisterComponent {
   username: string = '';
- 
   password: string = '';
   confirmPassword: string = '';
   phoneNumber: string = '';
   
-
   @ViewChild('usernameField') usernameField!: NgModel;
   @ViewChild('emailField') emailField!: NgModel;
   @ViewChild('passwordField') passwordField!: NgModel;
   @ViewChild('confirmPasswordField') confirmPasswordField!: NgModel;
-  @ViewChild('mobileField') mobileField!: NgModel;
+  @ViewChild('phoneNumberField') phoneNumberField!: NgModel;
 
   private http = inject(HttpClient);
   private router = inject(Router);
@@ -47,7 +45,6 @@ export class RegisterComponent {
   readonly email = new FormControl('', [Validators.required, Validators.email]);
 
   errorMessage = signal('');
-TelephoneField: any;
 
   constructor() {
     merge(this.email.statusChanges, this.email.valueChanges)
@@ -69,7 +66,7 @@ TelephoneField: any;
     if (signupForm.valid) {
       const userData = {
         username: this.username,
-        email: this.email,
+        email: this.email.value, // Adjusted to use value
         password: this.password,
         phoneNumber: this.phoneNumber
       };
