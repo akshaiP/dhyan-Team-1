@@ -1,19 +1,44 @@
-import { Component, OnInit, NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { Router } from '@angular/router';
 import { JobService } from '../../service/job.service';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SearchPipe } from '../../pipe/search.pipe';
 import { FilterPipe } from '../../pipe/filter.pipe';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-joblist',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   standalone: true,
-  imports: [CommonModule, FormsModule, HttpClientModule, SearchPipe,FilterPipe],
+  imports: [
+    MatFormFieldModule,
+    MatSelectModule,
+    CommonModule,
+    FormsModule,
+    HttpClientModule,
+    SearchPipe,
+    MatIconModule,
+    FilterPipe,
+    MatInputModule,
+    MatCardModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatDividerModule,
+    MatTooltipModule,
+  ],
   templateUrl: './joblist.component.html',
-  styleUrls: ['./joblist.component.css'],
-  providers: [JobService]
+  styleUrls: ['./joblist.component.scss'],
+  providers: [JobService],
 })
 export class JoblistComponent implements OnInit {
   jobList: any[] = [];

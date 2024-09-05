@@ -5,7 +5,7 @@ import { JoblistComponent } from '../joblist/joblist.component';
 @Component({
   selector: 'app-userdashboard',
   templateUrl: './userdashboard.component.html',
-  styleUrls: ['./userdashboard.component.css'],
+  styleUrls: ['./userdashboard.component.scss'],
   standalone: true,
   imports: [UserlayoutComponent, JoblistComponent]  
 })

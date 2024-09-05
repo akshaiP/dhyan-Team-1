@@ -1,103 +1,108 @@
 <!-- Search Section -->
 <section class="search-section">
   <h1 style="font-family: 'Cursive', sans-serif; font-size: 27px; font-weight: bold; color: #0c0000; font-style: italic;">
-    Your Dream Job Awaits - Apply Now!</h1>
-  <input type="text" class="search-bar" [(ngModel)]="searchText" placeholder="🔍 Search for jobs...">
+    Your Dream Job Awaits - Apply Now!
+  </h1>
+  <input matInput type="text" class="search-bar" [(ngModel)]="searchText" placeholder="🔍 Search for jobs...">
 </section>
 
 <div class="main-content">
   <div class="row">
-   <!-- Filter Sidebar -->
-  <aside class="filter-sidebar">
-    <h3>Filter Jobs</h3>
-    <div class="filter-group">
-      <label for="location">Location</label>
-      <select id="location" [(ngModel)]="selectedLocation">
-        <option value="all">All Locations</option>
-        <option value="Bangalore">Bangalore</option>
-        <option value="Chennai">Chennai</option>
-        <option value="Coimbatore">Coimbatore</option>
-        <option value="Hyderabad">Hyderabad</option>
-        <option value="Pune">Pune</option>
-      </select>
-    </div>
-    <div class="filter-group">
-      <label for="experience">Experience Level</label>
-      <select id="experience" [(ngModel)]="selectedExperience">
-        <option value="all">All Levels</option>
-        <option value="entry">Entry Level</option>
-        <option value="mid">Mid Level</option>
-        <option value="senior">Senior Level</option>
-      </select>
-    </div>
-    <div class="filter-group">
-      <label for="job-type">Job Type</label>
-      <select id="job-type" [(ngModel)]="selectedJobType">
-        <option value="all">All Types</option>
-        <option value="full-time">Full-Time</option>
-        <option value="part-time">Part-Time</option>
-        <option value="contract">Contract</option>
-        <option value="internship">Internship</option>
-      </select>
-    </div>
-    <div class="filter-group">
-      <label for="salary-range">Salary Range</label>
-      <select id="salary-range" [(ngModel)]="selectedSalaryRange">
-        <option value="all">All Ranges</option>
-        <option value="1-3LPA">1-3LPA</option>
-        <option value="3-5LPA">3-5LPA</option>
-        <option value="5-7LPA">5-7LPA</option>
-        <option value="7LPA+">7LPA+</option>
-      </select>
-    </div>
-  </aside>
-
+    <aside class="filter-sidebar">
+      <h3>Filter Jobs</h3>
+      <!-- Filters -->
+      <mat-form-field appearance="fill">
+        <mat-label>Location</mat-label>
+        <mat-select [(value)]="selectedLocation">
+          <mat-option value="all">All Locations</mat-option>
+          <mat-option value="Bangalore">Bangalore</mat-option>
+          <mat-option value="Chennai">Chennai</mat-option>
+          <mat-option value="Coimbatore">Coimbatore</mat-option>
+          <mat-option value="Hyderabad">Hyderabad</mat-option>
+          <mat-option value="Pune">Pune</mat-option>
+        </mat-select>
+      </mat-form-field>
+    
+      <mat-form-field appearance="fill">
+        <mat-label>Experience Level</mat-label>
+        <mat-select [(value)]="selectedExperience">
+          <mat-option value="all">All Levels</mat-option>
+          <mat-option value="entry">Entry Level</mat-option>
+          <mat-option value="mid">Mid Level</mat-option>
+          <mat-option value="senior">Senior Level</mat-option>
+        </mat-select>
+      </mat-form-field>
+    
+      <mat-form-field appearance="fill">
+        <mat-label>Job Type</mat-label>
+        <mat-select [(value)]="selectedJobType">
+          <mat-option value="all">All Types</mat-option>
+          <mat-option value="full-time">Full-Time</mat-option>
+          <mat-option value="part-time">Part-Time</mat-option>
+          <mat-option value="contract">Contract</mat-option>
+          <mat-option value="internship">Internship</mat-option>
+        </mat-select>
+      </mat-form-field>
+    
+      <mat-form-field appearance="fill">
+        <mat-label>Salary Range</mat-label>
+        <mat-select [(value)]="selectedSalaryRange">
+          <mat-option value="all">All Ranges</mat-option>
+          <mat-option value="1-3LPA">1-3LPA</mat-option>
+          <mat-option value="3-5LPA">3-5LPA</mat-option>
+          <mat-option value="5-7LPA">5-7LPA</mat-option>
+          <mat-option value="7LPA+">7LPA+</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </aside>
+    
     <!-- Job Listings -->
     <section class="job-listings">
       <h2>Available Jobs</h2>
       <div class="job-grid">
-        <div *ngFor="let job of jobList | filter: selectedLocation : selectedExperience : selectedJobType : selectedSalaryRange | search:searchText:['jobTitle', 'companyName']" class="job-card">
-  
-
-          <div class="company-info">
-            <img [src]="job.companyLogoUrl" [alt]="job.companyName + ' Logo'" class="company-logo">
-            <div class="company-details">
-              <h4>{{ job.companyName }}</h4>
-              <p>{{ job.jobTitle }}</p>
-            </div>
-          </div>
-          <p><strong>Location:</strong> {{ job.location }}</p>
-          <p><strong>Employment Type:</strong> {{ job.employmentType }}</p>
-          <p><strong>Salary Range:</strong> {{ job.salaryRange }} {{ job.currency }}</p>
-          <p><strong>Experience Level:</strong> {{ job.experienceLevel }}</p>
-          <p><strong>Last Date to Apply:</strong> {{ job.lastDateToApply }}</p>
-          <p><strong>Description:</strong> {{ job.jobDescription | slice: 0 : 50 }}...</p>
-
-
-          <div class="job-card-actions">
-            <a href="#" class="view-details" (click)="openJobDetailsModal(job, $event)">View Details</a>
-            <div class="button-container">
-              <button class="btn-primary" [disabled]="job.isApplied" (click)="applyForJob(job.id)">
-                {{ job.isApplied ? 'Applied' : 'Apply' }}
-              </button>
-              <button *ngIf="job.isApplied && job.applicationStatus === 'PENDING'" class="btn-secondary" (click)="unapplyForJob(job.id)">
-                Unapply
-              </button>
-              <button class="btn-secondary" (click)="toggleFavorite(job.id)">
-                {{ job.isFavorite ? 'Remove from Favorites' : '⭐ Mark as Favorite' }}
-              </button>
-            </div>
-          </div>
-        </div>
+        <mat-card *ngFor="let job of jobList | filter: selectedLocation : selectedExperience : selectedJobType : selectedSalaryRange | search:searchText:['jobTitle', 'companyName']" class="job-card" appearance="outlined">
+          <mat-card-header>
+            <mat-card-title-group>
+              <mat-card-title>{{ job.jobTitle }}</mat-card-title>
+              <mat-card-subtitle>{{ job.companyName }}</mat-card-subtitle>
+              <img mat-card-md-image [src]="job.companyLogoUrl" [alt]="job.companyName + ' Logo'">
+            </mat-card-title-group>
+          </mat-card-header>
+          <mat-card-content>
+            <p><strong>Location:</strong> {{ job.location }}</p>
+            <p><strong>Employment Type:</strong> {{ job.employmentType }}</p>
+            <p><strong>Salary Range:</strong> {{ job.salaryRange }} {{ job.currency }}</p>
+            <p><strong>Experience Level:</strong> {{ job.experienceLevel }}</p>
+            <p><strong>Last Date to Apply:</strong> {{ job.lastDateToApply }}</p>
+            <p><strong>Description:</strong> {{ job.jobDescription | slice: 0 : 50 }}...</p>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-flat-button color="primary" (click)="openJobDetailsModal(job, $event)">View Details</button>
+            <button mat-raised-button color="accent" [disabled]="job.isApplied" (click)="applyForJob(job.id)">
+              {{ job.isApplied ? 'Applied' : 'Apply' }}
+            </button>
+            <button mat-raised-button color="warn" *ngIf="job.isApplied && job.applicationStatus === 'PENDING'" (click)="unapplyForJob(job.id)">
+              Unapply
+            </button>
+            <button mat-icon-button (click)="toggleFavorite(job.id)">
+              <mat-icon [ngClass]="{'favorite': job.isFavorite, 'non-favorite': !job.isFavorite}">
+                {{ job.isFavorite ? 'star' : 'star_outline' }}
+              </mat-icon>
+            </button>
+          </mat-card-actions>
+        </mat-card>
       </div>
     </section>
   </div>
 </div>
 
 <!-- Job Details Modal -->
-<div *ngIf="showJobDetailsModal" class="modal">
+<mat-dialog-content class="modal" *ngIf="showJobDetailsModal">
   <div class="modal-content">
-    <span class="close-button" (click)="closeJobDetailsModal()">&times;</span>
+    <button mat-icon-button class="close-button" (click)="closeJobDetailsModal()">
+      <mat-icon>close</mat-icon>
+    </button>
+
     <h2>{{ selectedJob?.jobTitle }}</h2>
     <p><strong>Company Name:</strong> {{ selectedJob?.companyName }}</p>
     <p><strong>Location:</strong> {{ selectedJob?.location }}</p>
@@ -117,4 +122,4 @@
     <p><strong>Company Website:</strong> <a [href]="selectedJob?.companyWebsite" target="_blank">{{ selectedJob?.companyWebsite }}</a></p>
     <p><strong>Job Location Type:</strong> {{ selectedJob?.jobLocationType }}</p>
   </div>
-</div>
+</mat-dialog-content>

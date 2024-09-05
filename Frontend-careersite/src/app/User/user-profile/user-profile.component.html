@@ -1,18 +1,19 @@
-<div class="profile-container">
+<div class="profile-container mat-elevation-z4">
   <!-- Profile Header Section -->
   <div *ngIf="!userProfile" class="no-profile">
-    <button class="btn-primary" (click)="toggleModal()">Start Creating Your Profile</button>
+    <button mat-raised-button color="primary" (click)="toggleModal()">Start Creating Your Profile</button>
   </div>
 
   <div *ngIf="userProfile" class="profile-details">
     <h2>{{ userProfile.firstName }} {{ userProfile.lastName }}</h2>
-    <img *ngIf="userProfile.profilePicture" [src]="userProfile.profilePicture" alt="Profile Picture" class="profile-picture"/>
+    <img *ngIf="userProfile.profilePicture" [src]="userProfile.profilePicture" alt="Profile Picture" class="profile-picture" />
     <p><strong>Email:</strong> {{ userProfile.email }}</p>
     <p><strong>Phone:</strong> {{ userProfile.phoneNumber }}</p>
     <p><strong>Location:</strong> {{ userProfile.location }}</p>
     <p><strong>LinkedIn Profile:</strong> <a [href]="userProfile.linkedinProfile" target="_blank">{{ userProfile.linkedinProfile }}</a></p>
 
     <!-- Education Details -->
+    <mat-divider></mat-divider>
     <h3>Education Details</h3>
     <p><strong>Highest Qualification:</strong> {{ userProfile.highestQualification }}</p>
     <p><strong>Field of Study:</strong> {{ userProfile.fieldOfStudy }}</p>
@@ -21,6 +22,7 @@
     <p><strong>Grades:</strong> {{ userProfile.grades }}</p>
 
     <!-- Work Experience -->
+    <mat-divider></mat-divider>
     <h3>Work Experience</h3>
     <p><strong>Total Experience:</strong> {{ userProfile.totalExperience }}</p>
     <p><strong>Current Employer:</strong> {{ userProfile.currentEmployer }}</p>
@@ -28,43 +30,119 @@
     <p><strong>Employment History:</strong> {{ userProfile.employmentHistory }}</p>
 
     <!-- Resume and Documents -->
+    <mat-divider></mat-divider>
     <h3>Resume and Documents</h3>
     <p><strong>Resume:</strong> <a [href]="userProfile.resume" target="_blank">{{ userProfile.resume }}</a></p>
     <p><strong>Portfolio:</strong> <a [href]="userProfile.portfolio" target="_blank">{{ userProfile.portfolio }}</a></p>
 
     <!-- Update Profile Button -->
-    <button class="btn-secondary" (click)="toggleModal()">Update Profile</button>
+    <button mat-raised-button color="accent" (click)="toggleModal()">Update Profile</button>
   </div>
 
   <!-- Modal for Creating or Updating Profile -->
   <div class="modal" [ngClass]="{ 'show-modal': isModalOpen }">
-    <div class="modal-content">
-      <span class="close" (click)="toggleModal()">&times;</span>
+    <mat-card class="modal-content">
+      <button mat-icon-button class="close" (click)="toggleModal()">
+        <mat-icon>close</mat-icon>
+      </button>
       <h3>{{ userProfile ? 'Update Profile' : 'Create Your Profile' }}</h3>
 
       <!-- Profile Form -->
       <form [formGroup]="profileForm" (ngSubmit)="saveProfile()">
-        <input type="text" placeholder="First Name" formControlName="firstName" />
-        <input type="text" placeholder="Last Name" formControlName="lastName" />
-        <input type="email" placeholder="Email" formControlName="email" />
-        <input type="text" placeholder="Phone Number" formControlName="phoneNumber" />
-        <input type="text" placeholder="Profile Picture URL" formControlName="profilePicture" />
-        <input type="text" placeholder="Highest Qualification" formControlName="highestQualification" />
-        <input type="text" placeholder="Field of Study" formControlName="fieldOfStudy" />
-        <input type="text" placeholder="College" formControlName="college" />
-        <input type="number" placeholder="Graduation Year" formControlName="graduationYear" />
-        <input type="text" placeholder="Grades" formControlName="grades" />
-        <input type="text" placeholder="Total Experience" formControlName="totalExperience" />
-        <input type="text" placeholder="Current Employer" formControlName="currentEmployer" />
-        <input type="text" placeholder="Current Position" formControlName="currentPosition" />
-        <textarea placeholder="Employment History" formControlName="employmentHistory"></textarea>
-        <input type="text" placeholder="Resume URL" formControlName="resume" />
-        <input type="text" placeholder="Portfolio URL" formControlName="portfolio" />
-        <input type="text" placeholder="Location" formControlName="location" />
-        <input type="text" placeholder="LinkedIn Profile URL" formControlName="linkedinProfile" />
+        <mat-form-field appearance="fill">
+          <mat-label>First Name</mat-label>
+          <input matInput placeholder="First Name" formControlName="firstName" />
+        </mat-form-field>
 
-        <button type="submit" class="btn-primary">{{ userProfile ? 'Update Profile' : 'Create Profile' }}</button>
+        <mat-form-field appearance="fill">
+          <mat-label>Last Name</mat-label>
+          <input matInput placeholder="Last Name" formControlName="lastName" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" placeholder="Email" formControlName="email" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Phone Number</mat-label>
+          <input matInput placeholder="Phone Number" formControlName="phoneNumber" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Profile Picture URL</mat-label>
+          <input matInput placeholder="Profile Picture URL" formControlName="profilePicture" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Highest Qualification</mat-label>
+          <input matInput placeholder="Highest Qualification" formControlName="highestQualification" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Field of Study</mat-label>
+          <input matInput placeholder="Field of Study" formControlName="fieldOfStudy" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>College</mat-label>
+          <input matInput placeholder="College" formControlName="college" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Graduation Year</mat-label>
+          <input matInput type="number" placeholder="Graduation Year" formControlName="graduationYear" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Grades</mat-label>
+          <input matInput placeholder="Grades" formControlName="grades" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Total Experience</mat-label>
+          <input matInput placeholder="Total Experience" formControlName="totalExperience" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Current Employer</mat-label>
+          <input matInput placeholder="Current Employer" formControlName="currentEmployer" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Current Position</mat-label>
+          <input matInput placeholder="Current Position" formControlName="currentPosition" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Employment History</mat-label>
+          <textarea matInput placeholder="Employment History" formControlName="employmentHistory"></textarea>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Resume URL</mat-label>
+          <input matInput placeholder="Resume URL" formControlName="resume" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Portfolio URL</mat-label>
+          <input matInput placeholder="Portfolio URL" formControlName="portfolio" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Location</mat-label>
+          <input matInput placeholder="Location" formControlName="location" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>LinkedIn Profile URL</mat-label>
+          <input matInput placeholder="LinkedIn Profile URL" formControlName="linkedinProfile" />
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit">
+          {{ userProfile ? 'Update Profile' : 'Create Profile' }}
+        </button>
       </form>
-    </div>
+    </mat-card>
   </div>
 </div>

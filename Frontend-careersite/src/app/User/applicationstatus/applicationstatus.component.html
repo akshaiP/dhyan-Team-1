@@ -1,40 +1,33 @@
-<div class="main-content">
-  <div class="application-status" *ngFor="let application of applications">
+<mat-card class="application-card" *ngFor="let application of applications">
+  <mat-card-header>
+    <div class="status-container">
     <div class="company-info">
-      <!-- Display company logo -->
-      <img [src]="application.companyLogoUrl" [alt]="application.companyName + ' Logo'" class="company-logo">
-      <div class="company-details">
-        <!-- Display current application status -->
-        <div class="status-header">
-          <span>Current Status:</span>
-          <span class="current-status" [ngClass]="{
-              'pending': application.applicationStatus === 'PENDING',
-              'rejected': application.applicationStatus === 'REJECTED',
-              'accepted': application.applicationStatus === 'ACCEPTED'
+      <img [src]="application.companyLogoUrl" [alt]="application.companyName + ' Logo'" mat-card-avatar class="company-logo">
+      <mat-card-title-group>
+        <mat-card-title>{{ application.companyName }}</mat-card-title>
+        <mat-card-subtitle>{{ application.jobTitle }}</mat-card-subtitle>
+      </mat-card-title-group>
+    </div>
+    <span class="current-status">
+      {{ application.applicationStatus }}
+    </span>
+  </div>
+    
+  </mat-card-header>
+
+  <mat-card-content>
+    <div class="progress-container">
+      <mat-progress-bar mode="determinate" [value]="getProgress(application)" color="primary"></mat-progress-bar>
+      <div class="progress-stages">
+        <div *ngFor="let stage of application.stages" class="stage" [ngClass]="{
+              'completed': stage.stageStatus === 'COMPLETED',
+              'pending': stage.stageStatus === 'PENDING',
+              'rejected': stage.stageStatus === 'REJECTED'
             }">
-            {{ application.applicationStatus }}
-          </span>
-        </div>
-        <!-- Display company name and job title -->
-        <h4>{{ application.companyName }}</h4>
-        <p>{{ application.jobTitle }}</p>
-        
-        <!-- Progress bar and stages display -->
-        <div class="progress-container">
-          <div class="progress-bar" [style.width.%]="getProgress(application)"></div>
-          <div class="progress-stages">
-            <!-- Display each stage with status and timestamp -->
-            <div *ngFor="let stage of application.stages" class="stage" [ngClass]="{
-                  'completed': stage.stageStatus === 'COMPLETED',
-                  'pending': stage.stageStatus === 'PENDING',
-                  'rejected': stage.stageStatus === 'REJECTED'
-                }">
-              <div class="stage-label">{{ stage.stageName }}</div>
-              <div class="stage-timestamp">{{ stage.completedAt ? (stage.completedAt | date: 'short') : 'Pending' }}</div>
-            </div>
-          </div>
+          <div class="stage-label">{{ stage.stageName }}</div>
+          <div class="stage-timestamp">{{ stage.completedAt ? (stage.completedAt | date: 'short') : 'Pending' }}</div>
         </div>
       </div>
     </div>
-  </div>
-</div>
+  </mat-card-content>
+</mat-card>

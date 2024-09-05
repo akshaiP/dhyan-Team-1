@@ -1,153 +1,135 @@
-.main-content {
-  padding: 80px 20px 20px;
-  background-color: #f5f5f5;
-  font-family: 'Arial', sans-serif;
-}
-
-.application-status {
-  background-color: #fff;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  padding: 20px;
+.application-card {
   margin-bottom: 20px;
+  border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s;
-}
 
-.application-status:hover {
-  transform: scale(1.02);
-}
+  &:hover {
+    transform: scale(1.02);
+  }
 
-.status-header {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-  font-size: 18px;
-  color: #333;
-}
+  .status-container {
+    position: relative;
+    display: flex;
+    align-items: center; /* Align items vertically centered */
+    justify-content: flex-start; /* Align items to the left */
+    width: 100%; /* Ensure container spans full width */
+    
+    .company-info {
+      display: flex;
+      align-items: center; /* Align items vertically centered */
+      flex: 1; /* Allow company-info to take available space */
+    }
+  
+    .company-logo {
+      width: 60px;
+      height: 60px;
+      margin-right: 16px; /* Space between the logo and text */
+      border-radius: 50%;
+      border: 1px solid #ddd;
+    }
+  
+    mat-card-title-group {
+      display: flex;
+      flex-direction: column;
+      justify-content: center; /* Center text vertically if logo height is larger */
+    }
+  
+    mat-card-title {
+      font-size: 1.25rem; /* Adjust size as needed */
+      font-weight: bold;
+      margin: 0;
+    }
+  
+    mat-card-subtitle {
+      font-size: 1rem; /* Adjust size as needed */
+      color: #666;
+      margin: 0;
+    }
+  
+    .current-status {
+      position: absolute; /* Position status absolutely */
+      right: 0; /* Align to the right end */
+      font-weight: bold;
+      padding: 5px 10px;
+      border-radius: 15px;
+      color: #fff;
+      background-color: #0a8604; /* Example color, adjust as needed */
+    }
+  }
+  
+  .progress-container {
+    margin-top: 15px;
+    padding: 10px 0;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    position: relative;
+  }
 
-.current-status {
-  font-weight: bold;
-  padding: 5px 10px;
-  border-radius: 15px;
-}
+  .progress-stages {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
 
-.pending {
-  color: #ffa500;
-  background-color: #fff4e5;
-  border: 1px solid #ffa500;
-}
+    .stage {
+      flex: 1;
+      text-align: center;
+      padding: 5px;
+      font-size: 0.9em;
+      color: #333;
 
-.rejected {
-  color: #f80707d5;
-  background-color: #ffe6e6;
-  border: 1px solid #f80707d5;
-}
+      &.completed {
+        color: #0a8604;
+      }
 
-.accepted {
-  color: #0a8604;
-  background-color: #e6ffe6;
-  border: 1px solid #0a8604;
-}
+      &.pending {
+        color: #ffa500;
+      }
 
-.company-info {
-  display: flex;
-  align-items: center;
-}
+      &.rejected {
+        color: #f80707d5;
+      }
 
-.company-logo {
-  width: 60px;
-  height: 60px;
-  margin-right: 20px;
-  border-radius: 50%;
-  border: 1px solid #ddd;
-}
+      .stage-label {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
 
-.company-details {
-  flex: 1;
-}
-
-.company-details h4 {
-  margin: 0;
-  font-size: 22px;
-  color: #222;
-}
-
-.company-details p {
-  margin: 5px 0;
-  font-size: 16px;
-  color: #666;
-}
-
-.progress-container {
-  margin-top: 15px;
-  padding: 10px 0;
-  background-color: #f2f2f2;
-  border-radius: 5px;
-  position: relative;
-  overflow: hidden;
-}
-
-.progress-bar {
-  height: 12px;
-  background-color: #0a8604;
-  border-radius: 5px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
-}
-
-.progress-stages {
-  display: flex;
-  justify-content: space-between;
-  position: relative;
-  top: 20px;
-  z-index: 2;
-  gap: 15px;
-}
-
-.stage {
-  position: relative;
-  flex: 1;
-  text-align: center;
-  padding: 5px;
-  font-size: 0.9em;
-}
-
-.stage-label {
-  font-weight: bold;
-  margin-bottom: 5px;
-  color: #333;
-}
-
-.stage-timestamp {
-  font-size: 0.8em;
-  color: #888;
-}
-
-.stage::after {
-  content: "";
-  position: absolute;
-  top: -10px;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 12px;
-  height: 12px;
-  background-color: #aaa;
-  border-radius: 50%;
-  z-index: 3;
-  border: 2px solid #fff;
-}
-
-.completed::after {
-  background-color: #0a8604;
-}
-
-.pending::after {
-  background-color: #ffa500;
-}
-
-.rejected::after {
-  background-color: #f80707d5;
+      .stage-timestamp {
+        font-size: 0.8em;
+        color: #888;
+      }
+    }
+  }
+  .current-status {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-weight: bold;
+  
+    &.pending {
+      color: #ffa500; /* Orange for pending */
+      background-color: #fff4e5;
+      border: 1px solid #ffa500;
+    }
+  
+    &.rejected {
+      color: #f80707d5; /* Red for rejected */
+      background-color: #ffe6e6;
+      border: 1px solid #f80707d5;
+    }
+  
+    &.accepted {
+      color: #0a8604; /* Green for accepted */
+      background-color: #e6ffe6;
+      border: 1px solid #0a8604;
+    }
+  
+    &.default {
+      color: #333; /* Default color */
+      background-color: #f2f2f2;
+      border: 1px solid #ccc;
+    }
+  }
+  
 }

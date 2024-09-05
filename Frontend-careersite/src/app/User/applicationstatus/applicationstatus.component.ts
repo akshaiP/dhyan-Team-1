@@ -1,13 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { JobService } from '../../service/job.service';
 import { CommonModule } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatBadgeModule } from '@angular/material/badge';
+import { ThemePalette } from '@angular/material/core';
+
 
 @Component({
   selector: 'app-applicationstatus',
   standalone:true,
-  imports:[CommonModule],
+  imports:[CommonModule,MatCardModule,MatProgressBarModule,MatBadgeModule],
   templateUrl: './applicationstatus.component.html',
-  styleUrls: ['./applicationstatus.component.css']
+  styleUrls: ['./applicationstatus.component.scss']
 })
 export class ApplicationStatusComponent implements OnInit {
   applications: any[] = [];
@@ -36,4 +41,10 @@ export class ApplicationStatusComponent implements OnInit {
     const totalStages = application.stages.length;
     return totalStages > 0 ? (completedStages / totalStages) * 100 : 0;
   }
+
+
 }
+
+
+
+

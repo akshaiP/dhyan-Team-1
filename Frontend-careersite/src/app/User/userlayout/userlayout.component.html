@@ -1,29 +1,28 @@
-<!-- userlayout.component.html -->
-<nav class="navbar">
+<mat-toolbar color="primary">
     <div class="container">
-        <div class="brand-logo">HIRE ME📢</div>
-        <ul class="nav-links">
-            <li>
-                <a routerLink="/user-dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Jobs</a>
-            </li>
-            <li>
-                <a routerLink="/application-status" routerLinkActive="active">Application Status</a>
-            </li>
-            <li>
-                <a routerLink="/favorite-jobs" routerLinkActive="active">Favorite Jobs</a>
-            </li>
-            <li>
-                <a routerLink="/user-profile" routerLinkActive="active">User Profile</a>
-            </li>
-        </ul>
-        <div class="user-actions">
-            <span class="user-icon">USER 👤</span>
-            <button class="logout-button" (click)="logout()">Logout</button>
-        </div>
+      <span class="brand-logo">HIRE ME📢</span>
+      <span class="spacer"></span>
+      
+      <a mat-button routerLink="/user-dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Jobs</a>
+      <a mat-button routerLink="/application-status" routerLinkActive="active">Application Status</a>
+      <a mat-button routerLink="/favorite-jobs" routerLinkActive="active">Favorite Jobs</a>
+      <a mat-button routerLink="/user-profile" routerLinkActive="active">User Profile</a>
+      
+      <span class="spacer"></span>
+      
+      <div class="user-actions">
+        <button mat-icon-button [matMenuTriggerFor]="userMenu">
+          <mat-icon>account_circle</mat-icon>
+        </button>
+        <mat-menu #userMenu="matMenu">
+          <button mat-menu-item (click)="logout()">Logout</button>
+        </mat-menu>
+      </div>
     </div>
-</nav>
-
-<!-- Content Section -->
-<div class="content">
+  </mat-toolbar>
+  
+  <!-- Content Section -->
+  <div class="content">
     <router-outlet></router-outlet>
-</div>
+  </div>
+  

@@ -1,17 +1,28 @@
 import { Component } from '@angular/core';
-import { RouterOutlet,Router } from '@angular/router';
-import { RouterModule } from '@angular/router';
+import { RouterOutlet, Router,RouterLink } from '@angular/router';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 import { UserdashboardComponent } from '../userdashboard/userdashboard.component';
 import { JobService } from '../../service/job.service';
-
+import { RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-userlayout',
   standalone: true,
-  imports: [RouterOutlet, UserdashboardComponent,RouterModule],
-  providers:[JobService],
+  imports: [
+    RouterOutlet,RouterLink,
+    RouterLinkActive,
+    UserdashboardComponent, 
+    MatToolbarModule, 
+    MatButtonModule, 
+    MatIconModule, 
+    MatMenuModule
+  ],
+  providers: [JobService],
   templateUrl: './userlayout.component.html',
-  styleUrl: './userlayout.component.css'
+  styleUrls: ['./userlayout.component.scss']
 })
 export class UserlayoutComponent {
   
