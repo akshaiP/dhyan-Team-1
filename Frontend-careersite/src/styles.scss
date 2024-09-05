@@ -1,18 +1,10 @@
-/* You can add global styles to this file, and also import other style files */
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
-
-
 // 1. Import the theming utilities from Angular Material
 @use '@angular/material' as mat;
 
 // 2. Optionally import any prebuilt themes if needed
 @import '../node_modules/@angular/material/prebuilt-themes/indigo-pink.css';
 
-// 3. Import additional theming files 
+// 3. Import additional theming files (if necessary)
 @import '../node_modules/@angular/material/core/theming/_all-theme';
 @import '../node_modules/@angular/material/core/theming/_theming';
 
@@ -35,4 +27,3 @@ $theme: mat.define-light-theme((
 
 // Apply the theme to all components
 @include mat.all-component-themes($theme);
-
