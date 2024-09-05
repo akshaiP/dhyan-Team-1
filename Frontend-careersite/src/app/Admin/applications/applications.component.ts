@@ -4,12 +4,19 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 @Component({
   selector: 'app-applications',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,
+    MatCardModule,
+    MatButtonModule,
+    MatProgressSpinnerModule,],
   templateUrl: './applications.component.html',
-  styleUrls: ['./applications.component.css']
+  styleUrls: ['./applications.component.scss']
 })
 export class ApplicationsComponent implements OnInit {
   companyApplications: any[] = [];

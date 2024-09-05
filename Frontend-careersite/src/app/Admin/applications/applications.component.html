@@ -1,14 +1,26 @@
 <section class="main-content">
-  <div *ngIf="loading" class="loading-indicator">Loading...</div>
-  <div *ngIf="error" class="error-message">{{ error }}</div>
-  <div *ngFor="let company of companyApplications" class="job-card">
-    <div class="company-info">
-      <img [src]="company.companyLogoUrl" alt="{{ company.companyName }} Logo" class="company-logo">
-      <div class="company-details">
-        <h4>{{ company.companyName }}</h4>
-        <span class="application-count">{{ company.applicationsCount }} Applications</span>
+  <mat-card *ngIf="loading" class="loading-indicator">
+    <mat-card-content>Loading...</mat-card-content>
+  </mat-card>
+  
+  <mat-card *ngIf="error" class="error-message">
+    <mat-card-content>{{ error }}</mat-card-content>
+  </mat-card>
+  
+  <mat-card *ngFor="let company of companyApplications" class="job-card">
+    <mat-card-header>
+      <div class="company-info">
+        <img [src]="company.companyLogoUrl" alt="{{ company.companyName }} Logo" class="company-logo">
+        <div class="company-details">
+          <h4>{{ company.companyName }}</h4>
+          
+          <span class="application-count">{{ company.applicationsCount }} Applications</span>
+        </div>
       </div>
-    </div>
-    <button class="view-applications-button" (click)="onViewApplications(company.jobId)">View Applications</button>
-  </div>
+    </mat-card-header>
+    <mat-card-actions align="end">
+      <button mat-raised-button color="accent" (click)="onViewApplications(company.jobId)">View Applications</button>
+    </mat-card-actions>
+    
+  </mat-card>
 </section>

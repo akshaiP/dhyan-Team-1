@@ -1,12 +1,23 @@
 import { Component } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { RouterOutlet, Router,RouterLink, RouterLinkActive } from '@angular/router';
+import { MatToolbar } from '@angular/material/toolbar';
+
 
 @Component({
   selector: 'app-layout',
   standalone:true,
-  imports:[RouterModule],
+  imports:[RouterOutlet,RouterLink,
+    RouterLinkActive,
+    MatToolbarModule, 
+    MatButtonModule, 
+    MatIconModule, 
+    MatMenuModule],
   templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.css']
+  styleUrls: ['./layout.component.scss']
 })
 export class LayoutComponent {
 

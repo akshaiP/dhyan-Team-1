@@ -1,0 +1,63 @@
+.mat-toolbar {
+  position: fixed;  // Keeps the toolbar fixed at the top
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;  // Ensures the toolbar is above other content
+  background-color: mat-color(primary);  // Uses the primary color from the indigo-pink theme
+  color: white;
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 1rem;
+
+    .brand-logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .spacer {
+      flex: 1;
+    }
+
+    a[mat-button] {
+      color: white;
+      text-decoration: none;
+
+      &.active {
+        font-weight: bold;
+        border-bottom: 2px solid white;
+      }
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1);  // Slight hover effect
+      }
+    }
+
+    .user-actions {
+      button {
+        color: white;
+      }
+
+      .mat-menu {
+        .mat-menu-item {
+          color: mat-color(accent);
+
+          &:hover {
+            background-color: mat-color(accent, A100);
+          }
+        }
+      }
+    }
+  }
+}
+
+// Styles for the content section
+.content {
+  padding: 2rem;
+  background-color: #f5f5f5;
+  margin-top: 64px;  // Adds space to account for the fixed toolbar height
+}

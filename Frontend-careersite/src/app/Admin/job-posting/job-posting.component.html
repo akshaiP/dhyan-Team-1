@@ -1,122 +1,148 @@
 <section class="main-content">
-  <button class="create-job-button" (click)="toggleModal()">Create New Job Posting</button>
+  <button mat-raised-button color="primary" (click)="toggleModal()" class="create-job-button">Create New Job Posting</button>
 
   <!-- Modal for Job Form -->
   <div class="modal" [ngClass]="{'show': showModal}">
     <div class="modal-content">
-      <span class="close-button" (click)="toggleModal()">&times;</span>
-      <form [formGroup]="jobForm" (ngSubmit)="saveJobPosting()">
-        <!-- Form Fields -->
-        <div class="input-group">
-          <label for="companyName">Company Name</label>
-          <input type="text" id="companyName" formControlName="companyName" required>
-        </div>
-        <div class="input-group">
-          <label for="companyLogoUrl">Company Logo URL</label>
-          <input type="text" id="companyLogoUrl" formControlName="companyLogoUrl">
-        </div>
-        <div class="input-group">
-          <label for="location">Location</label>
-          <input type="text" id="location" formControlName="location" required>
-        </div>
-        <div class="input-group">
-          <label for="jobTitle">Job Title</label>
-          <input type="text" id="jobTitle" formControlName="jobTitle" required>
-        </div>
-        <div class="input-group">
-          <label for="jobDescription">Job Description</label>
-          <textarea id="jobDescription" formControlName="jobDescription"></textarea>
-        </div>
-        <div class="input-group">
-          <label for="requirements">Requirements</label>
-          <textarea id="requirements" formControlName="requirements"></textarea>
-        </div>
-        <div class="input-group">
-          <label for="employmentType">Employment Type</label>
-          <input type="text" id="employmentType" formControlName="employmentType">
-        </div>
-        <div class="input-group">
-          <label for="jobCategory">Job Category</label>
-          <input type="text" id="jobCategory" formControlName="jobCategory">
-        </div>
-        <div class="input-group">
-          <label for="experienceLevel">Experience Level</label>
-          <input type="text" id="experienceLevel" formControlName="experienceLevel">
-        </div>
-        <div class="input-group">
-          <label for="educationRequirement">Education Requirement</label>
-          <input type="text" id="educationRequirement" formControlName="educationRequirement">
-        </div>
-        <div class="input-group">
-          <label for="skills">Skills</label>
-          <input type="text" id="skills" formControlName="skills">
-        </div>
-        <div class="input-group">
-          <label for="lastDateToApply">Last Date to Apply</label>
-          <input type="date" id="lastDateToApply" formControlName="lastDateToApply" required>
-        </div>
-        <div class="input-group">
-          <label for="salaryRange">Salary Range</label>
-          <input type="text" id="salaryRange" formControlName="salaryRange">
-        </div>
-        <div class="input-group">
-          <label for="currency">Currency</label>
-          <input type="text" id="currency" formControlName="currency">
-        </div>
-        <div class="input-group">
-          <label for="contactEmail">Contact Email</label>
-          <input type="email" id="contactEmail" formControlName="contactEmail">
-        </div>
-        <div class="input-group">
-          <label for="contactPhone">Contact Phone</label>
-          <input type="tel" id="contactPhone" formControlName="contactPhone">
-        </div>
-        <div class="input-group">
-          <label for="benefits">Benefits</label>
-          <input type="text" id="benefits" formControlName="benefits">
-        </div>
-        <div class="input-group">
-          <label for="applicationProcess">Application Process</label>
-          <input type="text" id="applicationProcess" formControlName="applicationProcess">
-        </div>
-        <div class="input-group">
-          <label for="companyWebsite">Company Website</label>
-          <input type="url" id="companyWebsite" formControlName="companyWebsite">
-        </div>
-        <div class="input-group">
-          <label for="jobLocationType">Job Location Type</label>
-          <input type="text" id="jobLocationType" formControlName="jobLocationType">
-        </div>
-        <div class="input-group">
-          <label for="status">Status</label>
-          <select id="status" formControlName="status" required>
-            <option value="ACTIVE">Active</option>
-            <option value="CLOSED">Closed</option>
-            <option value="DRAFT">Draft</option>
-          </select>
-        </div>
-        <button type="submit" class="submit-button">{{ jobForm.get('id')?.value ? 'Save Changes' : 'Submit Posting' }}</button>
+      <button mat-icon-button class="close-button" (click)="toggleModal()">
+        <mat-icon>close</mat-icon>
+      </button>
+      <form [formGroup]="jobForm" (ngSubmit)="saveJobPosting()" class="job-form">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Company Name</mat-label>
+          <input matInput formControlName="companyName" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Company Logo URL</mat-label>
+          <input matInput formControlName="companyLogoUrl">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Location</mat-label>
+          <input matInput formControlName="location" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Job Title</mat-label>
+          <input matInput formControlName="jobTitle" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Job Description</mat-label>
+          <textarea matInput formControlName="jobDescription" rows="4" required></textarea>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Requirements</mat-label>
+          <textarea matInput formControlName="requirements" rows="4" required></textarea>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Employment Type</mat-label>
+          <input matInput formControlName="employmentType">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Job Category</mat-label>
+          <input matInput formControlName="jobCategory">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Experience Level</mat-label>
+          <input matInput formControlName="experienceLevel">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Education Requirement</mat-label>
+          <input matInput formControlName="educationRequirement">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Skills</mat-label>
+          <input matInput formControlName="skills">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Last Date to Apply</mat-label>
+          <input matInput formControlName="lastDateToApply" type="date" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Salary Range</mat-label>
+          <input matInput formControlName="salaryRange">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Currency</mat-label>
+          <input matInput formControlName="currency">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Contact Email</mat-label>
+          <input matInput formControlName="contactEmail" type="email">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Contact Phone</mat-label>
+          <input matInput formControlName="contactPhone" type="tel">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Benefits</mat-label>
+          <input matInput formControlName="benefits">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Application Process</mat-label>
+          <input matInput formControlName="applicationProcess">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Company Website</mat-label>
+          <input matInput formControlName="companyWebsite" type="url">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Job Location Type</mat-label>
+          <input matInput formControlName="jobLocationType">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Status</mat-label>
+          <mat-select formControlName="status" required>
+            <mat-option value="ACTIVE">Active</mat-option>
+            <mat-option value="CLOSED">Closed</mat-option>
+            <mat-option value="DRAFT">Draft</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit" class="submit-button full-width">
+          {{ jobForm.get('id')?.value ? 'Save Changes' : 'Submit Posting' }}
+        </button>
       </form>
     </div>
   </div>
 
   <!-- Job Listings -->
-  <div class="job-card" *ngFor="let job of jobPostings">
-    <div class="company-info">
+  <mat-card class="job-card" *ngFor="let job of jobPostings">
+    <mat-card-header>
       <img [src]="job.companyLogoUrl" alt="{{ job.companyName }} Logo" class="company-logo">
-      <div class="company-details">
-        <h4>{{ job.companyName }}</h4>
-        <p>{{ job.jobTitle }}</p>
-      </div>
-    </div>
-    <div class="job-details">
+      <mat-card-title>{{ job.companyName }}</mat-card-title>
+      <mat-card-subtitle>{{ job.jobTitle }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
       <p><strong>Location:</strong> {{ job.location }}</p>
       <p><strong>Last Date to Apply:</strong> {{ job.lastDateToApply | date }}</p>
       <p><strong>Status:</strong> {{ job.status }}</p>
-    </div>
-    <div class="actions">
-      <button class="edit-button" (click)="editJob(job)">Edit</button>
-      <button class="remove-button" (click)="removeJob(job.id)">Remove</button>
-    </div>
-  </div>
+    </mat-card-content>
+    <mat-card-actions class="actions-right">
+      <button mat-fab color="accent" (click)="editJob(job)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-fab color="warn" (click)="removeJob(job.id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
 </section>

@@ -1,16 +1,27 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AdminJobService } from '../../service/admin-job.service';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // Import the necessary modules
+import { MatCardModule} from '@angular/material/card';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
 import { JobPosting } from '../../models/job-posting.model';
+
+
 
 @Component({
   selector: 'app-job-postings',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule], // Include necessary modules
+  imports: [FormsModule, ReactiveFormsModule, CommonModule,MatDialogModule,MatCardModule,MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,MatSelectModule,
+    MatButtonModule,],
   templateUrl: './job-posting.component.html',
-  styleUrls: ['./job-posting.component.css']
+  styleUrls: ['./job-posting.component.scss']
 })
 export class JobPostingComponent implements OnInit {
   jobForm!: FormGroup; 

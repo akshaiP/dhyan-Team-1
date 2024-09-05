@@ -1,13 +1,18 @@
 import { Component, NgModule, OnInit } from '@angular/core';
 import { AdminJobService } from '../../service/admin-job.service';
 import { CommonModule } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-dashboard',
   standalone:true,
-  imports:[CommonModule],
+  imports:[CommonModule,
+    MatCardModule,
+    MatIconModule
+],
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
   

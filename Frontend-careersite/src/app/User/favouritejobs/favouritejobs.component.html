@@ -33,11 +33,14 @@
         </div>
       </div>
     </div>
-    <p><strong>Description:</strong> {{ truncateText(job.jobDescription, 100) }}</p>
-    <div class="button-container">
-      <button class="btn-secondary" (click)="removeFromFavorites(job.id)">⭐ Remove from Favorites</button>
-      <button class="btn-primary" (click)="viewDetails(job)">View Details</button>
-    </div>
+    <!--<p><strong>Description:</strong> {{ truncateText(job.jobDescription, 100) }}</p>-->
+    <mat-card-actions class="actions-container">
+      <button mat-icon-button (click)="removeFromFavorites(job.id)" aria-label="Remove from favorites">
+        <mat-icon style="color: #ffd700;">star</mat-icon>
+      </button>
+      <button mat-raised-button color="accent" (click)="viewDetails(job)">View Details</button>
+    </mat-card-actions>
+    
   </div>
 
   <!-- Job Details Modal -->

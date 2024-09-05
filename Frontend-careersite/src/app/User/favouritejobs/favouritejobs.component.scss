@@ -1,87 +1,3 @@
-/* General Styles */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-}
-
-/* Navbar */
-.navbar {
-    background-color: #1737edda;
-    color: #fafafd;
-    padding: 15px 20px;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 1000;
-}
-
-.navbar .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.navbar .brand-logo {
-    font-size: 30px;
-    font-weight: 700; /* Bold weight */
-    color: #fbfcfdfa;
-    font-style: italic;
-    font-family: 'Futura', sans-serif; /* Geometric sans-serif font */
-}
-
-.navbar .nav-links {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-}
-
-.navbar .nav-links li {
-    display: inline-block;
-}
-
-.navbar .nav-links a {
-    text-decoration: none;
-    color: #ffff;
-    font-weight: bold;
-    transition: color 0.3s ease;
-}
-
-/* Active Link Style */
-.navbar .nav-links a.active {
-    color: #f4067dfe; /* Active color */
-    border-bottom: 2px solid #ffff; /* Optional underline */
-}
-
-.navbar .nav-links a:hover {
-    color: #ffa500;
-}
-
-.navbar .user-actions {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.navbar .user-icon {
-    font-size: 18px;
-    color: #ffa500;
-}
-
-.logout-button {
-    background-color: #f4067dfe;
-    color: #fff;
-    padding: 6px 12px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.logout-button:hover {
-    background-color: #cc8400;
-}
 
 /* Main Content */
 .main-content {
@@ -186,29 +102,53 @@ body {
     font-size: 18px;
 }
 
-/* Modal Styles */
 .modal {
-    display: block;
     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 80%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
     background-color: #fff;
     padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
     border-radius: 8px;
-  }
-  
-  .modal-content {
+    width: 60%;
+    max-width: 600px;
+    max-height: 80%;
+    overflow-y: auto;
     position: relative;
-  }
+}
   
   .close {
     position: absolute;
+    background-color: rgba(248, 243, 243, 0.753);
+    padding: 7px;
     top: 10px;
     right: 15px;
     font-size: 20px;
     cursor: pointer;
   }
+
+  .close:hover {
+    background-color: red; 
+    color: rgb(253, 249, 249); 
+  }
+  mat-icon {
+    font-size: 24px; 
+    cursor: pointer;
+    transition: color 0.3s ease; 
+  }
+
+.actions-container {
+    display: flex;
+    justify-content: flex-end; /* Align items to the right */
+    gap: 10px; /* Add space between the buttons */
+}
+         
