@@ -1,18 +1,17 @@
 <mat-card class="application-card" *ngFor="let application of applications">
   <mat-card-header>
     <div class="status-container">
-    <div class="company-info">
-      <img [src]="application.companyLogoUrl" [alt]="application.companyName + ' Logo'" mat-card-avatar class="company-logo">
-      <mat-card-title-group>
-        <mat-card-title>{{ application.companyName }}</mat-card-title>
-        <mat-card-subtitle>{{ application.jobTitle }}</mat-card-subtitle>
-      </mat-card-title-group>
+      <div class="company-info">
+        <img [src]="application.companyLogoUrl" [alt]="application.companyName + ' Logo'" mat-card-avatar class="company-logo">
+        <mat-card-title-group>
+          <mat-card-title>{{ application.companyName }}</mat-card-title>
+          <mat-card-subtitle>{{ application.jobTitle }}</mat-card-subtitle>
+        </mat-card-title-group>
+      </div>
+      <span class="current-status">
+        {{ application.applicationStatus }}
+      </span>
     </div>
-    <span class="current-status">
-      {{ application.applicationStatus }}
-    </span>
-  </div>
-    
   </mat-card-header>
 
   <mat-card-content>
