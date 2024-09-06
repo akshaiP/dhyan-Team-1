@@ -115,7 +115,7 @@ export class JoblistComponent implements OnInit {
       return;
     }
   
-    // Open the confirmation dialog
+    
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '500px',
       data: {
@@ -124,7 +124,7 @@ export class JoblistComponent implements OnInit {
       }
     });
   
-    // Handle the dialog result
+    
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         const request = { jobId: jobId, userId: +userId };

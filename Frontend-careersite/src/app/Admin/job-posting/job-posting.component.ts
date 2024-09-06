@@ -135,10 +135,17 @@ export class JobPostingComponent implements OnInit {
   }
   
   removeJob(jobId: number): void {
+    const title = 'Confirm Delete';
+    const message = 'Are you sure you want to delete this job posting?';
+  
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '500px',
-      data: { jobId } // Passing data if needed
+      data: {
+        title: title,
+        message: message
+      }
     });
+  
 
     dialogRef.afterClosed().subscribe((result: boolean) => {
       if (result) {
@@ -155,4 +162,5 @@ export class JobPostingComponent implements OnInit {
       }
     });
   }
+  
 }
