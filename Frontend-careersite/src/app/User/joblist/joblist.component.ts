@@ -1,4 +1,4 @@
-import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA,inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { JobService } from '../../service/job.service';
 import { CommonModule } from '@angular/common';
@@ -12,10 +12,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule,MatDialog } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ToastrService } from 'ngx-toastr'; 
+import { ConfirmationDialogComponent } from '../../dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-joblist',
@@ -42,6 +43,7 @@ import { ToastrService } from 'ngx-toastr';
   providers: [JobService],
 })
 export class JoblistComponent implements OnInit {
+  readonly dialog = inject(MatDialog);
   jobList: any[] = [];
   searchText: string = '';
   showJobDetailsModal: boolean = false;
@@ -112,18 +114,34 @@ export class JoblistComponent implements OnInit {
       this.toastr.warning('User not logged in!', 'Warning'); 
       return;
     }
-    const request = { jobId: jobId, userId: +userId };
-    this.jobSer.UnapplyForJob(request).subscribe(
-      () => {
-        this.toastr.success('Successfully removed application!', 'Success'); 
-        this.updateJobList(jobId, 'unapplied');
-      },
-      (error: any) => {
-        console.error('Error removing application:', error);
-        this.toastr.error('An error occurred while removing the application. Please try again.', 'Error'); 
+  
+    // Open the confirmation dialog
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '500px',
+      data: {
+        title: 'Confirm Unapply',
+        message: 'Are you sure you want to unapply from this job?'
       }
-    );
+    });
+  
+    // Handle the dialog result
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const request = { jobId: jobId, userId: +userId };
+        this.jobSer.UnapplyForJob(request).subscribe(
+          () => {
+            this.toastr.success('Successfully removed application!', 'Success'); 
+            this.updateJobList(jobId, 'unapplied');
+          },
+          (error: any) => {
+            console.error('Error removing application:', error);
+            this.toastr.error('An error occurred while removing the application. Please try again.', 'Error');
+          }
+        );
+      }
+    });
   }
+  
 
   toggleFavorite(jobId: number): void {
     const job = this.jobList.find(j => j.id === jobId);

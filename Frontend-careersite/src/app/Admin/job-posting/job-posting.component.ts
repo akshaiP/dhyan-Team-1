@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,inject } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AdminJobService } from '../../service/admin-job.service';
 import { CommonModule } from '@angular/common';
 import { MatCardModule} from '@angular/material/card';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule, MatDialogActions,MatDialogClose, MatDialogTitle, MatDialogContent} from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -11,21 +11,26 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { JobPosting } from '../../models/job-posting.model';
 import { ToastrService } from 'ngx-toastr';
+import { ConfirmationDialogComponent } from '../../dialog/confirmation-dialog.component';
+
 
 @Component({
   selector: 'app-job-postings',
   standalone: true,
   imports: [FormsModule, ReactiveFormsModule, CommonModule,MatDialogModule,MatCardModule,MatIconModule,
-    MatFormFieldModule,
+    MatFormFieldModule,MatDialogActions, MatDialogClose, MatDialogTitle, MatDialogContent,
     MatInputModule,MatSelectModule,
-    MatButtonModule,],
+    MatButtonModule],
   templateUrl: './job-posting.component.html',
   styleUrls: ['./job-posting.component.scss']
 })
 export class JobPostingComponent implements OnInit {
+
+  readonly dialog = inject(MatDialog);
   jobForm!: FormGroup; 
   jobPostings: JobPosting[] = []; 
   showModal: boolean = false;
+  
 
   constructor(
     private fb: FormBuilder,
@@ -129,15 +134,24 @@ export class JobPostingComponent implements OnInit {
     }
   }
   
-  removeJob(jobId: number) {
-    this.jobService.deleteJob(jobId).subscribe({
-      next: () => {
-        this.loadJobPostings(); 
-        this.toastr.success('Job posting removed successfully!', 'Success'); 
-      },
-      error: (error) => {
-        console.error('Error removing job posting:', error);
-        this.toastr.error('Error removing job posting. Please try again later.', 'Error'); 
+  removeJob(jobId: number): void {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '500px',
+      data: { jobId } // Passing data if needed
+    });
+
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      if (result) {
+        this.jobService.deleteJob(jobId).subscribe({
+          next: () => {
+            this.loadJobPostings();
+            this.toastr.success('Job posting removed successfully!', 'Success');
+          },
+          error: error => {
+            console.error('Error removing job posting:', error);
+            this.toastr.error('Error removing job posting. Please try again later.', 'Error');
+          }
+        });
       }
     });
   }
