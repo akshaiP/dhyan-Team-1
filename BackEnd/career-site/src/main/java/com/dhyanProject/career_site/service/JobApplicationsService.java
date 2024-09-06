@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -94,7 +95,6 @@ public class JobApplicationsService {
         return applicationRepository.save(application);
     }
 
-    // Method to update the stage of an accepted application
     public JobApplications updateApplicationStage(Long applicationId, JobApplications.CurrentStage newStage, Stage.StageStatus stageStatus) {
         JobApplications application = applicationRepository.findById(applicationId)
                 .orElseThrow(() -> new RuntimeException("Application not found"));
@@ -109,21 +109,60 @@ public class JobApplicationsService {
             throw new RuntimeException("Application must be in ACCEPTED status to update stage");
         }
 
-        // Mark the previous stage as completed if moving to a new stage
-        if (application.getCurrentStage() != null && !application.getCurrentStage().equals(newStage)) {
-            Stage previousStage = stageRepository.findByApplicationAndStageName(application, application.getCurrentStage().name())
-                    .orElseThrow(() -> new RuntimeException("Previous stage not found"));
-            previousStage.setStageStatus(Stage.StageStatus.COMPLETED);
-            previousStage.setCompletedAt(LocalDateTime.now());
-            stageRepository.save(previousStage);
+        JobApplications.CurrentStage currentStage = application.getCurrentStage();
+        List<JobApplications.CurrentStage> stageOrder = Arrays.asList(
+                JobApplications.CurrentStage.APPLIED,
+                JobApplications.CurrentStage.WRITTEN_TEST,
+                JobApplications.CurrentStage.TECHNICAL_INTERVIEW_1,
+                JobApplications.CurrentStage.TECHNICAL_INTERVIEW_2,
+                JobApplications.CurrentStage.HR_ROUND,
+                JobApplications.CurrentStage.JOB_OFFER
+        );
+
+        int currentIndex = stageOrder.indexOf(currentStage);
+        int newIndex = stageOrder.indexOf(newStage);
+
+        if (newIndex > currentIndex) {
+            // Moving forward: Mark all intermediate stages as COMPLETED
+            for (int i = currentIndex; i <= newIndex; i++) {
+                JobApplications.CurrentStage stageToUpdate = stageOrder.get(i);
+                Stage stage = stageRepository.findByApplicationAndStageName(application, stageToUpdate.name())
+                        .orElse(new Stage());
+                stage.setApplication(application);
+                stage.setStageName(stageToUpdate.name());
+                if (i == newIndex) {
+                    stage.setStageStatus(stageStatus);
+                    stage.setCompletedAt(stageStatus == Stage.StageStatus.COMPLETED ? LocalDateTime.now() : null);
+                } else {
+                    stage.setStageStatus(Stage.StageStatus.COMPLETED);
+                    if (stage.getCompletedAt() == null) {
+                        stage.setCompletedAt(LocalDateTime.now());
+                    }
+                }
+                stageRepository.save(stage);
+            }
+        } else if (newIndex < currentIndex) {
+            // Moving backward: Mark all stages after the new stage as PENDING
+            for (int i = currentIndex; i >= newIndex; i--) {
+                JobApplications.CurrentStage stageToUpdate = stageOrder.get(i);
+                Stage stage = stageRepository.findByApplicationAndStageName(application, stageToUpdate.name())
+                        .orElse(new Stage());
+                stage.setApplication(application);
+                stage.setStageName(stageToUpdate.name());
+                if (i == newIndex) {
+                    stage.setStageStatus(stageStatus);
+                    stage.setCompletedAt(stageStatus == Stage.StageStatus.PENDING ? null : stage.getCompletedAt());
+                } else {
+                    stage.setStageStatus(Stage.StageStatus.PENDING);
+                    stage.setCompletedAt(null);
+                }
+                stageRepository.save(stage);
+            }
         }
-        // Update current stage
-        application.setCurrentStage(newStage);
 
-        // Update or create a new stage in Stage table
+        // Update or create the new stage in the Stage table
         Stage stage = stageRepository.findByApplicationAndStageName(application, newStage.name())
-                .orElse(new Stage()); // Create a new stage if not found
-
+                .orElse(new Stage());
         stage.setApplication(application);
         stage.setStageName(newStage.name());
         stage.setStageStatus(stageStatus);
@@ -139,6 +178,9 @@ public class JobApplicationsService {
         if (stageStatus == Stage.StageStatus.REJECTED) {
             application.setStatus(JobApplications.ApplicationStatus.REJECTED);
         }
+
+        // Update the current stage of the application
+        application.setCurrentStage(newStage);
         return applicationRepository.save(application);
     }
 

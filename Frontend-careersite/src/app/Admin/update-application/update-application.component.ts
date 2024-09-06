@@ -13,6 +13,8 @@ import { MatInputModule } from '@angular/material/input';
 import { Application } from '../../models/application.model';
 import { ToastrService } from 'ngx-toastr'; // Import ToastrService
 
+const STAGE_ORDER = ['APPLIED', 'WRITTEN_TEST', 'TECHNICAL_INTERVIEW_1', 'TECHNICAL_INTERVIEW_2', 'HR_ROUND', 'JOB_OFFER'];
+
 @Component({
   selector: 'app-updateapplications',
   standalone: true,
@@ -153,19 +155,36 @@ export class UpdateApplicationComponent implements OnInit {
 
   updateStage(): void {
     if (this.selectedApplication) {
-      const { id } = this.selectedApplication;
-      this.adminJobService.updateApplicationStage(id, this.selectedStage, this.selectedStageStatus).subscribe({
-        next: () => {
-          this.toastr.success('Stage updated successfully!', 'Success'); // Success toastr notification
-          this.closeStageModal();
-          this.loadApplications(this.route.snapshot.paramMap.get('id'));
-        },
-        error: (error) => {
-          console.error('Error updating stage:', error);
-          this.toastr.error('Error updating stage. Please try again later.', 'Error'); // Error toastr notification
+      const { id, currentStage } = this.selectedApplication;
+
+      const currentStageIndex = STAGE_ORDER.indexOf(currentStage);
+      const selectedStageIndex = STAGE_ORDER.indexOf(this.selectedStage);
+
+      if (selectedStageIndex < currentStageIndex) {
+        // Show confirmation before updating to a previous stage
+        if (confirm('You are moving the stage backwards. Are you sure you want to proceed?')) {
+          this.performStageUpdate(id);
+        } else {
+          this.toastr.info('Stage update cancelled.', 'Info');
         }
-      });
+      } else {
+        this.performStageUpdate(id);
+      }
     }
+  }
+
+  performStageUpdate(applicationId: number): void {
+    this.adminJobService.updateApplicationStage(applicationId, this.selectedStage, this.selectedStageStatus).subscribe({
+      next: () => {
+        this.toastr.success('Stage updated successfully!', 'Success'); // Success toastr notification
+        this.closeStageModal();
+        this.loadApplications(this.route.snapshot.paramMap.get('id'));
+      },
+      error: (error) => {
+        console.error('Error updating stage:', error);
+        this.toastr.error('Error updating stage. Please try again later.', 'Error'); // Error toastr notification
+      }
+    });
   }
 
   goBack(): void {
