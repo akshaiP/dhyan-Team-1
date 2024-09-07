@@ -19,19 +19,19 @@
 
     <mat-form-field class="form-group" appearance="fill">
       <mat-label>Password</mat-label>
-      <input matInput type="password" id="password" name="password" [(ngModel)]="password" #passwordField="ngModel" required>
+      <input matInput type="password" id="password" name="password" [(ngModel)]="password" #passwordField="ngModel" (ngModelChange)="checkPasswordsMatch()" required>
       <mat-error *ngIf="passwordField.invalid && passwordField.touched">
         Password is required.
       </mat-error>
     </mat-form-field>
-
+    
     <mat-form-field class="form-group" appearance="fill">
       <mat-label>Confirm Password</mat-label>
-      <input matInput type="password" id="confirm-password" name="confirmPassword" [(ngModel)]="confirmPassword" #confirmPasswordField="ngModel" required>
+      <input matInput type="password" id="confirm-password" name="confirmPassword" [(ngModel)]="confirmPassword" #confirmPasswordField="ngModel" (ngModelChange)="checkPasswordsMatch()" required>
       <mat-error *ngIf="confirmPasswordField.invalid && confirmPasswordField.touched">
         Confirm Password is required.
       </mat-error>
-      <mat-error *ngIf="password !== confirmPassword && confirmPasswordField.touched">
+      <mat-error *ngIf="!passwordsMatch && (password || confirmPassword)">
         Passwords must match.
       </mat-error>
     </mat-form-field>
@@ -42,7 +42,7 @@
       <input type="tel" matInput placeholder="123-456-7890" [(ngModel)]="phoneNumber" #phoneNumberField="ngModel" required>
     </mat-form-field>
 
-    <button mat-raised-button color="primary" type="submit" [disabled]="signupForm.invalid">Sign Up</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!passwordsMatch || signupForm.invalid">Sign Up</button>
   </form>
   <div class="login-link">
     <p>Already have an account? <a mat-button color="accent" routerLink="/login">Log in</a></p>

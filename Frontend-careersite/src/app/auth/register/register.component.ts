@@ -1,4 +1,4 @@
-import { Component, inject, ViewChild, ChangeDetectionStrategy, signal } from '@angular/core';
+import { Component, inject, ViewChild, ChangeDetectionStrategy, signal, ChangeDetectorRef } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { merge } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
@@ -33,6 +33,7 @@ export class RegisterComponent {
   password: string = '';
   confirmPassword: string = '';
   phoneNumber: string = '';
+  passwordsMatch: boolean = true; 
 
   @ViewChild('usernameField') usernameField!: NgModel;
   @ViewChild('emailField') emailField!: NgModel;
@@ -48,7 +49,7 @@ export class RegisterComponent {
 
   errorMessage = signal('');
 
-  constructor() {
+  constructor(private cdr: ChangeDetectorRef) {
     merge(this.email.statusChanges, this.email.valueChanges)
       .pipe(takeUntilDestroyed())
       .subscribe(() => this.updateErrorMessage());
@@ -62,6 +63,11 @@ export class RegisterComponent {
     } else {
       this.errorMessage.set('');
     }
+  }
+
+  checkPasswordsMatch() {  
+    this.passwordsMatch = this.password === this.confirmPassword;
+    this.cdr.detectChanges();
   }
 
   onRegister(signupForm: NgForm) {
@@ -88,8 +94,9 @@ export class RegisterComponent {
             }
           },
           error: (err: any) => {
+            const errorMessage = err.error ? err.error : 'An error occurred. Please try again.';
             console.error('Error during registration:', err);
-            this.toastr.error('An error occurred. Please try again.', 'Error'); 
+            this.toastr.error(errorMessage, 'Error');
           }
         });
     }
