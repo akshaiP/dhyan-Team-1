@@ -11,7 +11,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { Application } from '../../models/application.model';
-import { ToastrService } from 'ngx-toastr'; // Import ToastrService
+import { ToastrService } from 'ngx-toastr'; 
 
 const STAGE_ORDER = ['APPLIED', 'WRITTEN_TEST', 'TECHNICAL_INTERVIEW_1', 'TECHNICAL_INTERVIEW_2', 'HR_ROUND', 'JOB_OFFER'];
 
@@ -39,6 +39,7 @@ export class UpdateApplicationComponent implements OnInit {
   companyName!: string;
   companyLogo!: string;
   applications: any[] = [];
+  applicantName: string = '';
   statusOptions: string[] = ['ACCEPTED', 'REJECTED'];
   stageOptions: string[] = ['APPLIED', 'WRITTEN_TEST', 'TECHNICAL_INTERVIEW_1', 'TECHNICAL_INTERVIEW_2', 'HR_ROUND', 'JOB_OFFER'];
   stageStatusOptions: string[] = ['PENDING', 'COMPLETED', 'REJECTED'];
@@ -66,7 +67,7 @@ export class UpdateApplicationComponent implements OnInit {
     private adminJobService: AdminJobService,
     private route: ActivatedRoute,
     private router: Router,
-    private toastr: ToastrService // Inject ToastrService
+    private toastr: ToastrService 
   ) {}
 
   ngOnInit(): void {
@@ -80,7 +81,12 @@ export class UpdateApplicationComponent implements OnInit {
     if (jobId) {
       this.adminJobService.getApplicationsByJobId(jobId).subscribe({
         next: (data) => {
-          this.applications = data;
+          this.applications = data.map(app => ({
+              ...app,
+              user: {
+                  username: app.user?.username || 'N/A' 
+              }
+          }));
           this.dataSource.data = this.applications;
 
           // Extract company information from the first application
@@ -97,7 +103,7 @@ export class UpdateApplicationComponent implements OnInit {
         },
         error: (error) => {
           console.error('Error loading applications:', error);
-          this.toastr.error('Error loading applications. Please try again later.', 'Error'); // Error toastr notification
+          this.toastr.error('Error loading applications. Please try again later.', 'Error'); 
         }
       });
     } else {
@@ -109,15 +115,15 @@ export class UpdateApplicationComponent implements OnInit {
     if (application.status === 'ACCEPTED' || application.status === 'REJECTED') {
       this.adminJobService.updateApplicationStatus(application.id, application.status).subscribe({
         next: () => {
-          this.toastr.success('Status updated successfully!', 'Success'); // Success toastr notification
+          this.toastr.success('Status updated successfully!', 'Success'); 
         },
         error: (error) => {
           console.error('Error updating status:', error);
-          this.toastr.error('Error updating status. Please try again later.', 'Error'); // Error toastr notification
+          this.toastr.error('Error updating status. Please try again later.', 'Error'); 
         }
       });
     } else {
-      this.toastr.warning('Invalid status selected. Please choose either ACCEPTED or REJECTED.', 'Warning'); // Warning toastr notification
+      this.toastr.warning('Invalid status selected. Please choose either ACCEPTED or REJECTED.', 'Warning');
     }
   }
 
@@ -129,7 +135,7 @@ export class UpdateApplicationComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error fetching user profile:', error);
-        this.toastr.error('Error fetching user profile. Please try again later.', 'Error'); // Error toastr notification
+        this.toastr.error('Error fetching user profile. Please try again later.', 'Error');
       }
     });
   }
@@ -140,11 +146,12 @@ export class UpdateApplicationComponent implements OnInit {
 
   openStageModal(application: Application): void {
     if (application.status !== 'ACCEPTED') {
-      this.toastr.warning('The application must be in the "Accepted" status to update the stage.', 'Warning'); // Warning toastr notification
+      this.toastr.warning('The application must be in the "Accepted" status to update the stage.', 'Warning');
       return;
     }
     this.selectedApplication = application;
     this.selectedStage = application.currentStage;
+    this.applicantName = application.user ? application.user.username : 'Unknown';
     this.selectedStageStatus = 'PENDING';
     this.showStageModal = true;
   }
@@ -176,13 +183,13 @@ export class UpdateApplicationComponent implements OnInit {
   performStageUpdate(applicationId: number): void {
     this.adminJobService.updateApplicationStage(applicationId, this.selectedStage, this.selectedStageStatus).subscribe({
       next: () => {
-        this.toastr.success('Stage updated successfully!', 'Success'); // Success toastr notification
+        this.toastr.success('Stage updated successfully!', 'Success');
         this.closeStageModal();
         this.loadApplications(this.route.snapshot.paramMap.get('id'));
       },
       error: (error) => {
         console.error('Error updating stage:', error);
-        this.toastr.error('Error updating stage. Please try again later.', 'Error'); // Error toastr notification
+        this.toastr.error('Error updating stage. Please try again later.', 'Error');
       }
     });
   }
@@ -192,11 +199,19 @@ export class UpdateApplicationComponent implements OnInit {
   }
 
   applyFilter(event: Event): void {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
+    const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
+    
+    // Filter by applicantName or currentStage
+    this.dataSource.filterPredicate = (data: Application, filter: string) => {
+        const applicantName = data.user ? data.user.username.toLowerCase() : '';
+        const currentStage = data.currentStage ? data.currentStage.toLowerCase() : '';
+        return applicantName.includes(filter) || currentStage.includes(filter);
+    };
+    
+    this.dataSource.filter = filterValue;
+    
     if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+        this.dataSource.paginator.firstPage();
     }
-  }
+}
 }
