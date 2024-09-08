@@ -85,4 +85,18 @@ export class JobService {
       headers: this.getAuthHeaders()
     });
   }
+
+  // Fetch unread notifications for a specific user
+  getUnreadNotifications(userId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiEndpoint}notifications?userId=${userId}`, {
+      headers: this.getAuthHeaders()
+    });
+  }
+
+  // Mark a notification as read
+  markNotificationAsRead(notificationId: number): Observable<void> {
+    return this.http.put<void>(`${this.apiEndpoint}notifications/${notificationId}/read`, {
+      headers: this.getAuthHeaders()
+    });
+  }
 }

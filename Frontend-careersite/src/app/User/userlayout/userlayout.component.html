@@ -8,7 +8,7 @@
 
   <span class="spacer"></span>
 
-  <button mat-icon-button>
+  <button mat-icon-button class="badge-button" [matBadge]="unreadCount" matBadgeColor="accent" (click)="toggleNotificationPanel()">
     <mat-icon>notifications</mat-icon>
   </button>
 
@@ -41,6 +41,22 @@
         <mat-icon>person</mat-icon>
         <span *ngIf="isSidenavOpened">User Profile</span>
       </a>
+    </mat-nav-list>
+  </mat-drawer>
+
+  <!-- Notification Panel -->
+  <mat-drawer #notificationPanel mode="over" position="end" class="notification-drawer" [opened]="isNotificationPanelOpened">
+    <mat-nav-list>
+      <mat-list-item *ngFor="let notification of notifications" class="notification-item" [ngClass]="{'unread': !notification.isRead}">
+        <div class="notification-content">
+          <mat-icon>info</mat-icon>
+          <span class="notification-message">{{ notification.message }}</span>
+          <span class="time-ago">{{ notification.timeAgo }}</span>
+        </div>
+        <button mat-icon-button (click)="markAsRead(notification.id)">
+          <mat-icon>check_circle</mat-icon>
+        </button>
+      </mat-list-item>
     </mat-nav-list>
   </mat-drawer>
 
