@@ -2,12 +2,10 @@ package com.dhyanProject.career_site.controller;
 
 import com.dhyanProject.career_site.dto.ApplicationRequest;
 import com.dhyanProject.career_site.dto.JobApplicationStatusResponse;
-import com.dhyanProject.career_site.model.FavoriteJob;
-import com.dhyanProject.career_site.model.JobApplications;
-import com.dhyanProject.career_site.model.JobPosting;
-import com.dhyanProject.career_site.model.UserProfile;
+import com.dhyanProject.career_site.model.*;
 import com.dhyanProject.career_site.service.FavoriteJobService;
 import com.dhyanProject.career_site.service.JobApplicationsService;
+import com.dhyanProject.career_site.service.NotificationService;
 import com.dhyanProject.career_site.service.UserProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,6 +28,9 @@ public class UserController {
 
     @Autowired
     private UserProfileService userProfileService;
+
+    @Autowired
+    private NotificationService notificationService;
 
     @GetMapping("/jobs")
     public ResponseEntity<List<JobPosting>> getAllActiveJobs() {
@@ -94,5 +95,16 @@ public class UserController {
         Optional<UserProfile> userProfile = userProfileService.getUserProfile(userId);
         return userProfile.map(ResponseEntity::ok)
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    }
+
+    @GetMapping("/notifications")
+    public ResponseEntity<List<Notification>> getUnreadNotifications(@RequestParam Long userId) {
+        return ResponseEntity.ok(notificationService.getUnreadNotificationsForUser(userId));
+    }
+
+    @PutMapping("/notifications/{id}/read")
+    public ResponseEntity<Void> markNotificationAsRead(@PathVariable Long id) {
+        notificationService.markNotificationAsRead(id);
+        return ResponseEntity.noContent().build();
     }
 }

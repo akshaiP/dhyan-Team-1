@@ -1,12 +1,7 @@
 package com.dhyanProject.career_site.controller;
 
-import com.dhyanProject.career_site.model.JobApplications;
-import com.dhyanProject.career_site.model.JobPosting;
-import com.dhyanProject.career_site.model.Stage;
-import com.dhyanProject.career_site.model.UserProfile;
-import com.dhyanProject.career_site.service.JobApplicationsService;
-import com.dhyanProject.career_site.service.JobPostingService;
-import com.dhyanProject.career_site.service.UserProfileService;
+import com.dhyanProject.career_site.model.*;
+import com.dhyanProject.career_site.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,11 +19,27 @@ public class AdminController {
     private JobApplicationsService jobApplicationsService;
     @Autowired
     private UserProfileService userProfileService;
+    @Autowired
+    private NotificationService notificationService;
+    @Autowired
+    private UsersService usersService;
 
     @PostMapping("/job-posting")
     public ResponseEntity<JobPosting> createJobPosting(@RequestBody JobPosting jobPosting) {
-        System.out.println("Received signup request: " + jobPosting);
-        return ResponseEntity.ok(jobPostingService.createJobPosting(jobPosting));
+        JobPosting createdJob = jobPostingService.createJobPosting(jobPosting);
+
+        // Notify all users (with the USER role) of the new job posting
+        List<Users> users = usersService.getAllUsers();
+
+        users.stream()
+                .filter(user -> user.getRole() == Users.Role.USER)  // Filter by role
+                .forEach(user -> notificationService.createNotification(
+                        user.getId(),
+                        "New job posted: " + jobPosting.getJobTitle(),
+                        "NEW_JOB_POST"
+                ));
+
+        return ResponseEntity.ok(createdJob);
     }
 
     @GetMapping("/job-posting")
@@ -72,7 +83,20 @@ public class AdminController {
     public ResponseEntity<JobApplications> updateApplicationStage(@PathVariable Long id,
                                                                   @RequestParam JobApplications.CurrentStage newStage,
                                                                   @RequestParam Stage.StageStatus stageStatus) {
-        return ResponseEntity.ok(jobApplicationsService.updateApplicationStage(id, newStage, stageStatus));
+        // Update the application stage and status
+        JobApplications updatedApplication = jobApplicationsService.updateApplicationStage(id, newStage, stageStatus);
+
+        // Fetch the associated user profile to get user details
+        UserProfile userProfile = updatedApplication.getUserProfile();
+        if (userProfile != null && userProfile.getUser() != null) {
+            // Notify the user whose application was updated
+            notificationService.createNotification(
+                    userProfile.getUser().getId(), // Use the user ID from the UserProfile
+                    "Your application stage has been updated to: " + newStage,
+                    "APPLICATION_STAGE_CHANGED"
+            );
+        }
+        return ResponseEntity.ok(updatedApplication);
     }
 
     // View applications by job ID
