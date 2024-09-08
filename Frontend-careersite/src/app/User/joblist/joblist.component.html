@@ -9,17 +9,14 @@
 <div class="main-content">
   <div class="row">
     <aside class="filter-sidebar">
-      <h3>Filter Jobs</h3>
-      <!-- Filters -->
+      <div class="filter-header">
+        <h3>Filter Jobs</h3>
+      </div>
       <mat-form-field appearance="fill">
         <mat-label>Location</mat-label>
         <mat-select [(value)]="selectedLocation">
           <mat-option value="all">All Locations</mat-option>
-          <mat-option value="Bangalore">Bangalore</mat-option>
-          <mat-option value="Chennai">Chennai</mat-option>
-          <mat-option value="Coimbatore">Coimbatore</mat-option>
-          <mat-option value="Hyderabad">Hyderabad</mat-option>
-          <mat-option value="Pune">Pune</mat-option>
+          <mat-option *ngFor="let location of locations" [value]="location">{{ location }}</mat-option>
         </mat-select>
       </mat-form-field>
     
@@ -27,9 +24,7 @@
         <mat-label>Experience Level</mat-label>
         <mat-select [(value)]="selectedExperience">
           <mat-option value="all">All Levels</mat-option>
-          <mat-option value="entry">Entry Level</mat-option>
-          <mat-option value="mid">Mid Level</mat-option>
-          <mat-option value="senior">Senior Level</mat-option>
+          <mat-option *ngFor="let experience of experienceLevels" [value]="experience">{{ experience }}</mat-option>
         </mat-select>
       </mat-form-field>
     
@@ -37,10 +32,7 @@
         <mat-label>Job Type</mat-label>
         <mat-select [(value)]="selectedJobType">
           <mat-option value="all">All Types</mat-option>
-          <mat-option value="full-time">Full-Time</mat-option>
-          <mat-option value="part-time">Part-Time</mat-option>
-          <mat-option value="contract">Contract</mat-option>
-          <mat-option value="internship">Internship</mat-option>
+          <mat-option *ngFor="let jobType of jobTypes" [value]="jobType">{{ jobType }}</mat-option>
         </mat-select>
       </mat-form-field>
     
@@ -48,12 +40,12 @@
         <mat-label>Salary Range</mat-label>
         <mat-select [(value)]="selectedSalaryRange">
           <mat-option value="all">All Ranges</mat-option>
-          <mat-option value="1-3LPA">1-3LPA</mat-option>
-          <mat-option value="3-5LPA">3-5LPA</mat-option>
-          <mat-option value="5-7LPA">5-7LPA</mat-option>
-          <mat-option value="7LPA+">7LPA+</mat-option>
+          <mat-option *ngFor="let salaryRange of salaryRanges" [value]="salaryRange">{{ salaryRange }}</mat-option>
         </mat-select>
       </mat-form-field>
+      <button mat-raised-button color="warn" (click)="resetFilters()" class="reset-button">
+        Reset Filters
+      </button>
     </aside>
     
     <!-- Job Listings -->
