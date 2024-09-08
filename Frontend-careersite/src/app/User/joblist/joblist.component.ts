@@ -54,6 +54,11 @@ export class JoblistComponent implements OnInit {
   selectedJobType: string = 'all';
   selectedSalaryRange: string = 'all';
 
+  locations: string[] = [];
+  experienceLevels: string[] = [];
+  jobTypes: string[] = [];
+  salaryRanges: string[] = [];
+
   constructor(private jobSer: JobService, private router: Router, private toastr: ToastrService) {} 
   ngOnInit(): void {
     this.loadJobs();
@@ -64,6 +69,7 @@ export class JoblistComponent implements OnInit {
       (res: any) => {
         console.log('Job List Response:', res);
         this.jobList = res;
+        this.extractFilterOptions();
         this.checkApplications();
         this.checkFavorites();
       },
@@ -72,6 +78,23 @@ export class JoblistComponent implements OnInit {
         this.toastr.error('Failed to load jobs. Please try again later.', 'Error'); 
       }
     );
+  }
+
+  resetFilters(): void {
+    this.selectedLocation = 'all';
+    this.selectedExperience = 'all';
+    this.selectedJobType = 'all';
+    this.selectedSalaryRange = 'all';
+    this.loadJobs();
+  }
+
+  extractFilterOptions(): void {
+
+    this.locations = Array.from(new Set(this.jobList.map(job => job.location))).filter(loc => loc);
+    this.experienceLevels = Array.from(new Set(this.jobList.map(job => job.experienceLevel))).filter(exp => exp);
+    this.jobTypes = Array.from(new Set(this.jobList.map(job => job.employmentType))).filter(type => type);
+    this.salaryRanges = Array.from(new Set(this.jobList.map(job => job.salaryRange))).filter(salary => salary);
+    
   }
 
   openJobDetailsModal(job: any, event: Event): void {
