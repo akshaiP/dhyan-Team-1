@@ -27,3 +27,8 @@ $theme: mat.define-light-theme((
 
 // Apply the theme to all components
 @include mat.all-component-themes($theme);
+
+
+$primary-color: mat.get-color-from-palette($primary);
+$accent-color: mat.get-color-from-palette($accent, A200);
+$warn-color: mat.get-color-from-palette($warn);

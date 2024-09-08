@@ -8,10 +8,10 @@
 
   <span class="spacer"></span>
 
-  <button mat-icon-button class="badge-button" [matBadge]="unreadCount" matBadgeColor="accent" (click)="toggleNotificationPanel()">
+  <button mat-icon-button class="badge-button custom-badge" [matBadge]="unreadCount" matBadgeColor="accent" matBadgePosition="above after" (click)="toggleNotificationPanel()">
     <mat-icon>notifications</mat-icon>
   </button>
-
+  
   <button mat-icon-button [matMenuTriggerFor]="userMenu">
     <mat-icon>account_circle</mat-icon>
   </button>
@@ -21,7 +21,7 @@
 </mat-toolbar>
 
 <!-- Sidenav and Content Layout -->
-<mat-drawer-container class="sidenav-container" autosize>
+<mat-drawer-container class="sidenav-container" color="primary" autosize>
   <!-- Sidenav -->
   <mat-drawer #drawer mode="side" [(opened)]="isSidenavOpened" class="sidenav" color="primary" position="start">
     <mat-nav-list>
@@ -51,7 +51,7 @@
         <div class="notification-content">
           <mat-icon>info</mat-icon>
           <span class="notification-message">{{ notification.message }}</span>
-          <span class="time-ago">{{ notification.timeAgo }}</span>
+          <span class="time-ago" style="margin-left: auto;">{{ notification.timeAgo }}</span>
         </div>
         <button mat-icon-button (click)="markAsRead(notification.id)">
           <mat-icon>check_circle</mat-icon>

@@ -1,6 +1,7 @@
 .profile-container {
   padding: 20px;
-  max-width: 800px;
+  width:100%;
+  max-width: 1150px;
   margin: 0 auto;
   font-family: 'Roboto', sans-serif;
   color: #333;
@@ -13,9 +14,13 @@
 
 .profile-details {
   border-radius: 10px;
-  background-color: #fff;
+  background-color: #ffffff;
+  padding: 10px;
+}
+
+.profile-info {
+  text-align: justify;
   margin-bottom: 20px;
-  padding: 20px;
 }
 
 .profile-picture {
@@ -24,6 +29,21 @@
   border-radius: 50%;
   margin: 10px 0;
   object-fit: cover;
+}
+
+.profile-sections {
+  display: flex;
+  justify-content: space-between;
+}
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+.education-details,
+.work-experience {
+  flex: 1;
+  margin: 0 10px;
 }
 
 .modal {
@@ -56,7 +76,7 @@
   color: #333;
 }
 
-close:hover {
+.close:hover {
   color: #f44336;
   cursor: pointer;
 }
@@ -69,4 +89,49 @@ mat-form-field {
 button[type="submit"] {
   margin-top: 15px;
   width: 100%;
+}
+.profile-details {
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 20px;
+}
+
+.profile-picture {
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  margin-right: 20px;
+  object-fit: cover;
+}
+
+.profile-info {
+  flex: 1;
+}
+
+.profile-info h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.profile-info p {
+  
+  font-size: 16px;
+}
+
+.profile-info a {
+  color: #1e88e5;
+  text-decoration: none;
+}
+
+.profile-info a:hover {
+  text-decoration: underline;
 }

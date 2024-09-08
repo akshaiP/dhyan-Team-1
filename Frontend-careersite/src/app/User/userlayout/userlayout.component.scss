@@ -16,22 +16,39 @@
   height: 100vh;
   display: flex;
   flex-direction: row;
-  margin-top: 64px;
+  margin-top: 64px; /* Adjust based on your toolbar height */
   overflow: hidden;
 }
 
 .sidenav {
   width: 250px;
-  background-color: var(--mat-primary);
+  background-color: #3f51b5;
   color: #ffffff;
   flex-shrink: 0;
+}
+
+/* Ensure text color is white for links inside sidenav */
+.sidenav .mat-nav-list a, 
+.sidenav .mat-nav-list a span {
+  color: #ffffff !important;
+}
+
+/* Ensure icon color is white */
+.sidenav .mat-icon {
+  color: #ffffff !important;
+}
+
+/* Optional: highlight active link */
+.sidenav .mat-nav-list a.mat-list-item.active {
+  background-color: rgba(255, 255, 255, 0.2) !important;
 }
 
 .sidenav-content {
   flex-grow: 1;
   padding: 16px;
-  height: calc(100vh - 64px);
+  height: calc(100vh - 64px); /* Adjust based on your toolbar height */
   overflow-y: auto;
+  background-color: rgb(215, 235, 243);
 }
 
 .sidenav-content::-webkit-scrollbar {
@@ -41,29 +58,6 @@
 .sidenav-content {
   scrollbar-width: none;
   -ms-overflow-style: none;
-}
-
-/* Badge Button Styling */
-button[mat-icon-button] {
-  position: relative;
-}
-
-.badge-button::after {
-  content: attr(matBadge);
-  background-color: var(--mat-badge-accent);
-  color: white;
-  border-radius: 50%;
-  font-size: 12px;
-  padding: 4px;
-  position: absolute;
-  top: 0;
-  right: 0;
-  transform: translate(50%, -50%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 20px;
-  width: 20px;
 }
 
 /* Notification Drawer Styling */
@@ -79,27 +73,29 @@ button[mat-icon-button] {
 }
 
 .notification-item {
-  display: flex;
-  align-items: flex-start;
-  padding: 12px 8px;
+  margin-bottom: 15px; 
+  padding: 20px;
   border-bottom: 1px solid #e0e0e0;
-  width: 100%;
-  position: relative;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
 }
 
 .notification-item mat-icon {
   margin-right: 12px;
   color: #0e0e0f;
   flex-shrink: 0;
-  align-self: flex-start;
 }
 
 .notification-content {
   display: flex-start;
   flex-direction: column;
   flex-grow: 2;
+  justify-content: space-between;
   overflow-wrap: break-word;
   margin-right: 40px;
+  align-items: center;
+  width: 100%;
 }
 
 .notification-message {
@@ -112,6 +108,7 @@ button[mat-icon-button] {
   font-size: 12px;
   color: #b11010;
   margin-top: 4px;
+  margin-left: 10px;
 }
 
 .notification-drawer button[mat-icon-button] {

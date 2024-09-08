@@ -32,7 +32,8 @@ import { formatDistanceToNow } from 'date-fns';
   ],
   providers: [JobService],
   templateUrl: './userlayout.component.html',
-  styleUrls: ['./userlayout.component.scss']
+  styleUrls: ['./userlayout.component.scss'],
+
 })
 export class UserlayoutComponent {
   @ViewChild('sidenav') sidenav!: MatSidenav;
