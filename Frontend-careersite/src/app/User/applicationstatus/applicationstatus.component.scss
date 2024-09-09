@@ -48,13 +48,28 @@
     }
   
     .current-status {
-      position: absolute; /* Position status absolutely */
-      right: 0; /* Align to the right end */
-      font-weight: bold;
+      display: inline-block;
       padding: 5px 10px;
       border-radius: 15px;
-      color: #fff;
-      background-color: #0a8604; /* Example color, adjust as needed */
+      font-weight: bold;
+    }
+    
+    .current-status.accepted {
+      color: #0a8604;
+      background-color: #e6ffe6;
+      border: 1px solid #0a8604;
+    }
+    
+    .current-status.rejected {
+      color: #f80707d5;
+      background-color: #ffe6e6;
+      border: 1px solid #f80707d5;
+    }
+    
+    .current-status.pending {
+      color: #ffa500;
+      background-color: #fff4e5;
+      border: 1px solid #ffa500;
     }
   }
   
@@ -132,4 +147,20 @@
     }
   }
   
+}
+.search-container {
+  padding: 16px;
+  display: flex;
+  margin: 20px;
+  justify-content: center;
+}
+
+.search-input {
+  width: 50%;
+  padding: 10px;
+  border: 1px solid #0b0b0b5b;
+  border-radius: 5px;
+  font-size: 16px;
+  box-sizing: border-box;
+  border-right: none;
 }

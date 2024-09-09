@@ -1,4 +1,8 @@
-<mat-card class="application-card" *ngFor="let application of applications">
+<div class="search-container">
+  <input type="text" placeholder="Search by company or job title" [(ngModel)]="searchText" class="search-input">
+</div>
+
+<mat-card class="application-card" *ngFor="let application of applications | search: searchText: ['companyName', 'jobTitle']">
   <mat-card-header>
     <div class="status-container">
       <div class="company-info">
@@ -8,9 +12,13 @@
           <mat-card-subtitle>{{ application.jobTitle }}</mat-card-subtitle>
         </mat-card-title-group>
       </div>
-      <span class="current-status">
-        {{ application.applicationStatus }}
-      </span>
+      <span class="current-status" 
+      [ngClass]="{
+        'accepted': application.applicationStatus === 'ACCEPTED',
+        'rejected': application.applicationStatus === 'REJECTED',
+        'pending': application.applicationStatus === 'PENDING'
+      }"> {{ application.applicationStatus }}
+</span>
     </div>
   </mat-card-header>
 

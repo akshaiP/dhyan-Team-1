@@ -5,6 +5,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatBadgeModule } from '@angular/material/badge';
 import { ThemePalette } from '@angular/material/core';
+import { SearchPipe } from '../../pipe/search.pipe';
+import { FormsModule } from '@angular/forms';
 
 const STAGE_ORDER = [
   'APPLIED',
@@ -18,12 +20,13 @@ const STAGE_ORDER = [
 @Component({
   selector: 'app-applicationstatus',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatProgressBarModule, MatBadgeModule],
+  imports: [CommonModule, MatCardModule, MatProgressBarModule, MatBadgeModule,SearchPipe,FormsModule],
   templateUrl: './applicationstatus.component.html',
   styleUrls: ['./applicationstatus.component.scss']
 })
 export class ApplicationStatusComponent implements OnInit {
   applications: any[] = [];
+  searchText: string = '';
 
   constructor(private jobService: JobService) {}
 
