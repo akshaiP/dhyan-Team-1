@@ -7,6 +7,9 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { ThemePalette } from '@angular/material/core';
 import { SearchPipe } from '../../pipe/search.pipe';
 import { FormsModule } from '@angular/forms';
+import { JobPosting } from '../../models/job-posting.model'; 
+
+
 
 const STAGE_ORDER = [
   'APPLIED',
@@ -32,7 +35,9 @@ export class ApplicationStatusComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchApplicationStatus();
+    console.log('Applications after load:', this.applications);
   }
+
 
   // Method to fetch application status from backend
 fetchApplicationStatus(): void {
@@ -84,4 +89,5 @@ fillMissingStages(stages: any[]): any[] {
     const completedStages = application.stages.filter((stage: { stageStatus: string; }) => stage.stageStatus === 'COMPLETED').length;
     return (completedStages / totalStages) * 100; // Calculate progress based on all stages
   }
+
 }

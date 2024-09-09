@@ -32,3 +32,10 @@ $theme: mat.define-light-theme((
 $primary-color: mat.get-color-from-palette($primary);
 $accent-color: mat.get-color-from-palette($accent, A200);
 $warn-color: mat.get-color-from-palette($warn);
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}

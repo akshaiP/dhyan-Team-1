@@ -1,4 +1,11 @@
 /* General Styles */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  left:0;
+}
+
 .mat-toolbar {
   position: fixed;
   top: 0;
@@ -14,41 +21,56 @@
 
 .sidenav-container {
   height: 100vh;
-  display: flex;
+  display: flex-start;
   flex-direction: row;
-  margin-top: 64px; /* Adjust based on your toolbar height */
+  margin-top: 64px; 
   overflow: hidden;
+  margin-left: 0; 
 }
 
 .sidenav {
+  left:0;
   width: 250px;
   background-color: #3f51b5;
   color: #ffffff;
   flex-shrink: 0;
+  margin-left: 0; 
+}
+button.nav-button {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: start;
+  color: white;
+  height: 56px; 
+  padding: 0 18px; 
+  font-size: 18px;
 }
 
-/* Ensure text color is white for links inside sidenav */
-.sidenav .mat-nav-list a, 
-.sidenav .mat-nav-list a span {
-  color: #ffffff !important;
+button.nav-button mat-icon {
+  margin-right: 10px;
+  font-size: 18px; 
 }
 
-/* Ensure icon color is white */
-.sidenav .mat-icon {
-  color: #ffffff !important;
+/* Active state style */
+button.nav-button.active {
+  background-color:#e91e63;
+  color: white;
 }
 
-/* Optional: highlight active link */
-.sidenav .mat-nav-list a.mat-list-item.active {
-  background-color: rgba(255, 255, 255, 0.2) !important;
+button.nav-button:hover {
+  background-color: #e91e63; 
 }
+
+
 
 .sidenav-content {
   flex-grow: 1;
   padding: 16px;
-  height: calc(100vh - 64px); /* Adjust based on your toolbar height */
+  height: calc(100vh - 64px); 
   overflow-y: auto;
   background-color: rgb(215, 235, 243);
+  margin-left: 0; 
 }
 
 .sidenav-content::-webkit-scrollbar {
@@ -70,6 +92,7 @@
   border-left: 1px solid #e0e0e0;
   overflow-y: auto;
   overflow-x: hidden;
+  margin-left: 0; 
 }
 
 .notification-item {

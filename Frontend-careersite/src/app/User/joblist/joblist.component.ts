@@ -187,11 +187,11 @@ export class JoblistComponent implements OnInit {
         } else {
           //this.toastr.error('Error marking job as favorite.', 'Error'); 
           this.toastr.success('Job marked as favorite!', 'Success');     //FOR CHECKING - FETCH ERROR STATEMENT
-          console.error('Error marking job as favorite:', response);
+          //console.error('Error marking job as favorite:', response);
         }
       },
       (error: any) => {
-        console.error('Error marking job as favorite:', error);
+        //console.error('Error marking job as favorite:', error);
         this.toastr.error('An error occurred while marking the job as favorite. Please try again.', 'Error'); 
       }
     );
@@ -205,11 +205,11 @@ export class JoblistComponent implements OnInit {
           this.updateJobList(jobId, 'removeFavorite');
         } else {
           this.toastr.error('Error removing job from favorites.', 'Error'); 
-          console.error('Error removing job from favorites:', response);
+          //console.error('Error removing job from favorites:', response);
         }
       },
       (error: any) => {
-        console.error('Error removing job from favorites:', error);
+       // console.error('Error removing job from favorites:', error);
         this.toastr.error('An error occurred while removing the job from favorites. Please try again.', 'Error'); 
       }
     );
@@ -265,7 +265,7 @@ export class JoblistComponent implements OnInit {
           });
         },
         (error: any) => {
-          console.error('Error checking favorites:', error);
+          //console.error('Error checking favorites:', error);
           this.toastr.error('Failed to check favorites. Please try again later.', 'Error');
         }
       );
