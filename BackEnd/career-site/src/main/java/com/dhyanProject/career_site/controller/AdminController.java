@@ -75,7 +75,19 @@ public class AdminController {
     @PutMapping("/applications/{id}/status")
     public ResponseEntity<JobApplications> updateApplicationStatus(@PathVariable Long id,
                                                                    @RequestParam JobApplications.ApplicationStatus status) {
-        return ResponseEntity.ok(jobApplicationsService.updateApplicationStatus(id, status));
+        JobApplications updatedApplication = jobApplicationsService.updateApplicationStatus(id, status);
+
+        UserProfile userProfile = updatedApplication.getUserProfile();
+        if (userProfile != null && userProfile.getUser() != null) {
+            // Include the company name in the notification message
+            String companyName = updatedApplication.getJobPosting().getCompanyName();
+            notificationService.createNotification(
+                    userProfile.getUser().getId(),
+                    "Your application for " + companyName + " has been " + status,
+                    "APPLICATION_STATUS_CHANGED"
+            );
+        }
+        return ResponseEntity.ok(updatedApplication);
     }
 
     // Update the stage and status of an accepted application
@@ -83,16 +95,15 @@ public class AdminController {
     public ResponseEntity<JobApplications> updateApplicationStage(@PathVariable Long id,
                                                                   @RequestParam JobApplications.CurrentStage newStage,
                                                                   @RequestParam Stage.StageStatus stageStatus) {
-        // Update the application stage and status
+
         JobApplications updatedApplication = jobApplicationsService.updateApplicationStage(id, newStage, stageStatus);
 
-        // Fetch the associated user profile to get user details
         UserProfile userProfile = updatedApplication.getUserProfile();
         if (userProfile != null && userProfile.getUser() != null) {
-            // Notify the user whose application was updated
+            String companyName = updatedApplication.getJobPosting().getCompanyName();
             notificationService.createNotification(
-                    userProfile.getUser().getId(), // Use the user ID from the UserProfile
-                    "Your application stage has been updated to: " + newStage,
+                    userProfile.getUser().getId(),
+                    "Your application for " + companyName + " has been updated to stage: " + newStage,
                     "APPLICATION_STAGE_CHANGED"
             );
         }
