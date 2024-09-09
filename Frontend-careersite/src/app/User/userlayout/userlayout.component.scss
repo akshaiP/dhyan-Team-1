@@ -44,7 +44,7 @@ button.nav-button {
   color: white;
   height: 56px; 
   padding: 0 18px; 
-  font-size: 18px;
+  font-size: 16px;
 }
 
 button.nav-button mat-icon {
@@ -54,12 +54,13 @@ button.nav-button mat-icon {
 
 /* Active state style */
 button.nav-button.active {
-  background-color:#e91e63;
+  background-color: #FF4081; 
   color: white;
 }
 
 button.nav-button:hover {
-  background-color: #e91e63; 
+  background-color: #FF4081;  
+
 }
 
 
