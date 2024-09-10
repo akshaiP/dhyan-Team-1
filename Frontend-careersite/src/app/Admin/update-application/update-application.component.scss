@@ -7,6 +7,7 @@ body {
 
 .main-content {
     padding: 20px;
+    margin-top: 50px;
 }
 
 .header-section {
@@ -30,7 +31,7 @@ body {
 }
 
 mat-card-title {
-    color: #1737edda;
+    color: #0D1B2A;
     font-size: 20px; /* Medium size */
     text-align: center; /* Center title text */
 }
@@ -74,7 +75,7 @@ mat-card-subtitle {
     }
 
     mat-header-cell {
-        background-color: #1737edda;
+        background-color: #5e8bab;
         color: #ffffff;
     }
 
@@ -200,12 +201,12 @@ button {
 }
 /* custom-stoked-button class for accent color */
 .custom-stoked-button {
-    border-color: rgb(11, 1, 146); /* Use accent color from the theme */
-    color: rgb(251, 1, 113); /* Use accent color from the theme */
+    border-color:#0D1B2A; /* Use accent color from the theme */
+    color: #e7786f; /* Use accent color from the theme */
   }
   
   .custom-stoked-button:disabled {
-    border-color:  rgb(11, 1, 146); /* Disabled border color */
+    border-color:  #0D1B2A; /* Disabled border color */
     color: grey; /* Disabled text color */
     cursor: not-allowed;
   }

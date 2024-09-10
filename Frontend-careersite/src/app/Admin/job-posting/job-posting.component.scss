@@ -5,18 +5,25 @@ body {
   background-color: #f4f4f4;
 }
 
+/* Main content styling */
 .main-content {
   margin-top: 100px;
   padding: 20px;
-}
-.company-logo {
-  width: 150px; /* Adjust width for medium size */
-  height: 150px; /* Adjust height for medium size */
-  border-radius: 50%; /* Keeps the image circular */
-  object-fit: cover; /* Ensures the image covers the entire area without distortion */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
+//* Main content styling */
+.main-content {
+  margin-top: 100px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centers content horizontally */
+}
 
+/* Create New Job Posting button styling */
 .create-job-button {
   margin-bottom: 20px;
   padding: 10px 15px;
@@ -24,11 +31,45 @@ body {
   color: white;
   border-radius: 5px;
   cursor: pointer;
+  text-align: center;
 }
 
 .create-job-button:hover {
   background-color: mat-color(primary, 700);
 }
+
+/* Job cards container */
+.job-cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%; /* Full width for the job cards section */
+  max-width: 1200px; /* Optional: Sets a maximum width for better design control */
+  margin-top: 20px;
+}
+
+/* Job card styling */
+.job-card {
+  width: calc(50% - 10px); /* Two cards per row */
+  margin-bottom: 20px;
+  box-sizing: border-box; /* Ensures padding and borders are included in the width */
+}
+
+/* Company logo */
+.company-logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Actions button styling */
+.actions-right {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
 
 /* Modal Background */
 .modal {

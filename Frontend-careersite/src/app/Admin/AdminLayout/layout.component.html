@@ -1,14 +1,19 @@
 <mat-toolbar color="primary">
   <div class="container">
-    <span class="brand-logo">HIRE ME📢</span>
-    <span class="spacer"></span>
-    
-    <a mat-button routerLink="/admin-dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Dashboard</a>
-    <a mat-button routerLink="/applications" routerLinkActive="active">Applications</a>
-    <a mat-button routerLink="/job-posting" routerLinkActive="active">Job Postings</a>
+    <span class="brand-logo">
+      Hire Me📢
+    </span>
     
     <span class="spacer"></span>
+
+    <!-- Navigation Links with Active and Hover States -->
+    <button class="nav-button" mat-button routerLink="/admin-dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Dashboard</button>
+    <button class="nav-button" mat-button routerLink="/applications" routerLinkActive="active">Applications</button>
     
+    <button class="nav-button" mat-button routerLink="/job-posting" routerLinkActive="active">Job Postings</button>
+    
+    <span class="spacer"></span>
+
     <div class="user-actions">
       <button mat-icon-button [matMenuTriggerFor]="adminMenu">
         <mat-icon>account_circle</mat-icon>
@@ -21,6 +26,6 @@
 </mat-toolbar>
 
 <!-- Content Section -->
-<div class="content" display="flex-start">
-<router-outlet></router-outlet>
+<div class="content">
+  <router-outlet></router-outlet>
 </div>

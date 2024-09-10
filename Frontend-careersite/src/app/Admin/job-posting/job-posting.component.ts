@@ -12,13 +12,14 @@ import { MatSelectModule } from '@angular/material/select';
 import { JobPosting } from '../../models/job-posting.model';
 import { ToastrService } from 'ngx-toastr';
 import { ConfirmationDialogComponent } from '../../dialog/confirmation-dialog.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @Component({
   selector: 'app-job-postings',
   standalone: true,
   imports: [FormsModule, ReactiveFormsModule, CommonModule,MatDialogModule,MatCardModule,MatIconModule,
-    MatFormFieldModule,MatDialogActions, MatDialogClose, MatDialogTitle, MatDialogContent,
+    MatFormFieldModule,MatDialogActions, MatDialogClose, MatDialogTitle, MatDialogContent,MatTooltipModule,
     MatInputModule,MatSelectModule,
     MatButtonModule],
   templateUrl: './job-posting.component.html',

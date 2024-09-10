@@ -1,70 +1,20 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-  }
-  
-  .navbar {
-    background-color: mat-color(primary);
-    color: #fafafd;
-    padding: 15px 20px;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 1000;
-  }
-  
-  .navbar .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .navbar .brand-logo {
-    font-size: 30px;
-    font-weight: 700;
-    color: #fbfcfdfa;
-    font-style: italic;
-    font-family: 'Futura', sans-serif;
-  }
-  
-  .navbar .nav-links {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-  }
-  
-  .navbar .nav-links li {
-    display: inline-block;
-  }
-  
-  .navbar .nav-links a {
-    text-decoration: none;
-    color: #ffffff;
-    font-weight: bold;
-    transition: color 0.3s ease;
-  }
-  
-  .navbar .nav-links a.active {
-    color: mat-color(accent);
-    border-bottom: 2px solid #ffffff;
-  }
-  
-  .navbar .nav-links a:hover {
-    color: mat-color(warn);
-  }
-  
-  .navbar .user-actions {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-  }
-  
-  .navbar .user-icon {
-    font-size: 18px;
-    color: mat-color(accent);
-  }
+.search-container {
+
+  display: flex;
+  margin-top: 70px;
+  justify-content: center;
+  margin-bottom: 0;
+}
+
+.search-input {
+  width: 50%;
+  padding: 10px;
+  border: 1px solid #0b0b0b91;
+  border-radius: 5px;
+  font-size: 16px;
+  box-sizing: border-box;
+  border-right: none;
+}
   
   .job-card {
     background-color: #ffffff;

@@ -1,5 +1,4 @@
-<section class="main-content">
-  <button mat-raised-button color="primary" (click)="toggleModal()" class="create-job-button">Create New Job Posting</button>
+
 
   <!-- Modal for Job Form -->
   <div class="modal" [ngClass]="{'show': showModal}">
@@ -124,25 +123,33 @@
     </div>
   </div>
 
-  <!-- Job Listings -->
-  <mat-card class="job-card" *ngFor="let job of jobPostings">
-    <mat-card-header>
-      <img [src]="job.companyLogoUrl" alt="{{ job.companyName }} Logo" class="company-logo">
-      <mat-card-title>{{ job.companyName }}</mat-card-title>
-      <mat-card-subtitle>{{ job.jobTitle }}</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-      <p><strong>Location:</strong> {{ job.location }}</p>
-      <p><strong>Last Date to Apply:</strong> {{ job.lastDateToApply | date }}</p>
-      <p><strong>Status:</strong> {{ job.status }}</p>
-    </mat-card-content>
-    <mat-card-actions class="actions-right">
-      <button mat-fab color="accent" (click)="editJob(job)">
-        <mat-icon>edit</mat-icon>
-      </button>
-      <button mat-fab color="warn" (click)="removeJob(job.id)">
-        <mat-icon>delete</mat-icon>
-      </button>
-    </mat-card-actions>
-  </mat-card>
-</section>
+  <section class="main-content">
+    <button mat-raised-button color="primary" (click)="toggleModal()" class="create-job-button">
+      Create New Job Posting
+    </button>
+  
+    <!-- Job Cards Container -->
+    <div class="job-cards-container">
+      <mat-card class="job-card" *ngFor="let job of jobPostings">
+        <mat-card-header>
+          <img [src]="job.companyLogoUrl" alt="{{ job.companyName }} Logo" class="company-logo">
+          <mat-card-title>{{ job.companyName }}</mat-card-title>
+          <mat-card-subtitle>{{ job.jobTitle }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p><strong>Location:</strong> {{ job.location }}</p>
+          <p><strong>Last Date to Apply:</strong> {{ job.lastDateToApply | date }}</p>
+          <p><strong>Status:</strong> {{ job.status }}</p>
+        </mat-card-content>
+        <mat-card-actions class="actions-right">
+          <button mat-fab color="primary" (click)="editJob(job)" matTooltip="Edit Job Posting">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-fab color="warn" (click)="removeJob(job.id)" matTooltip="Delete Job Posting">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </section>
+  

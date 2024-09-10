@@ -44,12 +44,13 @@ button[mat-button] {
 
 // Confirm button styles
 button[mat-raised-button] {
-  background-color: #1976d2;
-  color: #fff;
+  background-color:#f2b1ab,;
+  color: #000000;
   font-weight: 600;
   text-transform: uppercase;
   &:hover {
-    background-color: #1565c0;
+    background-color: #b11010;
+    color:white
   }
 }
 
