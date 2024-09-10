@@ -69,7 +69,7 @@ export class JobService {
   // Remove a job from favorites
   RemoveFromFavorites(jobId: number): Observable<any> {
     const userId = localStorage.getItem('userId');
-    return this.http.delete<any>(`${this.apiEndpoint}favorite?userId=${userId}&jobId=${jobId}`, {
+    return this.http.delete<void>(`${this.apiEndpoint}favorite?userId=${userId}&jobId=${jobId}`, {
       headers: this.getAuthHeaders()
     });
   }

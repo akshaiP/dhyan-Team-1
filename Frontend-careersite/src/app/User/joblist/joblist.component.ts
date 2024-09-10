@@ -199,18 +199,13 @@ export class JoblistComponent implements OnInit {
 
   removeFromFavorites(jobId: number): void {
     this.jobSer.RemoveFromFavorites(jobId).subscribe(
-      (response: any) => {
-        if (response.success) {
-          this.toastr.success('Job removed from favorites!', 'Success'); 
-          this.updateJobList(jobId, 'removeFavorite');
-        } else {
-          this.toastr.error('Error removing job from favorites.', 'Error'); 
-          //console.error('Error removing job from favorites:', response);
-        }
+      () => {
+        this.toastr.success('Job removed from favorites!', 'Success');
+        this.updateJobList(jobId, 'removeFavorite');
       },
       (error: any) => {
-       // console.error('Error removing job from favorites:', error);
-        this.toastr.error('An error occurred while removing the job from favorites. Please try again.', 'Error'); 
+        console.error('Error removing job from favorites:', error);
+        this.toastr.error('An error occurred while removing the job from favorites. Please try again.', 'Error');
       }
     );
   }

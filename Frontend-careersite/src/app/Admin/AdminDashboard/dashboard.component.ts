@@ -87,6 +87,9 @@ export class DashboardComponent implements OnInit{
     Highcharts.chart('highchart-pie', {
       chart: { type: 'pie' },
       title: { text: 'Application Status Distribution' },
+      credits: {
+        enabled:false
+      },
       series: [{
         type: 'pie',
         name: 'Applications',
@@ -106,6 +109,9 @@ export class DashboardComponent implements OnInit{
       title: { text: 'Top Applications by Job Title' },
       xAxis: { type: 'category' },
       yAxis: { title: { text: 'Total Applications' } },
+      credits: {
+        enabled:false
+      },
       series: [{
         type: 'column',
         name: 'Applications',
