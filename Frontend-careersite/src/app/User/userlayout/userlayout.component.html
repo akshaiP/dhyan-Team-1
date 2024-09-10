@@ -8,7 +8,7 @@
 
   <span class="spacer"></span>
 
-  <button mat-icon-button class="badge-button custom-badge" [matBadge]="unreadCount" matBadgeColor="accent" matBadgePosition="above after" (click)="toggleNotificationPanel()">
+  <button mat-icon-button class="badge-button custom-badge" [matBadge]="unreadCount" matBadgeColor="warn" matBadgePosition="above after" (click)="toggleNotificationPanel()">
     <mat-icon>notifications</mat-icon>
   </button>
   
@@ -48,22 +48,22 @@
 
 
 
+<!-- Notification Panel -->
+<mat-drawer #notificationPanel mode="over" position="end" class="notification-drawer" [opened]="isNotificationPanelOpened">
+  <mat-nav-list>
+    <mat-list-item *ngFor="let notification of notifications" class="notification-item" [ngClass]="{'unread': !notification.isRead, 'read': notification.isRead}">
+      <div class="notification-content">
+        <mat-icon>info</mat-icon>
+        <span class="notification-message">{{ notification.message }}</span>
+        <span class="time-ago" style="margin-left: auto;">{{ notification.timeAgo }}</span>
+      </div>
+      <button mat-icon-button (click)="markAsRead(notification.id)">
+        <mat-icon>check_circle</mat-icon>
+      </button>
+    </mat-list-item>
+  </mat-nav-list>
+</mat-drawer>
 
-  <!-- Notification Panel -->
-  <mat-drawer #notificationPanel mode="over" position="end" class="notification-drawer" [opened]="isNotificationPanelOpened">
-    <mat-nav-list>
-      <mat-list-item *ngFor="let notification of notifications" class="notification-item" [ngClass]="{'unread': !notification.isRead}">
-        <div class="notification-content">
-          <mat-icon>info</mat-icon>
-          <span class="notification-message">{{ notification.message }}</span>
-          <span class="time-ago" style="margin-left: auto;">{{ notification.timeAgo }}</span>
-        </div>
-        <button mat-icon-button (click)="markAsRead(notification.id)">
-          <mat-icon>check_circle</mat-icon>
-        </button>
-      </mat-list-item>
-    </mat-nav-list>
-  </mat-drawer>
 
   <!-- Main Content -->
   <mat-drawer-content class="sidenav-content">

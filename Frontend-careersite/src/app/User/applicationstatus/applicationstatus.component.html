@@ -1,5 +1,5 @@
 <div class="search-container">
-  <input type="text" placeholder="Search by company or job title" [(ngModel)]="searchText" class="search-input">
+  <input type="text" placeholder="🔍Search by company or job title" [(ngModel)]="searchText" class="search-input">
 </div>
 
 <mat-card class="application-card" *ngFor="let application of applications | search: searchText: ['companyName', 'jobTitle']">

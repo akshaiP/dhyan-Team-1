@@ -70,12 +70,17 @@
           </mat-card-content>
           <mat-card-actions>
             <button mat-flat-button color="primary" (click)="openJobDetailsModal(job, $event)">View Details</button>
-            <button mat-raised-button color="accent" [disabled]="job.isApplied" (click)="applyForJob(job.id)">
+            
+            <button mat-raised-button color="warn" [disabled]="job.isApplied" (click)="applyForJob(job.id)"
+              [ngClass]="{'applied': job.isApplied}">
               {{ job.isApplied ? 'Applied' : 'Apply' }}
             </button>
-            <button mat-raised-button color="warn" *ngIf="job.isApplied && job.applicationStatus === 'PENDING'" (click)="unapplyForJob(job.id)">
+            
+            <button mat-raised-button color="warn" *ngIf="job.isApplied && job.applicationStatus === 'PENDING'"
+              (click)="unapplyForJob(job.id)">
               Unapply
             </button>
+
             <button mat-icon-button (click)="toggleFavorite(job.id)">
               <mat-icon [ngClass]="{'favorite': job.isFavorite, 'non-favorite': !job.isFavorite}">
                 {{ job.isFavorite ? 'star' : 'star_outline' }}

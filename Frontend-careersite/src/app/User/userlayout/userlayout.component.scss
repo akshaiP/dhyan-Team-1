@@ -23,7 +23,7 @@ body, html {
   height: 100vh;
   display: flex-start;
   flex-direction: row;
-  margin-top: 64px; 
+  margin-top: 60px; 
   overflow: hidden;
   margin-left: 0; 
 }
@@ -31,7 +31,7 @@ body, html {
 .sidenav {
   left:0;
   width: 250px;
-  background-color: #3f51b5;
+  background-color:#0D1B2A,;
   color: #ffffff;
   flex-shrink: 0;
   margin-left: 0; 
@@ -54,12 +54,14 @@ button.nav-button mat-icon {
 
 /* Active state style */
 button.nav-button.active {
-  background-color: #FF4081; 
-  color: white;
+  background-color: #A9D6E5; 
+  color: rgb(4, 0, 0);
 }
 
 button.nav-button:hover {
-  background-color: #FF4081;  
+  background-color: #A9D6E5; 
+  color: rgb(4, 0, 0); 
+  font-size: large;
 
 }
 
@@ -70,7 +72,7 @@ button.nav-button:hover {
   padding: 16px;
   height: calc(100vh - 64px); 
   overflow-y: auto;
-  background-color: rgb(215, 235, 243);
+  background-color: #dce7f0;
   margin-left: 0; 
 }
 
@@ -87,7 +89,7 @@ button.nav-button:hover {
 .notification-drawer {
   width: 500px; 
   max-width: 100%;
-  background: #f4f4f4;
+  background:#0D1B2A;
   padding: 16px;
   box-shadow: -2px 0 8px rgba(0, 0, 0, 0.1);
   border-left: 1px solid #e0e0e0;
@@ -107,7 +109,7 @@ button.nav-button:hover {
 
 .notification-item mat-icon {
   margin-right: 12px;
-  color: #0e0e0f;
+  color: #000007;
   flex-shrink: 0;
 }
 
@@ -146,8 +148,23 @@ button.nav-button:hover {
   flex-shrink: 0;
 }
 
-/* Highlight unread notifications */
 .unread {
-  background-color: #e8f4fd;
-  border-left: 4px solid #007bff;
+  background-color: #A9D6E5;
+  border-left: 5px solid #b11010;
 }
+
+.notification-item.read {
+  background-color: #f2b1aa;
+  border-left: 5px solid green;
+}
+
+mat-icon {
+  margin-right: 8px;
+}
+
+button.mat-icon-button {
+  margin-left: auto;
+  color: #4caf50; /* Adjust the icon color as needed */
+}
+
+
