@@ -1,5 +1,6 @@
 package com.dhyanProject.career_site.controller;
 
+import com.dhyanProject.career_site.dto.AdminDashboardDTO;
 import com.dhyanProject.career_site.model.*;
 import com.dhyanProject.career_site.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,8 @@ public class AdminController {
     private NotificationService notificationService;
     @Autowired
     private UsersService usersService;
+    @Autowired
+    private AdminDashboardService dashboardService;
 
     @PostMapping("/job-posting")
     public ResponseEntity<JobPosting> createJobPosting(@RequestBody JobPosting jobPosting) {
@@ -121,6 +124,12 @@ public class AdminController {
     public ResponseEntity<UserProfile> getUserProfile(@PathVariable Long id) {
         UserProfile userProfile = userProfileService.getUserProfileById(id);
         return ResponseEntity.ok(userProfile);
+    }
+
+    @GetMapping("/dashboard")
+    public ResponseEntity<AdminDashboardDTO> getDashboardData() {
+        AdminDashboardDTO dto = dashboardService.getDashboardData();
+        return ResponseEntity.ok(dto);
     }
 
 }

@@ -16,6 +16,7 @@ public class JobApplicationStatusResponse {
     private Long applicationId;
     private String jobTitle;
     private String companyName;
+    private String companyLogoUrl;
     private LocalDateTime submittedAt;
     private JobApplications.ApplicationStatus applicationStatus;
     private JobApplications.CurrentStage currentStage;
