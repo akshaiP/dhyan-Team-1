@@ -193,6 +193,7 @@ public class JobApplicationsService {
             response.setApplicationId(application.getId());
             response.setJobTitle(application.getJobPosting().getJobTitle());
             response.setCompanyName(application.getJobPosting().getCompanyName());
+            response.setCompanyLogoUrl(application.getJobPosting().getCompanyLogoUrl());
             response.setSubmittedAt(application.getSubmittedAt());
             response.setApplicationStatus(application.getStatus());
             response.setCurrentStage(application.getCurrentStage());
