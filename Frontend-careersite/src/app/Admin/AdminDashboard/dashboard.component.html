@@ -1,56 +1,58 @@
-<!-- Dashboard Section -->
+<!-- dashboard.component.html -->
 <div class="dashboard">
-    <div class="stats-container">
-      <mat-card class="stat-card">
-        <h3>{{ companiesCount }}</h3>
-        <p>Companies</p>
-      </mat-card>
-      <mat-card class="stat-card">
-        <h3>{{ applicationsCount }}</h3>
-        <p>Applications</p>
-      </mat-card>
-      <mat-card class="stat-card">
-        <h3>{{ usersCount }}</h3>
-        <p>Users</p>
-      </mat-card>
-      <mat-card class="stat-card">
-        <h3>{{ jobPostingsCount }}</h3>
-        <p>Job Postings</p>
-      </mat-card>
-    </div>
-  
-    <!-- Companies List -->
-    <div class="companies-list">
-      <h2>Companies List</h2>
-      <div class="company-grid">
-        <mat-card class="company-card" *ngFor="let company of companies">
-          <img src="assets/{{ company.logo }}" alt="Company Logo">
-          <p>{{ company.name }}</p>
+  <!-- Overview Section -->
+  <div class="overview-section">
+    <mat-grid-list cols="4" rowHeight="1:1">
+      <mat-grid-tile>
+        <mat-card class="stat-card" matTooltip="Total number of companies">
+          <div class="card-content">
+            <mat-icon class="icon">business</mat-icon>
+            <div class="text-content">
+              <h3 id="companiesCount">{{ startCounts.startCompaniesCount }}</h3>
+              <p>Companies</p>
+            </div>
+          </div>
         </mat-card>
-      </div>
-    </div>
-  
-    <!-- Quick Stats -->
-    <div class="quick-stats">
-      <h2>Quick Stats</h2>
-      <div class="stats-container">
-        <mat-card class="stat-card">
-          <h3>{{ newApplicationsToday }}</h3>
-          <p>New Applications Today</p>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-card class="stat-card" matTooltip="Total number of job postings">
+          <div class="card-content">
+            <mat-icon class="icon">work</mat-icon>
+            <div class="text-content">
+              <h3 id="jobPostingsCount">{{ startCounts.startJobPostingsCount }}</h3>
+              <p>Job Postings</p>
+            </div>
+          </div>
         </mat-card>
-        <mat-card class="stat-card">
-          <h3>{{ newCompaniesRegistered }}</h3>
-          <p>New Companies Registered</p>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-card class="stat-card" matTooltip="Total number of applications">
+          <div class="card-content">
+            <mat-icon class="icon">assignment</mat-icon>
+            <div class="text-content">
+              <h3 id="totalApplicationsCount">{{ startCounts.startTotalApplications }}</h3>
+              <p>Applications</p>
+            </div>
+          </div>
         </mat-card>
-        <mat-card class="stat-card">
-          <h3>{{ jobsPostedToday }}</h3>
-          <p>Jobs Posted Today</p>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-card class="stat-card" matTooltip="Total number of active users">
+          <div class="card-content">
+            <mat-icon class="icon">people</mat-icon>
+            <div class="text-content">
+              <h3 id="activeUsersCount">{{ startCounts.startActiveUsers }}</h3>
+              <p>Active Users</p>
+            </div>
+          </div>
         </mat-card>
-        <mat-card class="stat-card">
-          <h3>{{ usersSuspended }}</h3>
-          <p>Users Suspended</p>
-        </mat-card>
-      </div>
-    </div>
+      </mat-grid-tile>
+    </mat-grid-list>
   </div>
-  
+
+  <!-- Charts Section -->
+  <div class="charts-section">
+    <div id="highchart-pie" class="chart"></div>
+    <div id="highchart-bar" class="chart"></div>
+  </div>
+</div>

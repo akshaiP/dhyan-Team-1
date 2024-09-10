@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { JobPosting } from '../models/job-posting.model';
 import { Application } from '../models/application.model';
+import { AdminDashboard } from '../models/adminDashboard.model';
 
 @Injectable({
   providedIn: 'root'
@@ -109,6 +110,12 @@ export class AdminJobService {
   // Fetch companies data
   getCompanies(): Observable<any> {
     return this.http.get(`${this.baseUrl}/companies`, {
+      headers: this.getAuthHeaders()
+    });
+  }
+
+  getDashboardData(): Observable<AdminDashboard> {
+    return this.http.get<AdminDashboard>(`${this.baseUrl}/dashboard`, {
       headers: this.getAuthHeaders()
     });
   }
