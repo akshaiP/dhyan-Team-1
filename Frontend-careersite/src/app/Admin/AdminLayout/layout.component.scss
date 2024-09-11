@@ -5,7 +5,7 @@
   left: 0;
   width: 100%;
   z-index: 1000;
-  background-color: #0D1B2A,; /* Primary color */
+  background-color: #0D1B2A,; 
   color: white;
   box-shadow: 0px 4px 2px -2px gray;
 }
@@ -36,14 +36,14 @@
     transition: background-color 0.3s ease, color 0.3s ease;
     
     &.active {
-      background-color: #A9D6E5; /* Active state background */
-      color: rgb(4, 0, 0); /* Active state text color */
+      background-color: #A9D6E5; 
+      color: rgb(4, 0, 0); 
       border-bottom: 2px solid white;
     }
     
     &:hover {
-      background-color: #A9D6E5; /* Hover background color */
-      color: rgb(4, 0, 0); /* Hover text color */
+      background-color: #A9D6E5; 
+      color: rgb(4, 0, 0); 
       font-size: large;
     }
   }
@@ -56,11 +56,11 @@
   
     .mat-menu .mat-menu-item {
       color: #0D1B2A;
-      color:white /* Accent color */
+      color:white;
       
       &:hover {
         background-color: #e0f7fa;
-        color: black; /* Hover state for menu item */
+        color: black; 
       }
     }
   }
@@ -69,9 +69,9 @@
 /* Content Section Styling */
 .content {
   padding: 15px;
-  background-color: rgb(215, 235, 243); /* Light blue background */
+  background-color: rgb(215, 235, 243); 
   width: 100%;
-  height: calc(100vh - 64px); /* Full height minus toolbar */
+  height: calc(100vh - 64px); 
   overflow: auto;
   border: none;
 }

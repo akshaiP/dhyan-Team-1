@@ -13,6 +13,7 @@ import { MatInputModule } from '@angular/material/input';
 import { Application } from '../../models/application.model';
 import { ToastrService } from 'ngx-toastr'; 
 
+
 const STAGE_ORDER = ['APPLIED', 'WRITTEN_TEST', 'TECHNICAL_INTERVIEW_1', 'TECHNICAL_INTERVIEW_2', 'HR_ROUND', 'JOB_OFFER'];
 
 @Component({
@@ -89,14 +90,14 @@ export class UpdateApplicationComponent implements OnInit {
           }));
           this.dataSource.data = this.applications;
 
-          // Extract company information from the first application
+          
           if (this.applications.length > 0) {
             this.companyName = this.applications[0].jobPosting.companyName;
             this.jobTitle = this.applications[0].jobPosting.jobTitle;
             this.companyLogo = this.applications[0].jobPosting.companyLogoUrl;
           }
 
-          // Assign paginator after data is set
+          
           if (this.paginator) {
             this.dataSource.paginator = this.paginator;
           }
@@ -168,7 +169,7 @@ export class UpdateApplicationComponent implements OnInit {
       const selectedStageIndex = STAGE_ORDER.indexOf(this.selectedStage);
 
       if (selectedStageIndex < currentStageIndex) {
-        // Show confirmation before updating to a previous stage
+        
         if (confirm('You are moving the stage backwards. Are you sure you want to proceed?')) {
           this.performStageUpdate(id);
         } else {

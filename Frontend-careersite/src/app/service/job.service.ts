@@ -10,7 +10,7 @@ export class JobService {
 
   constructor(private http: HttpClient) {}
 
-  // Helper method to get headers with the JWT token
+  
   private getAuthHeaders(): HttpHeaders {
     const token = localStorage.getItem('angular18Token'); 
     return new HttpHeaders({

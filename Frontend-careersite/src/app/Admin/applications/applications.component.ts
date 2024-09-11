@@ -7,6 +7,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ToastrService } from 'ngx-toastr'; 
+import { SearchPipe } from '../../pipe/search.pipe';
 
 @Component({
   selector: 'app-applications',
@@ -16,7 +17,7 @@ import { ToastrService } from 'ngx-toastr';
     FormsModule,
     MatCardModule,
     MatButtonModule,
-    MatProgressSpinnerModule,
+    MatProgressSpinnerModule,SearchPipe
   ],
   templateUrl: './applications.component.html',
   styleUrls: ['./applications.component.scss']
@@ -25,6 +26,7 @@ export class ApplicationsComponent implements OnInit {
   companyApplications: any[] = [];
   loading: boolean = false;
   error: string | null = null;
+  searchText: string = '';
 
   constructor(
     private jobService: AdminJobService,

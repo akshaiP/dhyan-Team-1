@@ -6,6 +6,6 @@ export interface Application {
   currentStage: string;
   currentStageStatus: string;
     user: {
-      username: string; // Add this if it’s part of your data
+      username: string; 
   };
   }

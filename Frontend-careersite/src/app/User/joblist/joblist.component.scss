@@ -1,17 +1,12 @@
-/* General Styles */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-  
-  }
+
+
   
   /* Search Section */
 .search-section {
     padding: 20px 20px;
     background-color: #ffffff00;
     text-align: center;
-    margin-top: 20px; /* Ensure space for the fixed navbar */
+    margin-top: 20px; 
 }
 
 .search-title {
@@ -117,14 +112,14 @@ body {
   }
   
 
-/* General icon styles */
+
 mat-icon {
     font-size: 24px; 
     cursor: pointer;
     transition: color 0.3s ease; 
 }
 
-/* Favorite Icon Styles */
+
 .favorite {
     color: #edca03; 
 }
@@ -134,7 +129,7 @@ mat-icon {
 }
 
 
-/* Modal Styles */
+
 .modal {
     position: fixed;
     top: 0;
@@ -185,29 +180,9 @@ mat-icon {
   display: block; 
 }
 
-/* Base styles for buttons */
 button.mat-flat-button,
 button.mat-raised-button {
   transition: background-color 0.3s, box-shadow 0.3s;
 }
 
-/* Hover effect for flat button */
-button.mat-flat-button:hover {
-  background-color: #A9D6E5; /* Darker shade of primary color */
-  color: #090909; /* Ensure text is readable */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Slight shadow for depth */
-}
 
-/* Hover effect for raised button */
-button.mat-raised-button:hover {
-  background-color: #d32f2f; /* Darker shade of warn color */
-  color: #ffffff; /* Ensure text is readable */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Slight shadow for depth */
-}
-
-/* Specific hover effect for the applied state */
-button.mat-raised-button.applied:hover {
-  background-color: #b71c1c; /* Even darker shade for applied state */
-  color: #ffffff; /* Ensure text is readable */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Slight shadow for depth */
-}

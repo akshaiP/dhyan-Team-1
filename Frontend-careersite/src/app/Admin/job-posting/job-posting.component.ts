@@ -13,6 +13,7 @@ import { JobPosting } from '../../models/job-posting.model';
 import { ToastrService } from 'ngx-toastr';
 import { ConfirmationDialogComponent } from '../../dialog/confirmation-dialog.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { SearchPipe } from '../../pipe/search.pipe';
 
 
 @Component({
@@ -20,7 +21,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   standalone: true,
   imports: [FormsModule, ReactiveFormsModule, CommonModule,MatDialogModule,MatCardModule,MatIconModule,
     MatFormFieldModule,MatDialogActions, MatDialogClose, MatDialogTitle, MatDialogContent,MatTooltipModule,
-    MatInputModule,MatSelectModule,
+    MatInputModule,MatSelectModule,SearchPipe,
     MatButtonModule],
   templateUrl: './job-posting.component.html',
   styleUrls: ['./job-posting.component.scss']
@@ -31,6 +32,7 @@ export class JobPostingComponent implements OnInit {
   jobForm!: FormGroup; 
   jobPostings: JobPosting[] = []; 
   showModal: boolean = false;
+  searchText: string = '';
   
 
   constructor(

@@ -1,11 +1,11 @@
-// Styling for the dialog container
+
 :host {
   display: block;
   padding: 1.5rem;
   max-width: 100%;
 }
 
-// Dialog title styling
+
 h1[mat-dialog-title] {
   font-size: 1.5rem;
   font-weight: 600;
@@ -16,7 +16,7 @@ h1[mat-dialog-title] {
   padding-bottom: 0.75rem;
 }
 
-// Dialog content styling
+
 div[mat-dialog-content] {
   margin: 1rem 0;
   font-size: 1.125rem;
@@ -24,14 +24,14 @@ div[mat-dialog-content] {
   text-align: center;
 }
 
-// Button container for actions
+
 div[mat-dialog-actions] {
   display: flex;
   justify-content: space-between;
   padding-top: 1rem;
 }
 
-// Cancel button styles
+
 button[mat-button] {
   background-color: transparent;
   color: #666;
@@ -42,7 +42,7 @@ button[mat-button] {
   }
 }
 
-// Confirm button styles
+
 button[mat-raised-button] {
   background-color:#f2b1ab,;
   color: #000000;
@@ -54,7 +54,7 @@ button[mat-raised-button] {
   }
 }
 
-// Dialog responsiveness for smaller screens
+
 @media (max-width: 600px) {
   :host {
     padding: 1rem;

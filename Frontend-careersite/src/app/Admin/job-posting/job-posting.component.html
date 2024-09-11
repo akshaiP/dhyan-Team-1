@@ -124,13 +124,19 @@
   </div>
 
   <section class="main-content">
-    <button mat-raised-button color="primary" (click)="toggleModal()" class="create-job-button">
+    <button mat-raised-button color="warn" (click)="toggleModal()" class="create-job-button">
       Create New Job Posting
     </button>
-  
+    </section>
+
+    <section class="search-section">
+    
+      <input matInput type="text" class="search-bar" [(ngModel)]="searchText" placeholder="🔍 Search for Company Name or Job Title...">
+    </section>
+    <section class="main-content">
     <!-- Job Cards Container -->
     <div class="job-cards-container">
-      <mat-card class="job-card" *ngFor="let job of jobPostings">
+      <mat-card class="job-card" *ngFor="let job of jobPostings | search: searchText : ['companyName', 'jobTitle']" class="job-card">
         <mat-card-header>
           <img [src]="job.companyLogoUrl" alt="{{ job.companyName }} Logo" class="company-logo">
           <mat-card-title>{{ job.companyName }}</mat-card-title>

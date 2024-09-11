@@ -51,13 +51,13 @@ export class UserlayoutComponent {
     this.loadNotifications(); 
   }
 
-  // Logout function
+  
   logout(): void {
     localStorage.clear(); 
     this.router.navigate(['/login']); 
   }
 
-  // Fetch notifications and update the unread count
+
   loadNotifications() {
     const userId = Number(localStorage.getItem('userId'));
     this.jobService.getUnreadNotifications(userId).subscribe(data => {
@@ -69,7 +69,7 @@ export class UserlayoutComponent {
     });
   }
 
-  // Mark a notification as read
+ 
   markAsRead(notificationId: number) {
     this.jobService.markNotificationAsRead(notificationId).subscribe(() => {
       this.notifications = this.notifications.map(n =>
@@ -79,12 +79,12 @@ export class UserlayoutComponent {
     });
   }
 
-  // Toggle sidenav visibility
+  
   toggleSidenav() {
     this.isSidenavOpened = !this.isSidenavOpened;
   }
 
-  // Toggle notification panel visibility
+ 
   toggleNotificationPanel() {
     this.isNotificationPanelOpened = !this.isNotificationPanelOpened;
   }

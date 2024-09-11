@@ -10,12 +10,12 @@ import { AdminDashboard } from '../models/adminDashboard.model';
 })
 export class AdminJobService {
   
-  private baseUrl = 'http://localhost:8080/api/admin'; // Update with your backend URL
+  private baseUrl = 'http://localhost:8080/api/admin'; 
 
   constructor(private http: HttpClient) { }
 
   private getAuthHeaders(): HttpHeaders {
-    const token = localStorage.getItem('angular18Token'); // Adjust the key name according to your token storage
+    const token = localStorage.getItem('angular18Token'); 
     return new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
@@ -82,10 +82,10 @@ export class AdminJobService {
     }).pipe(
         catchError(error => {
           if (error.status === 400) {
-            // Handle the specific case for 400 error (e.g., show an alert)
+            
             alert(error.error.message || 'An error occurred while updating the stage');
           } else {
-            // Handle other errors
+           
             alert('An unexpected error occurred');
           }
           return throwError(error);

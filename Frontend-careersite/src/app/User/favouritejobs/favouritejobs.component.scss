@@ -1,7 +1,6 @@
 
-/* Main Content */
 .main-content {
-    padding:20px 20px; /* Padding to avoid overlap with the fixed navbar */
+    padding:20px 20px; 
 }
 
 .job-card {
@@ -11,23 +10,23 @@
     padding: 20px;
     box-sizing: border-box;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px; /* Space between job cards */
+    margin-bottom: 20px; 
 }
 
-/* Flex container for job details */
+
 .job-details {
     display: flex;
     flex-direction: column;
-    gap: 10px; /* Space between details */
+    gap: 10px; 
 }
 
-/* Flex container for job detail rows */
+
 .job-detail-row {
     display: flex;
     justify-content: space-between;
 }
 
-/* Style for job details */
+
 .job-detail-item {
     flex: 1;
     padding: 0 10px;
@@ -38,7 +37,7 @@
 }
 
 
-/* Container to Align Buttons Right */
+
 .button-container {
     display: flex;
     justify-content: flex-end;
@@ -111,7 +110,7 @@
 
 .actions-container {
     display: flex;
-    justify-content: flex-end; /* Align items to the right */
-    gap: 10px; /* Add space between the buttons */
+    justify-content: flex-end;
+    gap: 10px; 
 }
          

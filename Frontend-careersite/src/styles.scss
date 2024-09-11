@@ -1,6 +1,5 @@
 @use '@angular/material' as mat;
 
-// Example body style
 html, body {
   margin: 0;
   padding: 0;
@@ -8,10 +7,12 @@ html, body {
   height: 100%;
   font-family: Roboto,"Helevetica Neue",sans-serif;
   margin-bottom: 0%;
+  overflow-y: hidden;
 }
 
 
-// Define your custom theme colors
+
+//custom theme colors
 $primary-palette: (
   50: #e1e8ee,
   100: #c3d1de,
@@ -77,7 +78,7 @@ $primary-color: mat.define-palette($primary-palette);
 $accent-color: mat.define-palette($accent-palette, A200,A100,A400);
 $warn-color: mat.define-palette($warn-palette);
 
-// Create the theme using the custom palettes
+
 $theme: mat.define-light-theme((
   color: (
     primary: $primary-color,

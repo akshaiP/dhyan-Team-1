@@ -6,8 +6,13 @@
   <mat-card *ngIf="error" class="error-message">
     <mat-card-content>{{ error }}</mat-card-content>
   </mat-card>
+
+  <section class="search-section">
+    
+    <input matInput type="text" class="search-bar" [(ngModel)]="searchText" placeholder="🔍 Search for Company Name or Job Title...">
+  </section>
   
-  <mat-card *ngFor="let company of companyApplications" class="job-card">
+  <mat-card *ngFor="let company of companyApplications | search: searchText : ['companyName', 'jobTitle']" class="job-card">
     <mat-card-header>
       <div class="company-info">
         <img [src]="company.companyLogoUrl" alt="{{ company.companyName }} Logo" class="company-logo">
@@ -19,7 +24,7 @@
       </div>
     </mat-card-header>
     <mat-card-actions align="end">
-      <button mat-raised-button color="primary" (click)="onViewApplications(company.jobId)">View Applications</button>
+      <button mat-raised-button color="warn" (click)="onViewApplications(company.jobId)">View Applications</button>
     </mat-card-actions>
     
   </mat-card>

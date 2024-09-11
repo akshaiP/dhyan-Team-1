@@ -116,7 +116,7 @@ button.nav-button:hover {
   justify-content: space-between;
   margin-right: 40px;
   width: 100%;
-  align-items: flex-start; /* Align notification content to the start */
+  align-items: flex-start;
 }
 
 .notification-message {
@@ -168,5 +168,5 @@ button.nav-button:hover {
 
 button.mat-icon-button {
   margin-left: auto;
-  color: #4caf50; /* Adjust the icon color as needed */
+  color: #4caf50; 
 }

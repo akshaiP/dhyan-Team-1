@@ -1,13 +1,35 @@
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f4f4f4;
+
+  /* Search Section */
+  .search-section {
+    padding: 0px;
+    background-color: #ffffff00;
+    text-align: center;
+    margin-top: 10px; 
 }
+
+.search-title {
+    font-family: 'Cursive', sans-serif;
+    font-size: 27px;
+    font-weight: bold;
+    color: #0c0000;
+    font-style: italic;
+}
+
+.search-bar {
+    width: 70%;
+    padding: 10px;
+    border: 1px solid #0b0b0b5b;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+    border-right: none;
+}
+
+  
 
 /* Main content styling */
 .main-content {
-  margin-top: 100px;
+  margin-top: 20px;
   padding: 20px;
   display: flex;
   flex-wrap: wrap;
@@ -16,18 +38,19 @@ body {
 
 //* Main content styling */
 .main-content {
-  margin-top: 100px;
+  margin-top: 20px;
   padding: 20px;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centers content horizontally */
+  align-items: center; 
 }
 
 /* Create New Job Posting button styling */
 .create-job-button {
-  margin-bottom: 20px;
-  padding: 10px 15px;
-  background-color: primary;
+  margin-top: 20px;
+  margin-bottom: 2px;
+  padding: 10px 10px;
+  background-color: warn;
   color: white;
   border-radius: 5px;
   cursor: pointer;
@@ -43,16 +66,16 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  width: 100%; /* Full width for the job cards section */
-  max-width: 1200px; /* Optional: Sets a maximum width for better design control */
+  width: 100%;
+  max-width: 1200px;
   margin-top: 20px;
 }
 
 /* Job card styling */
 .job-card {
-  width: calc(50% - 10px); /* Two cards per row */
+  width: calc(50% - 10px); 
   margin-bottom: 20px;
-  box-sizing: border-box; /* Ensures padding and borders are included in the width */
+  box-sizing: border-box; 
 }
 
 /* Company logo */
@@ -73,20 +96,20 @@ body {
 
 /* Modal Background */
 .modal {
-  display: none; /* Hidden by default */
+  display: none; 
   position: fixed;
   z-index: 1000;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Overlay effect */
+  background-color: rgba(0, 0, 0, 0.5); 
   justify-content: center;
   align-items: center;
 }
 
 .modal.show {
-  display: flex; /* Show the modal */
+  display: flex; 
 }
 /* Modal Content */
 .modal-content {
@@ -95,12 +118,12 @@ body {
   border-radius: 10px;
   width: 90%;
   max-width: 600px;
-  max-height: 90vh; /* Adjusts the maximum height to 90% of the viewport height */
+  max-height: 90vh; 
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
   position: relative;
   display: flex;
   flex-direction: column;
-  overflow-y: auto; /* Enables scrolling inside the modal content */
+  overflow-y: auto; 
 }
 
 /* Close Button */
@@ -112,7 +135,7 @@ body {
   font-size: 28px;
   font-weight: bold;
   cursor: pointer;
-  z-index: 1001; /* Ensures the close button stays on top of the content */
+  z-index: 1001; 
 }
 
 .close-button:hover {
@@ -134,12 +157,12 @@ body {
 .actions-right {
   display: flex;
   justify-content: flex-end;
-  gap: 10px; /* Optional: Adds space between the FABs */
+  gap: 10px; 
 }
 
 .full-width {
-  width: 100%; /* Ensure each form field takes up the full width of the modal */
-  margin-bottom: 20px; /* Add some spacing between form fields */
+  width: 100%; 
+  margin-bottom: 20px; 
 }
 
 .submit-button {

@@ -39,12 +39,12 @@ export class ApplicationStatusComponent implements OnInit {
   }
 
 
-  // Method to fetch application status from backend
+  
 fetchApplicationStatus(): void {
   this.jobService.GetUserApplicationStatus(localStorage.getItem('userId')!).subscribe(
     (data) => {
       this.applications = data.map((application: { stages: any[]; }) => {
-        // Sort and complete stages with placeholders
+        
         const sortedStages = this.sortStages(application.stages);
         const completedStages = this.fillMissingStages(sortedStages);
         return { ...application, stages: completedStages };
@@ -56,26 +56,26 @@ fetchApplicationStatus(): void {
   );
 }
 
-// Method to fill missing stages with placeholders
+
 fillMissingStages(stages: any[]): any[] {
   const filledStages = STAGE_ORDER.map(stageName => {
       const existingStage = stages.find(stage => stage.stageName === stageName);
       if (existingStage) {
-          return existingStage; // Use the existing stage data
+          return existingStage; 
       }
-      // Add placeholder for missing stages
+     
       return {
           stageName: stageName,
-          stageStatus: 'PENDING', // Placeholder status for missing stages
-          completedAt: null // No completion time for missing stages
+          stageStatus: 'PENDING', 
+          completedAt: null 
       };
   });
   return filledStages;
 }
 
-  // Method to sort stages based on their defined order
+ 
   sortStages(stages: any[]): any[] {
-    // Sort stages using the predefined order in STAGE_ORDER
+
     return stages.sort((a, b) => {
       const indexA = STAGE_ORDER.indexOf(a.stageName);
       const indexB = STAGE_ORDER.indexOf(b.stageName);
@@ -83,11 +83,11 @@ fillMissingStages(stages: any[]): any[] {
     });
   }
 
-  // Method to calculate progress based on the number of completed stages
+
   getProgress(application: any): number {
-    const totalStages = STAGE_ORDER.length; // Total number of stages from the predefined order
+    const totalStages = STAGE_ORDER.length; 
     const completedStages = application.stages.filter((stage: { stageStatus: string; }) => stage.stageStatus === 'COMPLETED').length;
-    return (completedStages / totalStages) * 100; // Calculate progress based on all stages
+    return (completedStages / totalStages) * 100;
   }
 
 }

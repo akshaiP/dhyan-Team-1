@@ -1,7 +1,7 @@
 <!-- Toolbar -->
 <mat-toolbar color="primary" class="mat-toolbar">
   <button mat-icon-button (click)="toggleSidenav()">
-    <mat-icon>menu</mat-icon> <!-- Menu icon to toggle sidenav -->
+    <mat-icon>menu</mat-icon> 
   </button>
 
   <span class="brand-logo">HIRE ME📢</span>
@@ -48,7 +48,7 @@
 <mat-drawer #notificationPanel mode="over" position="end" class="notification-drawer" [opened]="isNotificationPanelOpened">
   <mat-nav-list>
     <ng-container *ngIf="notifications.length > 0; else noNotifications">
-      <!-- Display notifications if available -->
+      
       <mat-list-item *ngFor="let notification of notifications" class="notification-item" [ngClass]="{'unread': !notification.isRead, 'read': notification.isRead}">
         <div class="notification-content">
           <mat-icon>info</mat-icon>
@@ -61,7 +61,7 @@
       </mat-list-item>
     </ng-container>
 
-    <!-- Template to display when there are no notifications -->
+ 
     <ng-template #noNotifications>
       <mat-list-item>
         <div class="no-notifications-message">
