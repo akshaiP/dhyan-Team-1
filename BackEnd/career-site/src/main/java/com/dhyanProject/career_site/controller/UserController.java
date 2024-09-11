@@ -6,7 +6,7 @@ import com.dhyanProject.career_site.model.*;
 import com.dhyanProject.career_site.service.FavoriteJobService;
 import com.dhyanProject.career_site.service.JobApplicationsService;
 import com.dhyanProject.career_site.service.NotificationService;
-import com.dhyanProject.career_site.service.UserProfileService;
+import com.dhyanProject.career_site.security.UserProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

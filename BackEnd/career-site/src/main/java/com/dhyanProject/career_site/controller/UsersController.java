@@ -1,13 +1,12 @@
 package com.dhyanProject.career_site.controller;
 
 import com.dhyanProject.career_site.model.Users;
-import com.dhyanProject.career_site.service.JWTService;
+import com.dhyanProject.career_site.security.JWTService;
 import com.dhyanProject.career_site.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 

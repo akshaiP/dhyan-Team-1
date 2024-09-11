@@ -1,5 +1,6 @@
-package com.dhyanProject.career_site.model;
+package com.dhyanProject.career_site.security;
 
+import com.dhyanProject.career_site.model.Users;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

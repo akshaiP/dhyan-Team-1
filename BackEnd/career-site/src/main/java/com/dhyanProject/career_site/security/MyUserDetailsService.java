@@ -1,7 +1,6 @@
-package com.dhyanProject.career_site.service;
+package com.dhyanProject.career_site.security;
 
 
-import com.dhyanProject.career_site.model.UserPrincipal;
 import com.dhyanProject.career_site.model.Users;
 import com.dhyanProject.career_site.repo.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;

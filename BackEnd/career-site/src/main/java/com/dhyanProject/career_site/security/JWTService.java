@@ -1,4 +1,4 @@
-package com.dhyanProject.career_site.service;
+package com.dhyanProject.career_site.security;
 
 
 import io.jsonwebtoken.Claims;
