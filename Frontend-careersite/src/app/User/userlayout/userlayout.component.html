@@ -44,23 +44,32 @@
     </mat-nav-list>
   </mat-drawer>
 
-
-
-
-
 <!-- Notification Panel -->
 <mat-drawer #notificationPanel mode="over" position="end" class="notification-drawer" [opened]="isNotificationPanelOpened">
   <mat-nav-list>
-    <mat-list-item *ngFor="let notification of notifications" class="notification-item" [ngClass]="{'unread': !notification.isRead, 'read': notification.isRead}">
-      <div class="notification-content">
-        <mat-icon>info</mat-icon>
-        <span class="notification-message">{{ notification.message }}</span>
-        <span class="time-ago" style="margin-left: auto;">{{ notification.timeAgo }}</span>
-      </div>
-      <button mat-icon-button (click)="markAsRead(notification.id)">
-        <mat-icon>check_circle</mat-icon>
-      </button>
-    </mat-list-item>
+    <ng-container *ngIf="notifications.length > 0; else noNotifications">
+      <!-- Display notifications if available -->
+      <mat-list-item *ngFor="let notification of notifications" class="notification-item" [ngClass]="{'unread': !notification.isRead, 'read': notification.isRead}">
+        <div class="notification-content">
+          <mat-icon>info</mat-icon>
+          <span class="notification-message">{{ notification.message }}</span>
+          <span class="time-ago" style="margin-left: auto;">{{ notification.timeAgo }}</span>
+        </div>
+        <button mat-icon-button (click)="markAsRead(notification.id)">
+          <mat-icon>check_circle</mat-icon>
+        </button>
+      </mat-list-item>
+    </ng-container>
+
+    <!-- Template to display when there are no notifications -->
+    <ng-template #noNotifications>
+      <mat-list-item>
+        <div class="no-notifications-message">
+          <mat-icon>notifications_off</mat-icon>
+          <span>No new notifications</span>
+        </div>
+      </mat-list-item>
+    </ng-template>
   </mat-nav-list>
 </mat-drawer>
 

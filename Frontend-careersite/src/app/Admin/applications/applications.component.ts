@@ -41,17 +41,19 @@ export class ApplicationsComponent implements OnInit {
     this.jobService.getAllApplications().subscribe(
       (applications: any[]) => {
         
-        const jobMap = new Map<string, { jobId: string, companyName: string, applicationsCount: number, companyLogoUrl: string }>();
+        const jobMap = new Map<string, { jobId: string, companyName: string,jobTitle: string, applicationsCount: number, companyLogoUrl: string }>();
 
         applications.forEach(app => {
           const jobId = app.jobPosting.id; 
           const companyName = app.jobPosting.companyName;
+          const jobTitle = app.jobPosting.jobTitle;
           const companyLogoUrl = app.jobPosting.companyLogoUrl;
 
           if (!jobMap.has(jobId)) {
             jobMap.set(jobId, { 
               jobId: jobId,
               companyName: companyName, 
+              jobTitle: jobTitle,
               applicationsCount: 1,
               companyLogoUrl: companyLogoUrl 
             });

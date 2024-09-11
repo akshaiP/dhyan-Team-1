@@ -55,8 +55,8 @@
         <mat-card *ngFor="let job of jobList | filter: selectedLocation : selectedExperience : selectedJobType : selectedSalaryRange | search:searchText:['jobTitle', 'companyName']" class="job-card" appearance="outlined">
           <mat-card-header>
             <mat-card-title-group>
-              <mat-card-title>{{ job.jobTitle }}</mat-card-title>
-              <mat-card-subtitle>{{ job.companyName }}</mat-card-subtitle>
+              <mat-card-title>{{ job.companyName }}</mat-card-title>
+              <mat-card-subtitle>{{ job.jobTitle }}</mat-card-subtitle>
               <img mat-card-md-image [src]="job.companyLogoUrl" [alt]="job.companyName + ' Logo'">
             </mat-card-title-group>
           </mat-card-header>

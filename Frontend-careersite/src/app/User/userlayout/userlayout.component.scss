@@ -3,7 +3,7 @@ body, html {
   margin: 0;
   padding: 0;
   height: 100%;
-  left:0;
+  left: 0;
 }
 
 .mat-toolbar {
@@ -21,7 +21,7 @@ body, html {
 
 .sidenav-container {
   height: 100vh;
-  display: flex-start;
+  display: flex;
   flex-direction: row;
   margin-top: 60px; 
   overflow: hidden;
@@ -29,13 +29,14 @@ body, html {
 }
 
 .sidenav {
-  left:0;
+  left: 0;
   width: 250px;
-  background-color:#0D1B2A,;
+  background-color: #0D1B2A;
   color: #ffffff;
   flex-shrink: 0;
   margin-left: 0; 
 }
+
 button.nav-button {
   display: flex;
   align-items: center;
@@ -62,10 +63,7 @@ button.nav-button:hover {
   background-color: #A9D6E5; 
   color: rgb(4, 0, 0); 
   font-size: large;
-
 }
-
-
 
 .sidenav-content {
   flex-grow: 1;
@@ -89,13 +87,12 @@ button.nav-button:hover {
 .notification-drawer {
   width: 500px; 
   max-width: 100%;
-  background:#0D1B2A;
+  background: #0D1B2A;
   padding: 16px;
   box-shadow: -2px 0 8px rgba(0, 0, 0, 0.1);
   border-left: 1px solid #e0e0e0;
   overflow-y: auto;
   overflow-x: hidden;
-  margin-left: 0; 
 }
 
 .notification-item {
@@ -114,19 +111,17 @@ button.nav-button:hover {
 }
 
 .notification-content {
-  display: flex-start;
+  display: flex;
   flex-direction: column;
-  flex-grow: 2;
   justify-content: space-between;
-  overflow-wrap: break-word;
   margin-right: 40px;
-  align-items: center;
   width: 100%;
+  align-items: flex-start; /* Align notification content to the start */
 }
 
 .notification-message {
   font-size: 14px;
-  margin-bottom: 1px;
+  margin-bottom: 2px;
   white-space: normal;
 }
 
@@ -134,7 +129,7 @@ button.nav-button:hover {
   font-size: 12px;
   color: #b11010;
   margin-top: 4px;
-  margin-left: 10px;
+  margin-left: auto;
 }
 
 .notification-drawer button[mat-icon-button] {
@@ -145,7 +140,6 @@ button.nav-button:hover {
   right: 16px;
   top: 50%;
   transform: translateY(-50%);
-  flex-shrink: 0;
 }
 
 .unread {
@@ -158,13 +152,21 @@ button.nav-button:hover {
   border-left: 5px solid green;
 }
 
-mat-icon {
+.no-notifications-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  margin: 20px 0;
+  font-size: 16px;
+}
+
+.no-notifications-message mat-icon {
   margin-right: 8px;
+  color: #757575;
 }
 
 button.mat-icon-button {
   margin-left: auto;
   color: #4caf50; /* Adjust the icon color as needed */
 }
-
-
