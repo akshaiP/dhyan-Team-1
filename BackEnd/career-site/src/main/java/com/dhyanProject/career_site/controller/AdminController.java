@@ -2,6 +2,7 @@ package com.dhyanProject.career_site.controller;
 
 import com.dhyanProject.career_site.dto.AdminDashboardDTO;
 import com.dhyanProject.career_site.model.*;
+import com.dhyanProject.career_site.security.UserProfileService;
 import com.dhyanProject.career_site.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

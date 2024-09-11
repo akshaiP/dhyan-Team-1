@@ -1,6 +1,5 @@
 package com.dhyanProject.career_site.security;
 
-import com.dhyanProject.career_site.service.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

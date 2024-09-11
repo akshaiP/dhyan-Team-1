@@ -2,6 +2,7 @@ package com.dhyanProject.career_site.service;
 
 import com.dhyanProject.career_site.model.Users;
 import com.dhyanProject.career_site.repo.UsersRepository;
+import com.dhyanProject.career_site.security.JWTService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

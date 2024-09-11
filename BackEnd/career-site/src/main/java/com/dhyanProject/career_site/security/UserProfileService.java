@@ -1,4 +1,4 @@
-package com.dhyanProject.career_site.service;
+package com.dhyanProject.career_site.security;
 
 import com.dhyanProject.career_site.model.UserProfile;
 import com.dhyanProject.career_site.repo.UserProfileRepository;

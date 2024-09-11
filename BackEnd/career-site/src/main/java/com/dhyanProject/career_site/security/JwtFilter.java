@@ -1,8 +1,6 @@
 package com.dhyanProject.career_site.security;
 
 
-import com.dhyanProject.career_site.service.JWTService;
-import com.dhyanProject.career_site.service.MyUserDetailsService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
