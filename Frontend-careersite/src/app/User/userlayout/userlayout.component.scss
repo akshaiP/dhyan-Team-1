@@ -111,12 +111,14 @@ button.nav-button:hover {
 }
 
 .notification-content {
-  display: flex;
+  display: flex-start;
   flex-direction: column;
+  flex-grow: 2;
   justify-content: space-between;
+  overflow-wrap: break-word;
   margin-right: 40px;
+  align-items: center;
   width: 100%;
-  align-items: flex-start;
 }
 
 .notification-message {
