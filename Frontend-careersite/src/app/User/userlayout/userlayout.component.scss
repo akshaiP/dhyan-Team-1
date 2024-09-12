@@ -1,11 +1,3 @@
-/* General Styles */
-body, html {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  left: 0;
-}
-
 .mat-toolbar {
   position: fixed;
   top: 0;
@@ -13,6 +5,7 @@ body, html {
   z-index: 3;
   color: #ffffff;
   left: 0;
+  height: 64px; /* Ensure the height is consistent */
 }
 
 .spacer {
@@ -20,21 +13,20 @@ body, html {
 }
 
 .sidenav-container {
-  height: 100vh;
+  height: calc(100vh - 64px); /* Account for the height of the toolbar */
   display: flex;
   flex-direction: row;
-  margin-top: 60px; 
+  margin-top: 64px; /* Offset the content by the height of the toolbar */
   overflow: hidden;
-  margin-left: 0; 
 }
 
 .sidenav {
+  height: calc(100vh - 64px); /* Ensure sidenav doesn't go under the toolbar */
   left: 0;
   width: 250px;
   background-color: #0D1B2A;
   color: #ffffff;
   flex-shrink: 0;
-  margin-left: 0; 
 }
 
 button.nav-button {
@@ -43,35 +35,34 @@ button.nav-button {
   width: 100%;
   justify-content: start;
   color: white;
-  height: 56px; 
-  padding: 0 18px; 
+  height: 56px;
+  padding: 0 18px;
   font-size: 16px;
 }
 
 button.nav-button mat-icon {
   margin-right: 10px;
-  font-size: 18px; 
+  font-size: 18px;
 }
 
-/* Active state style */
 button.nav-button.active {
-  background-color: #A9D6E5; 
+  background-color: #A9D6E5;
   color: rgb(4, 0, 0);
 }
 
 button.nav-button:hover {
-  background-color: #A9D6E5; 
-  color: rgb(4, 0, 0); 
+  background-color: #A9D6E5;
+  color: rgb(4, 0, 0);
   font-size: large;
 }
 
 .sidenav-content {
   flex-grow: 1;
   padding: 16px;
-  height: calc(100vh - 64px); 
+  height: calc(100vh - 64px); /* Ensure content doesn't go under the toolbar */
+  box-sizing: border-box;
   overflow-y: auto;
   background-color: #dce7f0;
-  margin-left: 0; 
 }
 
 .sidenav-content::-webkit-scrollbar {
@@ -83,9 +74,8 @@ button.nav-button:hover {
   -ms-overflow-style: none;
 }
 
-/* Notification Drawer Styling */
 .notification-drawer {
-  width: 500px; 
+  width: 500px;
   max-width: 100%;
   background: #0D1B2A;
   padding: 16px;
@@ -93,10 +83,11 @@ button.nav-button:hover {
   border-left: 1px solid #e0e0e0;
   overflow-y: auto;
   overflow-x: hidden;
+ 
 }
 
 .notification-item {
-  margin-bottom: 15px; 
+  margin-bottom: 15px;
   padding: 20px;
   border-bottom: 1px solid #e0e0e0;
   min-height: 60px;
@@ -118,8 +109,9 @@ button.nav-button:hover {
   overflow-wrap: break-word;
   margin-right: 40px;
   align-items: center;
-  width: 100%;
+  width: 100%; /* Align notification content to the start */
 }
+
 
 .notification-message {
   font-size: 14px;
@@ -170,5 +162,5 @@ button.nav-button:hover {
 
 button.mat-icon-button {
   margin-left: auto;
-  color: #4caf50; 
+  color: #4caf50;
 }
